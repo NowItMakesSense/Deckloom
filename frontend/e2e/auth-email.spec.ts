@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { settledAxe } from "./support/axe";
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
@@ -15,7 +15,7 @@ function uniqueUser(label: string) {
 }
 
 async function expectNoAxeViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).analyze();
+  const results = await (await settledAxe(page)).analyze();
   expect(results.violations).toEqual([]);
 }
 

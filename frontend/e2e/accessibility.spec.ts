@@ -1,4 +1,4 @@
-import AxeBuilder from "@axe-core/playwright";
+import { settledAxe } from "./support/axe";
 import { expect, test } from "@playwright/test";
 import type { Browser, BrowserContextOptions, Page } from "@playwright/test";
 
@@ -438,7 +438,7 @@ test.describe("axe: sem violacoes WCAG 2.1 AA", () => {
   for (const screen of SCREENS) {
     test(`${screen.id} sem violacoes axe`, async ({ browser }) => {
       await withScreen(browser, screen, {}, async (page) => {
-        const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+        const results = await (await settledAxe(page)).withTags(WCAG_TAGS).analyze();
         expect(
           results.violations.map(
             (v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`,
@@ -452,7 +452,7 @@ test.describe("axe: sem violacoes WCAG 2.1 AA", () => {
     await withScreen(browser, SCREENS[0]!, {}, async (page) => {
       await page.getByRole("button", { name: "Criar conta" }).click();
       await expect(page.locator('[role="alert"], a[href^="#"]').first()).toBeVisible();
-      const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+      const results = await (await settledAxe(page)).withTags(WCAG_TAGS).analyze();
       expect(results.violations.map((v) => v.id)).toEqual([]);
     });
   });
@@ -463,7 +463,7 @@ test.describe("axe: sem violacoes WCAG 2.1 AA", () => {
       await page.getByLabel("Senha", { exact: true }).fill("e2e-senha-errada-999");
       await page.getByRole("button", { name: "Entrar" }).click();
       await expect(page.getByText("Email ou senha inválidos.")).toBeVisible();
-      const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+      const results = await (await settledAxe(page)).withTags(WCAG_TAGS).analyze();
       expect(results.violations.map((v) => v.id)).toEqual([]);
     });
   });

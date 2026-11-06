@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { randomBytes } from "node:crypto";
 import { resolve } from "node:path";
 import { deflateSync } from "node:zlib";
-import AxeBuilder from "@axe-core/playwright";
+import { settledAxe } from "./support/axe";
 import { expect, test } from "@playwright/test";
 import type { Locator, Page } from "@playwright/test";
 
@@ -76,7 +76,7 @@ function syntheticPng(width: number, height: number, channels: 1 | 3, random = f
 }
 
 async function expectNoAxeViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).analyze();
+  const results = await (await settledAxe(page)).analyze();
   expect(results.violations).toEqual([]);
 }
 
