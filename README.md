@@ -8,7 +8,7 @@ Estado atual: a feature `conta-jogador` (cadastro, login com email e Google, per
 
 - **Backend:** C# / .NET 10, Entity Framework Core, PostgreSQL 17 (monolito modular, ADR-0001). Solução: `backend/Deckloom.sln`.
 - **Frontend:** TypeScript, React 19, Vite, Node.js 24. Projeto: `frontend/`. Testes E2E com Playwright em `frontend/e2e/`.
-- **Outros diretórios:** `Database/` (papéis e privilégios do banco, ADR-0015), `scripts/ci/` (portão de cobertura e auditoria NuGet usados pelo CI), `.github/workflows/ci.yml` (pipeline).
+- **Outros diretórios:** `scripts/ci/` (portão de cobertura e auditoria NuGet usados pelo CI), `.github/workflows/ci.yml` (pipeline).
 
 ## Pré-requisitos
 
@@ -77,7 +77,7 @@ Os valores abaixo não vão para o repositório. Defina-os no ambiente do host o
 - `postgres`: superusuário de bootstrap. A aplicação nunca o usa.
 - `deckloom_owner` (NOLOGIN): dono de todos os objetos e dono da DDL.
 - `deckloom_migrator`: login usado só por uma pessoa, para aplicar migrações já revisadas. Tem limites próprios (conexões e timeouts).
-- `deckloom_app`: papel de runtime da API, com DML por coluna conforme `Database/roles/privilege-matrix.md`.
+- `deckloom_app`: papel de runtime da API, com DML por coluna conforme as migrations em `backend/src/Modules/*/Infrastructure/Migrations` e a ADR-0015/ADR-0019.
 
 A API não chama `Migrate`, `EnsureCreated` nem `GetPendingMigrations` (há teste de arquitetura para isso). As migrações são geradas como arquivos com `dotnet ef migrations add`, revisadas e aplicadas por uma pessoa. Nenhum agente nem o CI executa `dotnet ef database update`.
 

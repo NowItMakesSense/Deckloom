@@ -1,0 +1,95 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-MAINT-002",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-MAINT",
+  "feature_contract_version": 1,
+  "title": "Commit e PR da revisao de produto e das features aceitas",
+  "objective": "Commit e PR da revisao de produto e das features aceitas (motivo: Registrar no git a revisao do produto, FEAT-SEM-DATABASE-DOCS e FEAT-COLUNAS-IMUTAVEIS antes da FEAT-PLATAFORMA)",
+  "assigned_agent": {
+    "agent_id": "orchestrator",
+    "agent_contract_version": 1,
+    "role": "orchestrator"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-MAINT",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Commit e PR da revisao de produto e das features aceitas"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "depends_on": [],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-MAINT.json",
+        "origin": "feature_contract",
+        "version": "1"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-T-MAINT-002",
+      "description": "Suite de testes passa sem regressao apos a mudanca",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste",
+        "command": "dotnet test backend/Deckloom.sln"
+      },
+      "requirement_ids": [
+        "REQ-MAINT"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": false,
+    "validator_role": "orchestrator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T12:24:04-03:00"
+  }
+}

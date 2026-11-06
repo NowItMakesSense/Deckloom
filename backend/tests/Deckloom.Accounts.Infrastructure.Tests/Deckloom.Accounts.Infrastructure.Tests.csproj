@@ -24,9 +24,4 @@
     <ProjectReference Include="../Deckloom.Accounts.Testing/Deckloom.Accounts.Testing.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- T-133: unico leitor da matriz de privilegios (nao duplicar a logica). -->
-    <Compile Include="../Deckloom.ArchitectureTests/Support/PrivilegeMatrix.cs" Link="Support/PrivilegeMatrix.cs" />
-  </ItemGroup>
-
 </Project>

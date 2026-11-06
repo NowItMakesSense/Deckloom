@@ -1,87 +1,94 @@
-# Discovery - Deckloom (projeto existente)
+# Discovery - Deckloom (revisão do produto)
 
-Data: 2026-11-06 | Modo: projeto existente (migração para o AISEF, ADR-0017) | Feito pelo orquestrador AISEF a partir do repositório.
+Data: 2026-11-06 | Modo: projeto existente com **revisão de produto** pedida pelo usuário ("o projeto foi criado de forma errada... as features estão erradas, quero repensar algumas decisões") | Alcance confirmado: **repensar tudo, reaproveitando o que servir**.
 
-Classificação de cada item: **[C]** confirmado pelo usuário (no discovery de 2026-10-21 ou depois) | **[E]** encontrado (com caminho) | **[I]** inferido (vira pergunta) | **[D]** desconhecido.
+Classificação: **[C]** confirmado pelo usuário (com data) | **[E]** encontrado (com caminho) | **[I]** inferido (vira pergunta) | **[D]** desconhecido. Só [C] e [E] viram requisito.
 
-## Visão
-- [C] Deck builder para jogadores de TCG, começando por Magic: The Gathering. A partir das cartas do jogador (decklist colada ou busca manual) e do formato, sugere arquétipo/mecânica, cartas faltantes e **onde comprar pelo melhor preço** em lojas externas independentes (scraping). O produto principal é o motor de sugestão; a comparação de preço é a alavanca de conversão. Fonte: `docs/specs/discovery.md` (Problema e objetivo).
-- [C] Único ator com login: Jogador. Loja é só dado, sem conta. Fonte: `docs/specs/discovery.md` (Atores, decisão 1).
-- [C] MVP só Magic; o modelo de dados prevê outros TCGs. Fora do MVP: outros TCGs, checkout, login de loja, reconhecimento de imagem, app nativo. Fonte: `docs/specs/discovery.md` (Escopo, Fora de escopo).
-- [C] Métricas de sucesso: conclusão de sugestão, clique em "comprar", retenção de segundo deck em 30 dias. Fonte: `docs/specs/discovery.md`.
+## Decisões revistas em 2026-11-06 (confirmadas pelo usuário)
+| # | Antes (discovery 2026-10-21) | Agora |
+|---|---|---|
+| D1/D2 | Loja é só dado; preço por scraping de 5 lojas externas | [C] **Lojas são atores com conta.** Publicam preço e estoque, recebem pedidos/leads, vendem com **checkout na plataforma** e pagam para aparecer (lojas são clientes pagantes) |
+| D3 | MVP só Magic | [C] **Vários TCGs desde o MVP**: Magic, Pokémon TCG, Yu-Gi-Oh!, One Piece e/ou Lorcana (ver Desconhecidos) |
+| D4 | Sugestão por similaridade/regras, sem ML | [C] **Híbrido**: regras/similaridade como base + IA para explicar/refinar |
+| D5 | Decklist colada OU busca manual | [C] Mantém e **acrescenta importação de coleção** (o jogador registra as cartas que possui) |
+| D6 | Avatar preset E upload | [C] Sem mudança pedida |
+| D7 | Snapshots imutáveis de preço | [C] Não revista (vale para o preço publicado pelas lojas, ver Desconhecidos) |
+| D8 | Sem nuvem definida | [C] **Continua indefinido**; decidir com comparação de custos |
+| Scraping | Preço e meta por scraping | [C] **Só dados de meta** (MTGMelee, EDHREC, MTGGoldfish, MTGTop8 e equivalentes dos outros TCGs). Preço vem das lojas parceiras |
+| Stack | .NET + EF + PostgreSQL, React, monolito modular (ADR-0001) | [C] Mantém .NET + React; usuário quer **microsserviços**. É mudança de arquitetura aprovada (ADR-0001), portanto exige `architecture_decision` com cenários antes do blueprint (regra 3) |
+| Prioridade | Uma feature por vez, só Magic | [C] **"Tudo junto, todos os TCGs"** no MVP |
+| Features novas | - | [C] **Social/comunidade** e **alertas de preço** |
 
-## Requisitos (com origem)
-### Já implementados - feature `conta-jogador` (fechada em 2026-11-05, sem deploy)
-- [E] REQ-001..REQ-049 aprovados e entregues: cadastro email+senha com aceite de termos e 18+, login email+senha, login Google OIDC com PKCE e vínculo, redefinição de senha por email (60 min, uso único, derruba sessões), perfil (nome, bio, TCG favorito, formatos), avatar preset ou upload reprocessado, exclusão de conta com reautenticação, catálogos como dados. Fonte: `docs/specs/conta-jogador/requirements.md`, `CHANGELOG.md`.
-- [E] 184/184 tarefas; cobertura acima de 93% no backend e de 98% no frontend (limite 80); rastreabilidade REQ x tarefa com 0 falhas no fechamento. Fonte: `docs/specs/conta-jogador/retro.md`, `STATUS.md` da feature.
+## Visão (revista)
+- [C] Plataforma para jogadores de vários TCGs: montar decks a partir da coleção, receber sugestões (regras + IA) e comprar cartas de **lojas parceiras** com checkout na própria plataforma. Inclui comunidade e alertas de preço.
+- [C] Atores com login: **Jogador** e **Loja**.
+- [D] Proposta de valor e diferencial frente a LigaMagic/TCGplayer/Cardmarket depois da mudança para marketplace (o diferencial antigo era "não depender de lojas cadastradas").
+- [D] Métricas de sucesso do novo MVP (as antigas eram de agregador: clique em "comprar").
 
-### Propostos e ainda não especificados (ordem do discovery inicial)
-- [C] F2 Entrada de decklist (texto) e busca manual de cartas.
-- [C] F3 Motor de sugestão de deck/arquétipo por similaridade/regras com dados de meta (sem ML).
-- [C] F4 Sugestão de cartas faltantes e mecânica.
-- [C] F5 Scraper de preços: LigaMagic, MYP Cards, XPlace, Meruru, Epic Game; snapshot imutável com timestamp.
-- [C] F6 Scraper de meta: MTGMelee, EDHREC, MTGGoldfish, MTGTop8.
-- [C] F7 Comparador de preço / sugestão de compra (link de saída).
-- [C] F8 Painel de decks em alta e comandantes preferidos.
-- [C] F9 CRUD de decks do jogador.
-- [C] F10 Observabilidade/alertas de scraper.
-Fonte: `docs/specs/discovery.md` (Lista de features propostas).
+## Features (candidatas, a validar em Feature Contracts)
+Lista montada só com o que foi confirmado. Nenhuma tem requisito detalhado ainda.
+- Conta do jogador: [E] já implementada (`conta-jogador`, REQ-001..049). [I] Precisa de revisão para "vários TCGs" (o campo TCG favorito hoje é enum só Magic) e para conviver com a conta de loja.
+- [C] Conta e painel da loja (cadastro, publicação de preço e estoque).
+- [C] Catálogo de cartas multi-TCG.
+- [C] Coleção do jogador (importação).
+- [C] Decks: entrada por texto ou busca, CRUD (herdado das antigas F2/F9).
+- [C] Sugestão híbrida de deck/cartas (antigas F3/F4).
+- [C] Ingestão de meta por scraping (antiga F6) e painéis de decks em alta/comandantes (F8). [I] "Comandantes" é conceito de Magic; equivalente nos outros TCGs a definir.
+- [C] Carrinho, checkout e pedidos com lojas; leads/pedidos para a loja.
+- [C] Monetização de lojas (pagar para aparecer).
+- [C] Alertas de preço.
+- [C] Social/comunidade.
+- Sai: [C] scraper de preços de lojas externas (antiga F5); comparador por scraping (F7) vira comparação entre lojas parceiras.
 
-### Não funcionais
-- [C] p95 de 3 s em sugestão e comparação de preço (dados pré-computados; nunca scraping síncrono); 99% de uptime informal; WCAG 2.1 AA; logs estruturados e alerta de fonte parada; LGPD (direito ao esquecimento; sem CPF nem pagamento). Fonte: `docs/specs/discovery.md` (Requisitos não funcionais).
+## O que se reaproveita do código atual
+- [E] Infra transversal da API: autenticação por sessão com cookie `__Host-`, CSRF, rate limit progressivo, redação de logs, problem details, proxy confiável (ADR-0002, 0005, 0016), papéis de banco (ADR-0015), CI completo.
+- [E] Módulo `Accounts` (jogador, login email/Google, perfil, avatar, exclusão LGPD) e design system v0.1.
+- [I] A divisão em microsserviços muda onde isso fica (provável serviço de identidade). Depende da decisão de arquitetura.
 
-## Regras de negócio
-- [C] Preço sempre exibido com o timestamp da coleta; coleta periódica, nunca na requisição. Fonte: `docs/specs/discovery.md`.
-- [C] Snapshots de preço imutáveis, sem expurgo no MVP. Fonte: idem, decisão 7.
-- [C] Scraping preventivo: robots.txt quando possível, rate limit, cache, retry com backoff, alerta de parser quebrado, API oficial quando existir, degradação graciosa por fonte. Fonte: idem (Integrações).
-- [E] Regras da conta (atraso progressivo, sessão por cookie opaco, exclusão atômica, hash PBKDF2...): ADR-0002..ADR-0006, `docs/specs/conta-jogador/requirements.md`.
-
-## Arquitetura atual
-- [E] Monolito modular com Clean Architecture (ADR-0001), monorepo `backend/` + `frontend/` (ADR-0008).
-- [E] Backend .NET 10: `Deckloom.Api` (composição, auth, http, logging, problems, security), `Deckloom.SharedKernel`, módulo `Accounts` (Domain/Application/Infrastructure) e módulo `DeckSuggestion` (só Infrastructure, com o catálogo de formatos). Testes: unitários por camada, infraestrutura (EF sobre SQLite em memória, ADR-0012), API, arquitetura e host E2E.
-- [E] Frontend React 19 + Vite + TypeScript: `src/app` (rotas, sessão, guards), `src/features/conta`, `src/design-system`, `src/shared`. E2E Playwright em `frontend/e2e/`. Design system em `docs/design-system.md` (v0.1).
-- [E] Email por SMTP com MailKit e Mailpit em dev (ADR-0010); imagem com SkiaSharp (ADR-0011); avatar customizado no PostgreSQL (ADR-0009); proxy confiável (ADR-0016).
-- [E] CI (`.github/workflows/ci.yml`): ci-scripts, backend, frontend, e2e, codeql, secret-scan (gitleaks), dependency-audit.
+## Arquitetura atual (fatos)
+- [E] Monolito modular .NET 10 com Clean Architecture (ADR-0001), módulos `Accounts` e `DeckSuggestion`, PostgreSQL 17 com schemas por módulo, React 19 + Vite. Detalhes: `backend/src/` (migrations em `backend/src/Modules/*/Infrastructure/Migrations`), `docs/adr/`.
 
 ## Dados
-- [E] PostgreSQL 17. Schema `accounts`: `player`, `player_session`, `player_external_identity`, `player_preferred_format`, `password_reset_token`, `pending_google_auth`, `access_attempt`, `avatar_image`, `avatar_preset`. Schema `deck_suggestion`: `format`. Fonte: `Database/tables/`, `Database/er-diagram.md`.
-- [E] Migrations: `20261025020132_CreateAccountsSchema` e `20261025015138_CreateFormatCatalog`. Geradas como arquivo; aplicadas por uma pessoa com `deckloom_migrator`.
-- [E] Papéis `postgres` (bootstrap), `deckloom_owner` (NOLOGIN), `deckloom_migrator`, `deckloom_app` (DML por coluna). Fonte: ADR-0015, `Database/roles/privilege-matrix.md`.
-- [D] Estado real de qualquer banco: não consultado, por regra (T5). Tudo acima vem de arquivos.
-- [C] Entidades futuras: Deck, Carta, Loja, SnapshotDePreço, Fonte de Meta. Fonte: `docs/specs/discovery.md` (Entidades).
+- [E] Schema `accounts` (9 tabelas) e `deck_suggestion.format`, papéis `deckloom_owner/migrator/app`. Fonte: migrations em `backend/src/Modules/*/Infrastructure/Migrations` e ADR-0015/ADR-0019.
+- [D] Estado real de qualquer banco: não consultado (T5).
+- [I] Novas entidades: Loja, Usuário da loja, Oferta (preço + estoque), Pedido, Pagamento, Coleção, Carta por TCG, Alerta, Post/Comentário. Detalhamento só no blueprint.
 
 ## Integrações
-- [E] Google OIDC (login), SMTP (email). Fonte: ADR-0004, ADR-0010.
-- [C] Futuras: 5 lojas de preço e 4 fontes de meta via scraping (ver Requisitos). Risco de ToS aceito pelo usuário, com revisão jurídica recomendada antes de produção.
+- [E] Google OIDC, SMTP.
+- [C] Scraping de fontes de meta (com as medidas preventivas do discovery antigo: robots.txt, rate limit, cache, backoff, alerta de parser quebrado).
+- [C] Provedor de pagamento (exigido pelo checkout). [D] Qual (Stripe, Mercado Pago, Pagar.me...).
+- [C] IA para a sugestão híbrida. [D] Provedor e modelo.
+- [D] Fontes de importação de coleção (CSV, Moxfield, Archidekt, ManaBox, TCGplayer...).
+- [D] Fontes de catálogo por TCG (ex.: Scryfall para Magic; equivalentes para os outros).
 
-## Segurança
-- [E] Baseline: `docs/security-policy.md` (atualizada para o AISEF). Relatório ASVS da conta: `docs/specs/conta-jogador/security-report.md`. Nenhum achado High/Critical aberto (retro).
-- [E] Governança dos agentes: Execution Gateway do AISEF, regras nativas em `.claude/settings.json` (ask do AISEF, mais deny extras para `dotnet ef database`, dumps e CLIs de cofre de segredos), 9 Agent Contracts ativos.
-- [E] Repositório agora **público**. O CodeQL envia ao Code Scanning, o que fecha o item "CodeQL sem aba de alertas" de `release-notes.md`.
+## Segurança e compliance
+- [E] Baseline `docs/security-policy.md`; LGPD.
+- [I] Checkout com lojas como vendedoras aumenta muito o escopo regulatório: dados de pagamento (PCI-DSS, mitigado com checkout hospedado do provedor), nota fiscal, CDC (direito de arrependimento), split de pagamento e KYC de lojas, dados pessoais de compradores compartilhados com lojas (LGPD: controlador x operador). Precisa de confirmação e de assessoria jurídica.
 
-## Testes
-- [E] Pirâmide e regras em `docs/test-strategy.md`: suíte de contrato por fake de persistência (fake x EF), composição real (`__Host-` com `Secure`), `VITEST_MAX_WORKERS=2` em suítes paralelas (QA-11).
-- [E] Cobertura mínima de 80% (backend: `scripts/ci/check_coverage.py`; frontend: `frontend/vite.config.ts`).
+## Riscos
+- [I] **Escopo do MVP muito grande** (decisão do usuário: "tudo junto, todos os TCGs"): marketplace com pagamento + 5 TCGs + IA + coleção + social + alertas. Em comparação, a `conta-jogador` sozinha teve 184 tarefas. Risco alto de prazo e de qualidade. Registrado aqui; a decisão continua do usuário.
+- [I] **Microsserviços** para um time pequeno: custo operacional (deploy, observabilidade, consistência distribuída, pagamentos com saga/outbox) bem maior que o do monolito modular. Vai para `architecture_decision` com cenários.
+- [C] Risco jurídico do scraping (agora só meta) segue aceito pelo usuário, com revisão jurídica antes de produção.
+- [E] Pendências herdadas da `conta-jogador` (Lows de "corrigir agora", backlog, bloqueios de go-live) seguem em `docs/specs/conta-jogador/retro.md` e `release-notes.md`. A prioridade delas precisa ser revista com o novo plano.
+- [C] **Perda de verificacao automatica de privilegios** (FEAT-SEM-DATABASE-DOCS, RISK-FEAT-SEM-DATABASE-DOCS-1, severidade media, risco aceito pelo usuario em 2026-11-06; ADR-0019): sem testes que conferem os GRANT das migrations contra a matriz, um privilegio excessivo do `deckloom_app` nao e detectado automaticamente. A revisao humana das migrations continua obrigatoria antes de aplicar.
 
-## Riscos e dívida técnica
-Fonte de tudo abaixo: `docs/specs/conta-jogador/retro.md` e `release-notes.md`.
-- [C] **Corrigir antes da próxima feature** (triagem aprovada em 2026-11-01): R-24, R-27, R-28, R-29, R-36, R-39, R-41, R-43, QA-04, QA-11, SEC-10, SEC-16, SEC-17, SEC-19, mais os testes de contrato fake x EF (`IUnitOfWork.ExecuteAsync` sem `CommitAsync`) e o teste de `Set-Cookie` com `__Host-` (todos com `Secure`). Emenda do design: R-26.
-- [I] Parte desses itens pode já ter sido resolvida na rodada pós-retro (2026-11-04/05). Precisa ser conferida no `findings-ledger.md` antes de virar tarefa.
-- [C] **Backlog**: R-25, R-37, R-40, SEC-07, SEC-08, SEC-09, SEC-13, SEC-14, QA-08, SEC-11 (imagens base por digest), SEC-23 (filtro de log do EF).
-- [C] **Risco aceito**: SEC-12, SEC-20, SEC-21.
-- [C] **Carried forward da rodada pós-retro, ainda não aplicados**: (1) gate só com CI verde no commit aprovado, com link do run; (2) agentes encerram os processos que sobem e a E2E não reutiliza servidor antigo; (3) QA-21: guardar o log completo na próxima falha intermitente da E2E.
-- [C] **Bloqueios de go-live**: validação jurídica (D12/D13), H-1..H-10 manuais, imagens por digest, cliente Google OAuth e provedor de email por ambiente, retenção de logs e backups, alertas, meta de throughput (D14), medição do p95, chaves compartilhadas do Data Protection.
-- [E] Histórico git reiniciado: SHAs citados em docs antigos (por exemplo, `96e0919`) só existem na cópia `Deckloom_old`.
-- [E] O CI deixou de verificar a guarda de banco e a rastreabilidade (ADR-0017); a rastreabilidade agora é do `aisef-check`, local.
+## Respostas da 2ª rodada (2026-11-06, confirmadas pelo usuário)
+- [C] TCGs do MVP: **Magic, Pokémon TCG, Yu-Gi-Oh!, One Piece e Lorcana** (5).
+- [C] Fluxo de dinheiro: **pagamento direto à loja**. O checkout usa a conta de pagamento da própria loja; o Deckloom não toca o dinheiro e cobra das lojas só a assinatura/destaque. Isso reduz bastante o escopo fiscal e de PCI do Deckloom. [D] O provedor (ou provedores) que as lojas usam e como o checkout se integra a cada um.
+- [C] IA: **explica sugestões, sugere cartas, monta deck a partir de pedido em linguagem natural e funciona como assistente/chat** (deck, regras, coleção).
+- [C] Arquitetura: preparar a **decisão formal** (APR-004) com cenários antes de qualquer blueprint.
 
-## Desconhecidos
-- [D] Hospedagem de produção (gratuita ou paga).
-- [D] Estratégia de armazenamento do avatar em escala (hoje no PostgreSQL, ADR-0009).
-- [D] Tamanho e papéis da equipe.
-- [D] Procedimento local documentado para aplicar migrações (pergunta aberta 1 do `release-notes.md`).
-- [D] Se R-18 e R-21 bloqueiam o lançamento; confirmação do ASVS L2 como alvo.
-- [D] Não verificados: leitor de tela real (NVDA/VoiceOver), login Google real, certificado SMTP recusado e evento 1008 em log real.
-- [D] Primeiro run do CI no repositório novo (público): gitleaks com `.gitleaks.toml` (limpo localmente com `gitleaks dir .` em 2026-11-06) e CodeQL com upload ainda não executados.
+## Desconhecidos (perguntas para as próximas rodadas)
+1. ~~TCGs exatos~~ (respondido).
+2. Provedor(es) de pagamento das lojas e modelo de integração do checkout (link de pagamento, conta conectada, gateway por loja).
+3. "Pagar para aparecer": assinatura, destaque pago, ou ambos? Preço?
+4. Provedor/modelo de IA, limites de custo por usuário e salvaguardas do chat.
+5. Fontes de importação de coleção e de catálogo por TCG.
+6. Escopo de social: compartilhar decks, seguir, comentar, curtir?
+7. Alertas de preço: canal (email, push, in-app) e gatilho.
+8. Proposta de valor, diferencial e métricas do novo MVP.
+9. Hospedagem (D8) e orçamento.
+10. Destino do histórico de preço (D7) com preço vindo das lojas.
 
 ## Fontes
-`docs/specs/discovery.md`, `docs/specs/conta-jogador/{requirements,retro,release-notes,findings-ledger,security-report}.md`, `docs/adr/0001..0017`, `Database/`, `backend/src/`, `frontend/src/`, `.github/workflows/ci.yml`, `docs/test-strategy.md`, `docs/security-policy.md`, `CHANGELOG.md`.
+Respostas do usuário em 2026-11-06 nesta sessão; `docs/specs/discovery.md` (decisões antigas); `docs/specs/conta-jogador/*`; `docs/adr/0001..0017`; `backend/src/` (incluindo as migrations).

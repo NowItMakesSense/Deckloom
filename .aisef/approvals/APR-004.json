@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-004",
+  "request_type": "architecture_decision",
+  "status": "approved",
+  "title": "Arquitetura da plataforma revista: microsservicos x monolito modular",
+  "summary": "O usuario pediu microsservicos (mantendo .NET + React) no lugar do monolito modular aprovado na ADR-0001. A decisao define como entram marketplace de lojas, catalogo de 5 TCGs, colecao, sugestao com IA, ingestao de meta, social e alertas, e o destino do codigo da conta-jogador. Ao escolher, a opcao vira ADR e guia o primeiro blueprint; nada e implementado ate la.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "created_at": "2026-11-06T11:30:00-03:00",
+  "expires_at": "2026-11-20T11:30:00-03:00",
+  "presented": {
+    "impact": "Define a estrutura de todo o produto revisto (.aisef/discovery.md, secao Decisoes revistas). Substitui ou confirma a ADR-0001. Afeta deploy, banco por servico ou por modulo, comunicacao entre partes, testes e custo de operacao. O codigo atual (Accounts, infra de seguranca, 2843 testes de backend) e reaproveitado de forma diferente em cada cenario.",
+    "justification": "Regra 3 do AISEF: decisao aprovada (ADR-0001) so muda com decisao explicita do usuario, com cenarios, impactos, riscos e recomendacao.",
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "high",
+    "items": [
+      {
+        "description": "Escopo do MVP muito grande (marketplace + 5 TCGs + IA + colecao + social + alertas) somado a infraestrutura indefinida (D8)",
+        "severity": "high",
+        "mitigation": "Escolher uma arquitetura que permita entregar por partes e extrair servicos depois"
+      },
+      {
+        "description": "Custo operacional de sistema distribuido para time pequeno",
+        "severity": "medium",
+        "mitigation": "Limitar o numero de processos independentes ao que tem carga ou ritmo diferente"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "options": [
+    {
+      "option_id": "OPT-A",
+      "label": "Microsservicos por contexto",
+      "description": "Um servico .NET por contexto: identidade (a conta-jogador atual + contas de loja), catalogo multi-TCG, lojas e ofertas, pedidos/checkout, colecao e decks, sugestao + IA, ingestao de meta, social, notificacoes/alertas. Banco por servico, API gateway (ex.: YARP), mensageria (ex.: RabbitMQ) com outbox, React consumindo o gateway.",
+      "impacts": [
+        "Cada servico escala e faz deploy sozinho",
+        "Accounts vira o servico de identidade; sessao por cookie passa a ser validada no gateway ou por token entre servicos",
+        "Exige orquestracao de containers, tracing distribuido, testes de contrato entre servicos e consistencia eventual",
+        "Infra minima de producao bem maior (varios containers + broker + varios bancos), com D8 ainda indefinido"
+      ],
+      "risks": [
+        "Alto custo operacional e de desenvolvimento para time pequeno",
+        "Fronteiras erradas no inicio custam caro para mudar",
+        "Muitas chamadas entre servicos para fluxos simples (ex.: montar deck com precos)"
+      ],
+      "cost": "Alto: mais containers, broker gerenciado e observabilidade distribuida desde o dia 1",
+      "migration": "Extrair Accounts e a infra transversal para o servico de identidade; reescrever a composicao da API"
+    },
+    {
+      "option_id": "OPT-B",
+      "label": "Monolito modular + workers",
+      "description": "Mantem uma API .NET com modulos de fronteira forte (um schema PostgreSQL e um conjunto Domain/Application/Infrastructure por modulo, testes de arquitetura ja existentes impedindo acoplamento) e processos separados (workers) so onde a carga e diferente: ingestao de meta, IA/assistente e alertas/notificacoes. Comunicacao por fila com outbox.",
+      "impacts": [
+        "Reaproveita integralmente a infra atual e a conta-jogador",
+        "Deploy simples: 1 API + poucos workers + 1 PostgreSQL",
+        "Qualquer modulo pode virar microsservico depois sem reescrever o dominio (ADR-0001 ja preve isso)"
+      ],
+      "risks": [
+        "Nao atende ao desejo explicito de microsservicos",
+        "Exige disciplina para manter as fronteiras dos modulos",
+        "Um modulo com bug pode derrubar a API inteira"
+      ],
+      "cost": "Baixo: compativel com hospedagem barata (VPS ou nuvem gerenciada simples)",
+      "migration": "Nenhuma reescrita; novos modulos e workers"
+    },
+    {
+      "option_id": "OPT-C",
+      "label": "Intermediario: nucleo + servicos de carga diferente",
+      "description": "Nucleo transacional .NET modular (identidade, catalogo, lojas, ofertas, pedidos, colecao, decks, social) e microsservicos independentes, com banco e deploy proprios, para: sugestao + IA, ingestao de meta e notificacoes/alertas. Integracao por mensageria e API interna.",
+      "impacts": [
+        "Atende a independencia onde ela mais rende (IA e scraping tem custo, risco e ritmo diferentes)",
+        "Mantem transacoes de pedido/estoque num lugar so (sem saga distribuida no checkout)",
+        "Infra moderada: nucleo + 3 servicos + broker"
+      ],
+      "risks": [
+        "Ainda exige observabilidade distribuida e testes de contrato para os 3 servicos",
+        "Pode ser visto como meio-termo que nao satisfaz nenhum dos lados"
+      ],
+      "cost": "Medio",
+      "migration": "Conta-jogador e infra ficam no nucleo; servicos novos nascem separados"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-C",
+    "rationale": "O usuario pediu microsservicos, e IA e ingestao de meta tem carga, custo e risco proprios (provedor externo, scraping sujeito a bloqueio), o que justifica separa-los. Ja o nucleo de pedidos, estoque e lojas ganha muito em consistencia ficando junto, e o time e a infra (D8 indefinido) nao comportam bem 9 servicos no MVP. Aproveita a conta-jogador e os 2843 testes sem reescrita."
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/110",
+    "decided_event_ref": "events/115"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T11:23:06-03:00",
+    "selected_option_id": "OPT-C",
+    "note": "Usuario escolheu OPT-C (nucleo modular + servicos IA, meta, notificacoes) em 2026-11-06"
+  }
+}

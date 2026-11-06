@@ -4,8 +4,8 @@ using Deckloom.ArchitectureTests.Support;
 namespace Deckloom.ArchitectureTests;
 
 /// <summary>
-/// T-066 (RED, ADR-0015). Os GRANT emitidos pelas migracoes geradas (Accounts e DeckSuggestion) sao exatamente os da
-/// matriz Database/roles/privilege-matrix.md, lida pelo parser unico de T-132. Verificacao estatica de arquivos .cs:
+/// T-066 (RED, ADR-0015). Os GRANT emitidos pelas migracoes geradas (Accounts e DeckSuggestion) so concedem USAGE nos
+/// schemas do sistema, sem instrucao proibida e sempre com SQL literal. Verificacao estatica de arquivos .cs:
 /// nada e executado e nenhum banco e consultado.
 /// Layout (orquestrador): as migracoes ficam em src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations e
 /// src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/Migrations.
@@ -19,9 +19,6 @@ public sealed partial class MigrationGrantConformanceTests
         "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations",
         "backend/src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/Migrations",
     ];
-
-    [GeneratedRegex(@"CreateTable\(\s*name:\s*""(?<name>\w+)"",\s*schema:\s*""(?<schema>\w+)""")]
-    private static partial Regex CreateTablePattern();
 
     [GeneratedRegex(@"^(?<stamp>\d{14})_")]
     private static partial Regex StampPattern();
@@ -59,54 +56,6 @@ public sealed partial class MigrationGrantConformanceTests
     private static GrantAnalysis AnalyzeAll() =>
         MigrationGrantAnalyzer.Analyze(AllMigrationFiles().SelectMany(LiteralsOf));
 
-    private static IReadOnlyList<PrivilegeRow> Matrix() => PrivilegeMatrix.Load(RepoHygieneTests.RepoRoot());
-
-    // ---- Migracoes geradas contra a matriz ----
-
-    [Fact]
-    public void T066_migrations_grant_exactly_the_privileges_marked_in_the_matrix_to_deckloom_app()
-    {
-        var analysis = AnalyzeAll();
-        var matrix = Matrix();
-        var problems = new List<string>(analysis.Violations);
-
-        foreach (var row in matrix)
-        {
-            var expected = new[] { (row.Select, "SELECT"), (row.Insert, "INSERT"), (row.Delete, "DELETE") }
-                .Where(p => p.Item1).Select(p => p.Item2).Order().ToList();
-            var actual = analysis.TablePrivileges.GetValueOrDefault(row.Table, []).Order().ToList();
-            if (!expected.SequenceEqual(actual))
-            {
-                problems.Add($"{row.Table}: GRANT [{string.Join(",", actual)}] != matriz [{string.Join(",", expected)}].");
-            }
-
-            var actualColumns = analysis.UpdateColumns.GetValueOrDefault(row.Table, []).Order().ToList();
-            var expectedColumns = row.UpdateColumns.Order().ToList();
-            if (!expectedColumns.SequenceEqual(actualColumns))
-            {
-                problems.Add($"{row.Table}: GRANT UPDATE ({string.Join(",", actualColumns)}) != matriz ({string.Join(",", expectedColumns)}).");
-            }
-
-            if (analysis.UpdateWholeTable.Contains(row.Table) != row.UpdateWholeTable)
-            {
-                problems.Add($"{row.Table}: GRANT UPDATE na tabela inteira diverge da matriz (x={row.UpdateWholeTable}).");
-            }
-        }
-
-        Assert.True(problems.Count == 0, string.Join(Environment.NewLine, problems));
-    }
-
-    [Fact]
-    public void T066_migrations_grant_only_on_tables_present_in_the_matrix()
-    {
-        var analysis = AnalyzeAll();
-        var known = Matrix().Select(r => r.Table).ToHashSet(StringComparer.Ordinal);
-
-        var unknown = analysis.GrantedTables.Where(t => !known.Contains(t)).Order().ToList();
-
-        Assert.True(unknown.Count == 0, $"GRANT em tabela ausente da matriz: {string.Join(", ", unknown)}.");
-    }
-
     [Fact]
     public void T066_migrations_grant_usage_on_exactly_the_accounts_and_deck_suggestion_schemas()
     {
@@ -132,40 +81,6 @@ public sealed partial class MigrationGrantConformanceTests
             var found = new List<string>();
             MigrationGrantAnalyzer.ExtractSqlLiterals(File.ReadAllText(file), found);
             problems.AddRange(found.Select(p => $"{Path.GetFileName(file)}: {p}"));
-        }
-
-        Assert.True(problems.Count == 0, string.Join(Environment.NewLine, problems));
-    }
-
-    [Fact]
-    public void T066_each_migration_grants_the_matrix_privileges_of_the_tables_it_creates()
-    {
-        var matrix = Matrix().ToDictionary(r => r.Table, StringComparer.Ordinal);
-        var problems = new List<string>();
-
-        foreach (var file in AllMigrationFiles())
-        {
-            var created = CreateTablePattern().Matches(File.ReadAllText(file))
-                .Select(m => $"{m.Groups["schema"].Value}.{m.Groups["name"].Value}").Distinct().ToList();
-            var analysis = MigrationGrantAnalyzer.Analyze(LiteralsOf(file));
-
-            foreach (var table in created)
-            {
-                if (!matrix.TryGetValue(table, out var row))
-                {
-                    problems.Add($"{Path.GetFileName(file)}: tabela {table} criada sem linha na matriz.");
-                    continue;
-                }
-
-                var expected = new[] { (row.Select, "SELECT"), (row.Insert, "INSERT"), (row.Delete, "DELETE") }
-                    .Where(p => p.Item1).Select(p => p.Item2).Order().ToList();
-                var actual = analysis.TablePrivileges.GetValueOrDefault(table, []).Order().ToList();
-                var columns = analysis.UpdateColumns.GetValueOrDefault(table, []).Order().ToList();
-                if (!expected.SequenceEqual(actual) || !row.UpdateColumns.Order().SequenceEqual(columns))
-                {
-                    problems.Add($"{Path.GetFileName(file)}: GRANT de {table} nao esta na mesma migracao que a cria.");
-                }
-            }
         }
 
         Assert.True(problems.Count == 0, string.Join(Environment.NewLine, problems));

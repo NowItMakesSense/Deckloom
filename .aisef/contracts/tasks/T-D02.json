@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-D02",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "feature_contract_version": 1,
+  "title": "ADR-0019 e documentos vivos sem Database/",
+  "objective": "ADR-0019 e documentos vivos sem Database/",
+  "assigned_agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-D03",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "ADR-0019 e documentos vivos sem Database/"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "docs/adr/0019-*.md",
+      "docs/adr/0015-*.md",
+      "README.md",
+      "CLAUDE.md",
+      "AGENTS.md",
+      "docs/security-policy.md",
+      "db/init/*",
+      ".aisef/discovery.md",
+      ".aisef/contracts/tasks/T-P04.json",
+      ".aisef/contracts/features/FEAT-PLATAFORMA.json"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-D01"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-SEM-DATABASE-DOCS.json",
+        "origin": "feature_contract",
+        "version": "1"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-D02a",
+      "description": "docs/adr/0019-*.md existe com Status Accepted, decisao, risco aceito e cita a ADR-0015",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D03"
+      ]
+    },
+    {
+      "id": "AC-D02b",
+      "description": "a ADR-0015 tem Status 'Superseded in part by ADR-0019' sem alterar o corpo",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D03"
+      ]
+    },
+    {
+      "id": "AC-D02c",
+      "description": "grep por 'Database/' em README.md, CLAUDE.md, AGENTS.md, docs/security-policy.md, db/ e .aisef/discovery.md nao encontra nada",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D03"
+      ]
+    },
+    {
+      "id": "AC-D02d",
+      "description": "T-P04 e FEAT-PLATAFORMA nao citam Database/, com contract_changed registrado e aisef-check sem erros",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D03"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:27:36-03:00"
+  }
+}

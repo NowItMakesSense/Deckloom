@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-009",
+  "request_type": "feature_acceptance",
+  "status": "approved",
+  "title": "Aceite da FEAT-SEM-DATABASE-DOCS (remocao de Database/)",
+  "summary": "Todas as tarefas (T-D01, T-D02) foram executadas, validadas por validador independente e aceitas pelo orquestrador. 3 de 3 requisitos atendidos. Ao aceitar, a feature fica congelada; mudancas futuras viram novo ciclo. Aceitar nao autoriza commit nem push.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "created_at": "2026-11-06T14:30:00-03:00",
+  "expires_at": "2026-11-13T14:30:00-03:00",
+  "presented": {
+    "impact": "Database/ removida, 42 testes que dependiam dela removidos, ADR-0019 registra o risco aceito (sem verificacao automatica de privilegios das migrations). Ver reports/FINAL-FEAT-SEM-DATABASE-DOCS.md",
+    "tests": {
+      "summary": "Backend 2801 aprovados, 0 falhas, cobertura >= 80% (validacao da T-D01)",
+      "executed": 2801,
+      "passed": 2801,
+      "failed": 0
+    },
+    "requirement_ids": [
+      "REQ-D01",
+      "REQ-D02",
+      "REQ-D03"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Migration com privilegio excessivo para deckloom_app nao faz nenhum teste falhar",
+        "severity": "medium",
+        "mitigation": "Risco aceito pelo usuario (ADR-0019); revisao humana das migrations obrigatoria"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "acceptance_summary": {
+    "final_report_ref": "reports/FINAL-FEAT-SEM-DATABASE-DOCS.md",
+    "requirements_met": 3,
+    "requirements_not_met": 0,
+    "tests_passed": 2801,
+    "tests_failed": 0,
+    "pending_items": [],
+    "git_operations_authorized": false
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/462",
+    "decided_event_ref": "events/468"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T12:21:42-03:00",
+    "note": "Feature aceita pelo usuario em 2026-11-06"
+  }
+}

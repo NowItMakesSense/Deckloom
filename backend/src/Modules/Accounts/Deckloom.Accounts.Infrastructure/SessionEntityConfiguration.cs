@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Mapeamento de Database/tables/accounts.player_session.md. Sem default nem funcao de data do banco: o "agora"
+// Mapeamento de accounts.player_session. Sem default nem funcao de data do banco: o "agora"
 // chega sempre pelo agregado. Datas gravadas em UTC (timestamptz). Sem IP, sem user agent, sem token em claro.
 internal sealed class SessionEntityConfiguration : IEntityTypeConfiguration<Session>
 {

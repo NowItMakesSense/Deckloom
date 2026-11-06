@@ -3,7 +3,7 @@ using Deckloom.Accounts.Domain;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-058 (REQ-029, 030, 031). Tabela: Database/tables/accounts.password_reset_token.md; design.md (J8,
+// T-058 (REQ-029, 030, 031). Tabela: accounts.password_reset_token; design.md (J8,
 // Player.IssuePasswordReset/ResetPassword). Contrato para o implementer (GREEN):
 //   Tabela password_reset_token (snake_case): player_id PK pk_password_reset_token (no maximo um token por Jogador),
 //     token_hash (32 bytes, SHA-256) unico ux_password_reset_token_token_hash, issued_at, expires_at;

@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-006",
+  "request_type": "plan_approval",
+  "status": "approved",
+  "title": "Plano da feature FEAT-SEM-DATABASE-DOCS: Remover o padrao de documentacao do banco em Database/",
+  "summary": "Tirar do projeto a pasta Database/ e tudo o que depende dela, a pedido do usuario em 2026-11-06",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "created_at": "2026-11-06T11:27:36-03:00",
+  "expires_at": "2026-11-13T11:27:36-03:00",
+  "presented": {
+    "impact": "Plano da feature FEAT-SEM-DATABASE-DOCS: 3 requisito(s), 2 tarefa(s). Ver contracts/features/FEAT-SEM-DATABASE-DOCS.json",
+    "requirement_ids": [
+      "REQ-D01",
+      "REQ-D02",
+      "REQ-D03"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": []
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-D01",
+      "T-D02"
+    ],
+    "independent_work_continues": true
+  },
+  "plan": {
+    "granularity": "feature",
+    "task_plan_ref": "contracts/features/FEAT-SEM-DATABASE-DOCS.json#task_plan",
+    "requirements_count": 3,
+    "tasks_count": 2
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/123",
+    "decided_event_ref": "events/125"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T11:27:51-03:00",
+    "note": "Plano aprovado pelo usuario em 2026-11-06"
+  }
+}

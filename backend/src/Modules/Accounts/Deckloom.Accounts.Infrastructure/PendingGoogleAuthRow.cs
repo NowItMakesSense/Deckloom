@@ -2,7 +2,7 @@ using Deckloom.Accounts.Domain;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Linha de Database/tables/accounts.pending_google_auth.md. O registro da aplicacao (PendingGoogleAuth) nao e
+// Linha de accounts.pending_google_auth. O registro da aplicacao (PendingGoogleAuth) nao e
 // mapeado direto: esta classe de persistencia fica na infraestrutura e o EfPendingGoogleAuthStore converte.
 internal sealed class PendingGoogleAuthRow
 {

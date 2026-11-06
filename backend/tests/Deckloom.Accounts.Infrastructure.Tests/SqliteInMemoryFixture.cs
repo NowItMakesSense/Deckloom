@@ -12,7 +12,7 @@ namespace Deckloom.Accounts.Infrastructure.Tests;
 //     public AccountsDbContext(DbContextOptions<AccountsDbContext> options)
 //     protected virtual void ConfigureConcurrencyToken(EntityTypeBuilder<Player> player)   // padrao: xmin (Npgsql, no GREEN/composition root)
 //     public DbSet<Player> Players
-//   Mapeamento: HasDefaultSchema("accounts"), tabela player, colunas snake_case de Database/tables/accounts.player.md,
+//   Mapeamento: HasDefaultSchema("accounts"), tabela player, colunas snake_case de accounts.player,
 //   indice unico ux_player_email; value objects via conversores/owned; o SQLite ignora o schema (tabela "player").
 //   Os CHECKs com char_length() nao existem no SQLite: aplicar so no provider PostgreSQL (ou usar length()).
 //   sealed class EfPlayerRepository : IPlayerRepository       // ctor(AccountsDbContext)

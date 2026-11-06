@@ -1,6 +1,6 @@
 namespace Deckloom.Accounts.Infrastructure;
 
-// Linha de Database/tables/accounts.access_attempt.md. So os HMACs de IP e de email normalizado, nunca o valor em claro.
+// Linha de accounts.access_attempt. So os HMACs de IP e de email normalizado, nunca o valor em claro.
 internal sealed class AccessAttemptRow
 {
     public long Id { get; set; }

@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-060 (REQ-032, 041, 047). Tabela: Database/tables/accounts.access_attempt.md; design.md (U7, "Forma das portas de
+// T-060 (REQ-032, 041, 047). Tabela: accounts.access_attempt; design.md (U7, "Forma das portas de
 // estado", T-027). Contrato para o implementer (GREEN):
 //   sealed class EfAccessAttemptStore : IAccessAttemptStore   // namespace Deckloom.Accounts.Infrastructure
 //     ctor(AccountsDbContext context)                          // sem relogio: "agora" e parametro (since, cutoff)

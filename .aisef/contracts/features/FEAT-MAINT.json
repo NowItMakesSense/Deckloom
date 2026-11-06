@@ -53,11 +53,24 @@
         "REQ-MAINT"
       ],
       "verification": "automated_test"
+    },
+    {
+      "id": "AC-T-MAINT-002",
+      "description": "Suite de testes passa sem regressao apos a mudanca",
+      "requirement_ids": [
+        "REQ-MAINT"
+      ],
+      "verification": "automated_test"
     }
   ],
   "task_plan": [
     {
       "task_id": "T-MAINT-001",
+      "contract_version": 1,
+      "role": "orchestrator"
+    },
+    {
+      "task_id": "T-MAINT-002",
       "contract_version": 1,
       "role": "orchestrator"
     }
@@ -71,10 +84,12 @@
       "requirement_id": "REQ-MAINT",
       "requirement_version": 1,
       "task_ids": [
-        "T-MAINT-001"
+        "T-MAINT-001",
+        "T-MAINT-002"
       ],
       "criterion_ids": [
-        "AC-T-MAINT-001"
+        "AC-T-MAINT-001",
+        "AC-T-MAINT-002"
       ]
     }
   ],

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Mapeamento de Database/tables/accounts.pending_google_auth.md. Sem default nem funcao de data do banco: o "agora"
+// Mapeamento de accounts.pending_google_auth. Sem default nem funcao de data do banco: o "agora"
 // chega sempre pelo TimeProvider. Datas gravadas em UTC (timestamptz). So o hash do token, nunca o token em claro.
 internal sealed class PendingGoogleAuthEntityConfiguration : IEntityTypeConfiguration<PendingGoogleAuthRow>
 {

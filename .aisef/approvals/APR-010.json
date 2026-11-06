@@ -1,0 +1,57 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-010",
+  "request_type": "feature_acceptance",
+  "status": "approved",
+  "title": "Aceite da FEAT-COLUNAS-IMUTAVEIS (protecao de colunas imutaveis)",
+  "summary": "A tarefa T-I01 foi executada, validada por validador independente (opus, modelo diferente do executor) e aceita pelo orquestrador. 1 de 1 requisito atendido. Ao aceitar, a feature fica congelada. Aceitar nao autoriza commit nem push.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-COLUNAS-IMUTAVEIS",
+  "created_at": "2026-11-06T14:30:00-03:00",
+  "expires_at": "2026-11-13T14:30:00-03:00",
+  "presented": {
+    "impact": "Novo ImmutableColumnsTests.cs (25 testes) protege colunas imutaveis de player, player_session, password_reset_token e pending_google_auth. Ver reports/FINAL-FEAT-COLUNAS-IMUTAVEIS.md",
+    "tests": {
+      "summary": "Backend 2826 aprovados, 0 falhas, cobertura >= 80%",
+      "executed": 2826,
+      "passed": 2826,
+      "failed": 0
+    },
+    "requirement_ids": [
+      "REQ-I01"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": []
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "acceptance_summary": {
+    "final_report_ref": "reports/FINAL-FEAT-COLUNAS-IMUTAVEIS.md",
+    "requirements_met": 1,
+    "requirements_not_met": 0,
+    "tests_passed": 2826,
+    "tests_failed": 0,
+    "pending_items": [],
+    "git_operations_authorized": false
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/463",
+    "decided_event_ref": "events/469"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T12:21:43-03:00",
+    "note": "Feature aceita pelo usuario em 2026-11-06"
+  }
+}

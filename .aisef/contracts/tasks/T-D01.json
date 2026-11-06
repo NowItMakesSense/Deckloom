@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-D01",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "feature_contract_version": 1,
+  "title": "Remover Database/ e os testes que dependem dela",
+  "objective": "Remover Database/ e os testes que dependem dela",
+  "assigned_agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-D01",
+        "version": 1
+      },
+      {
+        "id": "REQ-D02",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Remover Database/ e os testes que dependem dela"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "Database/**",
+      "backend/tests/**",
+      "backend/src/**"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-SEM-DATABASE-DOCS.json",
+        "origin": "feature_contract",
+        "version": "1"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-D01a",
+      "description": "a pasta Database/ nao existe",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ]
+    },
+    {
+      "id": "AC-D01b",
+      "description": "grep por 'Database/', 'DatabaseDocs', 'RoleDocs' e 'PrivilegeMatrix' em backend/ nao encontra nada",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ]
+    },
+    {
+      "id": "AC-D01c",
+      "description": "dotnet format --verify-no-changes, dotnet build -c Release e dotnet test de backend/Deckloom.sln passam",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ]
+    },
+    {
+      "id": "AC-D01d",
+      "description": "scripts/ci/check_coverage.py com limite 80 passa",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:27:36-03:00"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-008",
+  "request_type": "plan_approval",
+  "status": "approved",
+  "title": "Plano da feature FEAT-COLUNAS-IMUTAVEIS: Protecao de colunas imutaveis sem depender de Database/",
+  "summary": "Recriar so o teste que impede UPDATE gerado pelo EF de alterar colunas imutaveis, removido junto com Database/ na FEAT-SEM-DATABASE-DOCS",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-COLUNAS-IMUTAVEIS",
+  "created_at": "2026-11-06T11:47:58-03:00",
+  "expires_at": "2026-11-13T11:47:58-03:00",
+  "presented": {
+    "impact": "Plano da feature FEAT-COLUNAS-IMUTAVEIS: 1 requisito(s), 1 tarefa(s). Ver contracts/features/FEAT-COLUNAS-IMUTAVEIS.json",
+    "requirement_ids": [
+      "REQ-I01"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": []
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-I01"
+    ],
+    "independent_work_continues": true
+  },
+  "plan": {
+    "granularity": "feature",
+    "task_plan_ref": "contracts/features/FEAT-COLUNAS-IMUTAVEIS.json#task_plan",
+    "requirements_count": 1,
+    "tasks_count": 1
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/310",
+    "decided_event_ref": "events/314"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T11:48:20-03:00",
+    "note": "Plano aprovado pelo usuario em 2026-11-06"
+  }
+}

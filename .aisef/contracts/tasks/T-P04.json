@@ -1,0 +1,97 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-P04",
+  "contract_version": 2,
+  "kind": "task",
+  "feature_id": "FEAT-PLATAFORMA",
+  "feature_contract_version": 2,
+  "title": "Catalogo de TCGs como dados com os 5 TCGs do MVP",
+  "objective": "Catalogo de TCGs como dados com os 5 TCGs do MVP",
+  "assigned_agent": {
+    "agent_id": "database",
+    "agent_contract_version": 1,
+    "role": "database"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-P02",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Catalogo de TCGs como dados com os 5 TCGs do MVP"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "backend/src/Modules/**/Migrations/**",
+      "backend/src/Modules/**/Persistence/**"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-P01"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-PLATAFORMA.json",
+        "origin": "feature_contract",
+        "version": "2"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-P04a",
+      "description": "migration gerada como arquivo cria o catalogo de TCGs com os 5 TCGs e tem rollback; nenhuma migration e aplicada",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P02"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:22:46-03:00"
+  }
+}

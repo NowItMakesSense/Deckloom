@@ -55,7 +55,7 @@ public sealed class Player : AggregateRoot
 
     public PasswordHash? PasswordHash { get; private set; }
 
-    // Um vinculo por provedor (Database/tables/accounts.player_external_identity.md); hoje so ha o Google.
+    // Um vinculo por provedor (accounts.player_external_identity); hoje so ha o Google.
     public IReadOnlyCollection<ExternalIdentity> ExternalIdentities => _externalIdentities;
 
     public ExternalIdentity? ExternalIdentity => _externalIdentities.FirstOrDefault();

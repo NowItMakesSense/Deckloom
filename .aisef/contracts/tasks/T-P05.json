@@ -1,0 +1,109 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-P05",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-PLATAFORMA",
+  "feature_contract_version": 2,
+  "title": "CI cobre os servicos novos",
+  "objective": "CI cobre os servicos novos",
+  "assigned_agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-P01",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "CI cobre os servicos novos"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      ".github/workflows/ci.yml",
+      "scripts/ci/**"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-P02"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-PLATAFORMA.json",
+        "origin": "feature_contract",
+        "version": "2"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-P05a",
+      "description": "o job backend do CI compila e testa os 3 servicos com o mesmo portao de cobertura de 80%",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P01"
+      ]
+    },
+    {
+      "id": "AC-P05b",
+      "description": "python -m unittest discover -s scripts/ci passa",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P01"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:22:46-03:00"
+  }
+}

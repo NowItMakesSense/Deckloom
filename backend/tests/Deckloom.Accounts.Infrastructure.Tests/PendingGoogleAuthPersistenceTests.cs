@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-059 (REQ-008, 036, 039). Tabela: Database/tables/accounts.pending_google_auth.md; design.md ("Estado transitorio
+// T-059 (REQ-008, 036, 039). Tabela: accounts.pending_google_auth; design.md ("Estado transitorio
 // da aplicacao (IPendingGoogleAuthStore)", J7). Contrato para o implementer (GREEN):
 //   sealed class EfPendingGoogleAuthStore : IPendingGoogleAuthStore   // namespace Deckloom.Accounts.Infrastructure
 //     ctor(AccountsDbContext context, TimeProvider clock)             // "agora" so vem do TimeProvider

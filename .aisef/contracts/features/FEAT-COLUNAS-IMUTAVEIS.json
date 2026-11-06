@@ -1,0 +1,122 @@
+{
+  "schema_version": "0.1.0",
+  "feature_id": "FEAT-COLUNAS-IMUTAVEIS",
+  "contract_version": 1,
+  "cycle": {
+    "number": 1
+  },
+  "title": "Protecao de colunas imutaveis sem depender de Database/",
+  "objective": "Recriar so o teste que impede UPDATE gerado pelo EF de alterar colunas imutaveis, removido junto com Database/ na FEAT-SEM-DATABASE-DOCS",
+  "problem": "A remocao de Database/ levou junto os GeneratedUpdateColumnsTests, que tambem protegiam colunas imutaveis; o usuario decidiu manter essa protecao (2026-11-06)",
+  "business_priority": {
+    "level": "medium",
+    "set_by": "user"
+  },
+  "requirements": [
+    {
+      "id": "REQ-I01",
+      "version": 1,
+      "kind": "non_functional",
+      "statement": "Colunas imutaveis (email, termos aceitos, created_at, id, player_id e token_hash da sessao) nunca entram no SET de um UPDATE gerado pelo EF; a lista fica no proprio teste, sem depender de Database/ nem de matriz de privilegios",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Colunas imutaveis (email, termos aceitos, created_at, id, player_id e token_hash da sessao) nunca entram no SET de um UPDATE gerado pelo EF; a lista fica no proprio teste, sem depender de Database/ nem de matriz de privilegios",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T11:47:58-03:00"
+        }
+      ]
+    }
+  ],
+  "business_rules": [],
+  "scope": {
+    "included": [
+      "teste de colunas imutaveis em backend/tests/Deckloom.Accounts.Infrastructure.Tests, reaproveitando UpdateStatementCapture"
+    ],
+    "excluded": [
+      "matriz de privilegios e GRANTs",
+      "pasta Database/",
+      "codigo de producao"
+    ]
+  },
+  "architectural_decisions": [],
+  "dependencies": {},
+  "constraints": [],
+  "risks": [
+    {
+      "id": "RISK-FEAT-COLUNAS-IMUTAVEIS-1",
+      "description": "Lista de colunas no teste fica desatualizada quando o modelo mudar",
+      "severity": "low",
+      "mitigation": "O teste falha se uma coluna listada deixar de existir no modelo EF"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-I01a",
+      "description": "teste automatizado falha se um UPDATE gerado pelo EF incluir no SET qualquer coluna imutavel listada no teste, cobrindo os fluxos que gravam player, player_session, password_reset_token e pending_google_auth",
+      "requirement_ids": [
+        "REQ-I01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-I01b",
+      "description": "teste automatizado falha se uma coluna da lista nao existir no modelo EF",
+      "requirement_ids": [
+        "REQ-I01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-I01c",
+      "description": "nenhum arquivo fora de backend/ e lido; dotnet format --verify-no-changes, build Release, dotnet test e check_coverage.py 80 passam",
+      "requirement_ids": [
+        "REQ-I01"
+      ],
+      "verification": "automated_test"
+    }
+  ],
+  "task_plan": [
+    {
+      "task_id": "T-I01",
+      "contract_version": 1,
+      "role": "backend"
+    }
+  ],
+  "tests": {
+    "integration_required": true,
+    "regression_required": true
+  },
+  "rtm": [
+    {
+      "requirement_id": "REQ-I01",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-I01"
+      ],
+      "criterion_ids": [
+        "AC-I01a",
+        "AC-I01b",
+        "AC-I01c"
+      ]
+    }
+  ],
+  "approval": {
+    "plan": {
+      "status": "approved",
+      "granularity": "feature",
+      "approved_by": "user",
+      "approved_at": "2026-11-06T11:48:20-03:00"
+    }
+  },
+  "state": {
+    "status": "approved_for_execution"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:47:58-03:00"
+  }
+}

@@ -11,7 +11,7 @@ namespace Deckloom.Accounts.Application.Tests;
 //       Task<PurgeExpiredDataSummary> ExecuteAsync(CancellationToken ct = default)
 //   sealed record PurgeExpiredDataSummary(int Sessions, int ResetTokens, int PendingGoogleAuths, int AccessAttempts)
 // Portas novas (o "agora" e parametro, como em RevokeAllFor e DeleteOlderThanAsync; design linha 325; REFACTOR da tarefa:
-// um metodo por tipo de dado; privilege-matrix: o job apaga sessoes expiradas/revogadas e tokens expirados):
+// um metodo por tipo de dado; o job apaga sessoes expiradas/revogadas e tokens expirados):
 //   ISessionRepository.DeleteExpiredOrRevoked(DateTimeOffset now, int batchSize, CancellationToken ct = default) : Task<int>
 //       apaga sessoes revogadas ou com now >= ExpiresAt (Session.IsValid e falso); devolve a contagem.
 //   IPlayerRepository.DeleteExpiredResetTokens(DateTimeOffset now, CancellationToken ct = default) : Task<int>

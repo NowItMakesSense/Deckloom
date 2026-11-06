@@ -38,7 +38,7 @@ public sealed class FormatCatalogDbContext : DbContext
         });
     }
 
-    // Carga inicial (REQ-037): ids estaveis de Database/tables/deck_suggestion.format.md.
+    // Carga inicial (REQ-037): ids estaveis de deck_suggestion.format.
     private static FormatRow[] InitialFormats() =>
     [
         new() { Id = "standard", Name = "Standard", IsActive = true, SortOrder = 1 },

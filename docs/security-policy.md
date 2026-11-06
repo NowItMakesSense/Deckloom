@@ -17,8 +17,8 @@ No agent or orchestrator may, by any means, query, inspect, connect to, migrate,
 Stop and tell the user. Propose a human-run command or a fixture/fake instead. Never work around the guard (no scripts, no base64, no alternate clients).
 
 ## System database access control (product, when the project has a database)
-Separate from the agent guard above: this is how the *application* reaches its own database. The baseline lives in `Database/roles/README.md` and every feature's `design.md` applies it.
-- The application connects with a least-privilege runtime role: never the bootstrap superuser, never the schema owner, only the operations listed in `Database/roles/privilege-matrix.md`.
+Separate from the agent guard above: this is how the *application* reaches its own database. The baseline is ADR-0015 (partly superseded by ADR-0019), with the bootstrap in `db/init/01-roles.sh`; every feature's `design.md` applies it.
+- The application connects with a least-privilege runtime role: never the bootstrap superuser, never the schema owner, only the operations granted in the migrations under `backend/src/Modules/*/Infrastructure/Migrations` (ADR-0015/ADR-0019).
 - DDL and migrations run only through a separate owner/migrator role, applied by a human from reviewed migration files. The application never migrates or creates schemas at startup.
 - Hardening: revoke PUBLIC privileges, set default privileges, fix `search_path`; per-role statement/idle/lock timeouts and connection limits.
 - TLS with certificate verification outside an isolated local dev network.

@@ -1,0 +1,56 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-005",
+  "request_type": "plan_approval",
+  "status": "approved",
+  "title": "Plano da feature FEAT-PLATAFORMA: Fundacao da plataforma revista",
+  "summary": "Preparar a base tecnica da plataforma revista em 2026-11-06: arquitetura intermediaria (nucleo modular + servicos de IA, ingestao de meta e notificacoes) e catalogo dos 5 TCGs do MVP",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "created_at": "2026-11-06T11:22:46-03:00",
+  "expires_at": "2026-11-13T11:22:46-03:00",
+  "presented": {
+    "impact": "Plano da feature FEAT-PLATAFORMA: 3 requisito(s), 5 tarefa(s). Ver contracts/features/FEAT-PLATAFORMA.json",
+    "requirement_ids": [
+      "REQ-P01",
+      "REQ-P02",
+      "REQ-P03"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": []
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P01",
+      "T-P02",
+      "T-P03",
+      "T-P04",
+      "T-P05"
+    ],
+    "independent_work_continues": true
+  },
+  "plan": {
+    "granularity": "feature",
+    "task_plan_ref": "contracts/features/FEAT-PLATAFORMA.json#task_plan",
+    "requirements_count": 3,
+    "tasks_count": 5
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/108",
+    "decided_event_ref": "events/117"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T11:24:22-03:00",
+    "note": "Plano aprovado pelo usuario em 2026-11-06"
+  }
+}
