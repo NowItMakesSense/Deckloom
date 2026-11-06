@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-016",
+  "request_type": "architecture_decision",
+  "title": "Broker de mensagens da arquitetura OPT-C (ponto em aberto da ADR-0018)",
+  "summary": "A T-P03 sobe um broker no docker-compose de desenvolvimento e a outbox do nucleo publica nele. A ADR-0018 deixou a escolha do broker em aberto.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P03",
+  "created_at": "2026-11-06T16:40:00-03:00",
+  "expires_at": "2026-11-07T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "Define o broker do compose de dev e o cliente usado pela outbox e pelos 3 servicos. Hospedagem de producao (D8) continua em aberto.",
+    "justification": "Regra 3 do AISEF: decisao arquitetural e do usuario.",
+    "requirement_ids": [
+      "REQ-P01"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-RABBITMQ",
+      "label": "RabbitMQ",
+      "description": "Broker AMQP maduro, cliente oficial .NET, filas e roteamento simples, painel de gestao.",
+      "impacts": [
+        "Imagem leve no compose",
+        "Ecossistema .NET amplo"
+      ],
+      "risks": [
+        "Sem replay de eventos nativo"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    },
+    {
+      "option_id": "OPT-KAFKA",
+      "label": "Kafka ou Redpanda",
+      "description": "Log de eventos com retencao e replay.",
+      "impacts": [
+        "Replay e alto volume"
+      ],
+      "risks": [
+        "Operacao mais pesada para time pequeno"
+      ],
+      "cost": "Medio a alto",
+      "migration": "Nenhuma"
+    },
+    {
+      "option_id": "OPT-REDIS",
+      "label": "Redis Streams",
+      "description": "Streams no Redis.",
+      "impacts": [
+        "Leve"
+      ],
+      "risks": [
+        "Garantias e ferramentas limitadas"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    },
+    {
+      "option_id": "OPT-NATS",
+      "label": "NATS JetStream",
+      "description": "Mensageria leve com persistencia.",
+      "impacts": [
+        "Leve e rapido"
+      ],
+      "risks": [
+        "Ecossistema .NET menor"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-RABBITMQ",
+    "rationale": "Eventos de dominio entre nucleo e 3 servicos, sem necessidade de replay em massa; maturidade em .NET e operacao simples."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P03"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Troca futura de broker",
+        "severity": "low",
+        "mitigation": "Publicacao atras de porta no nucleo (outbox), trocavel por adapter"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/620",
+    "decided_event_ref": "events/621"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T13:03:55-03:00",
+    "selected_option_id": "OPT-RABBITMQ",
+    "note": "Usuario escolheu RabbitMQ no chat em 2026-11-06"
+  }
+}

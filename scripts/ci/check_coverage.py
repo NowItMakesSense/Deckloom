@@ -26,8 +26,13 @@ PRODUCT_PACKAGES = (
     "Deckloom.Accounts.Domain",
     "Deckloom.Accounts.Infrastructure",
     "Deckloom.Api",
+    "Deckloom.Catalog.Application",
+    "Deckloom.Catalog.Infrastructure",
     "Deckloom.DeckSuggestion.Infrastructure",
+    "Deckloom.MetaIngestionService",
+    "Deckloom.NotificationService",
     "Deckloom.SharedKernel",
+    "Deckloom.SuggestionService",
 )
 
 TEST_SUPPORT_PACKAGES = (

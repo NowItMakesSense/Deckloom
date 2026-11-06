@@ -1,0 +1,87 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-020",
+  "request_type": "scope_change_decision",
+  "title": "RabbitMQ sem porta publicada (SEC-17) e pendencias da outbox registradas na ADR-0018",
+  "summary": "A validacao de T-P03/T-P03B achou 3 testes de higiene vermelhos: o rabbitmq publicava portas (SEC-17 so permite web e mail), a lista fixa de servicos do compose e as variaveis ausentes no .env.example. Tambem aceitou com condicoes o publicador no-op e apontou a falta de retencao da outbox (PlayerId sobrevive a exclusao da conta).",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P03B",
+  "created_at": "2026-11-06T18:10:00-03:00",
+  "expires_at": "2026-11-07T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "T-P03B v2 (devops): remove ports do rabbitmq, ajusta ComposeBrokerTests (exigir ausencia de ports) e a lista de servicos do RepoHygieneTests T005, e emenda a ADR-0018 (broker RabbitMQ APR-016, sem porta publicada, publicador no-op ate o adapter, adapter + retencao/limpeza da outbox incluindo exclusao de conta obrigatorios antes do primeiro consumidor ou de producao).",
+    "justification": "Regra 4 do AISEF; SEC-17 da conta-jogador.",
+    "requirement_ids": [
+      "REQ-P01"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-SEM-PORTA",
+      "label": "Sem porta publicada; outbox registrada e tratada depois",
+      "description": "Broker so na rede interna do compose, como o db; emenda na ADR-0018 com as condicoes da outbox.",
+      "impacts": [
+        "SEC-17 intacta",
+        "Painel so via docker exec"
+      ],
+      "risks": [
+        "Retencao da outbox fica para depois"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    },
+    {
+      "option_id": "OPT-LOOPBACK",
+      "label": "Portas em loopback",
+      "description": "5672/15672 em 127.0.0.1; emenda a SEC-17 e afrouxa o T153.",
+      "impacts": [
+        "Painel no navegador"
+      ],
+      "risks": [
+        "Afrouxa regra de seguranca aceita"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-SEM-PORTA",
+    "rationale": "Mantem a SEC-17 sem excecao; a API alcanca o broker pela rede interna."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P03",
+      "T-P03B"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "PlayerId na outbox sem limpeza (LGPD)",
+        "severity": "medium",
+        "mitigation": "Obrigacao registrada na ADR-0018: retencao e limpeza antes do primeiro consumidor ou de producao"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/725",
+    "decided_event_ref": "events/726"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T13:29:04-03:00",
+    "selected_option_id": "OPT-SEM-PORTA",
+    "note": "Usuario escolheu no chat em 2026-11-06: sem porta publicada; outbox registrar e tratar depois"
+  }
+}

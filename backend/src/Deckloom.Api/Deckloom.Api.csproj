@@ -3,6 +3,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Modules\Accounts\Deckloom.Accounts.Application\Deckloom.Accounts.Application.csproj" />
     <ProjectReference Include="..\Modules\Accounts\Deckloom.Accounts.Infrastructure\Deckloom.Accounts.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Catalog\Deckloom.Catalog.Application\Deckloom.Catalog.Application.csproj" />
+    <ProjectReference Include="..\Modules\Catalog\Deckloom.Catalog.Infrastructure\Deckloom.Catalog.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\DeckSuggestion\Deckloom.DeckSuggestion.Infrastructure\Deckloom.DeckSuggestion.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-019",
+  "request_type": "operation_approval",
+  "title": "Ler e acrescentar 2 variaveis de exemplo no .env.example (RabbitMQ)",
+  "summary": "O orquestrador le o .env.example (arquivo de exemplo versionado, sem segredos reais) e acrescenta RABBITMQ_DEFAULT_USER e RABBITMQ_DEFAULT_PASS com valores obviamente falsos, no estilo das entradas existentes. Nao toca o .env.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P03B",
+  "created_at": "2026-11-06T17:30:00-03:00",
+  "expires_at": "2026-11-06T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "operation": {
+    "environment": "dev",
+    "resource_class": "sensitive_files",
+    "operation": "read + append 2 linhas em .env.example",
+    "destructive": false,
+    "sensitive_content_shown": false
+  },
+  "presented": {
+    "impact": "Documenta as variaveis que o servico rabbitmq do compose exige; nenhum valor real.",
+    "rollback_plan": "git checkout -- .env.example",
+    "justification": "AC-P03b (credenciais do broker vindas do ambiente) e decisao do usuario em 2026-11-06 (autorizacao pontual para .env.example).",
+    "requirement_ids": [
+      "REQ-P01"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Arquivo classificado como sensivel",
+        "severity": "low",
+        "mitigation": "So exemplo versionado; .env nunca e lido"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P03B"
+    ],
+    "independent_work_continues": true
+  },
+  "audit": {
+    "requested_event_ref": "events/690",
+    "decided_event_ref": "events/691"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T13:18:03-03:00",
+    "note": "Usuario autorizou no chat em 2026-11-06 a edicao pontual do .env.example"
+  }
+}

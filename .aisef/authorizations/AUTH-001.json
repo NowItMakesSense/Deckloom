@@ -1,0 +1,60 @@
+{
+  "schema_version": "0.1.0",
+  "kind": "scope",
+  "authorization_id": "AUTH-001",
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "cycle": 1,
+  "environment": "dev",
+  "resources": [
+    "config_ci_iac"
+  ],
+  "resource_filters": {
+    "paths": [
+      "docker-compose.yml",
+      ".github/workflows/ci.yml",
+      "scripts/ci/**"
+    ],
+    "agents": [
+      "devops"
+    ],
+    "tasks": [
+      "T-P03B",
+      "T-P05"
+    ]
+  },
+  "operations": [
+    "edit_files"
+  ],
+  "excludes_destructive_operations": true,
+  "limits": {
+    "max_operations": 60
+  },
+  "validity": {
+    "valid_from": "2026-11-06T17:20:00-03:00",
+    "valid_until": "2026-11-07T23:59:00-03:00"
+  },
+  "termination_condition": [
+    "expiry",
+    "feature_accepted"
+  ],
+  "stop_conditions": [
+    "scope_exceeded",
+    "environment_changed",
+    "unexpected_risk",
+    "architectural_decision_needed",
+    "mandatory_approval_needed"
+  ],
+  "policy_version": "0.1.0",
+  "revocable": true,
+  "status": "active",
+  "granted_by": "user",
+  "granted_at": "2026-11-06T13:17:20-03:00",
+  "history": [
+    {
+      "event": "granted",
+      "at": "2026-11-06T13:17:20-03:00",
+      "by": "user"
+    }
+  ]
+}

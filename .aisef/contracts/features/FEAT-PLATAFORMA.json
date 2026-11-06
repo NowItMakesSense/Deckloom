@@ -202,23 +202,32 @@
     },
     {
       "task_id": "T-P03",
-      "contract_version": 1,
+      "contract_version": 2,
       "role": "backend",
       "depends_on": [
         "T-P02"
       ]
     },
     {
-      "task_id": "T-P04",
+      "task_id": "T-P03B",
       "contract_version": 2,
-      "role": "database",
+      "role": "devops",
       "depends_on": [
-        "T-P01"
+        "T-P02"
+      ]
+    },
+    {
+      "task_id": "T-P04",
+      "contract_version": 5,
+      "role": "backend",
+      "depends_on": [
+        "T-P01",
+        "T-P02"
       ]
     },
     {
       "task_id": "T-P05",
-      "contract_version": 1,
+      "contract_version": 2,
       "role": "devops",
       "depends_on": [
         "T-P02"
@@ -237,6 +246,7 @@
         "T-P01",
         "T-P02",
         "T-P03",
+        "T-P03B",
         "T-P05"
       ],
       "criterion_ids": [

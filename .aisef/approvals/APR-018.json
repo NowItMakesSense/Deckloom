@@ -1,0 +1,68 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-018",
+  "request_type": "scope_authorization",
+  "title": "Escopo config_ci_iac em dev para o devops (compose do RabbitMQ e CI dos servicos)",
+  "summary": "Permite ao agente devops editar docker-compose.yml (servico rabbitmq, T-P03B) e ci.yml/scripts/ci (T-P05) em dev. Nao inclui .env, .env.example nem operacoes destrutivas.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P03B",
+  "created_at": "2026-11-06T17:20:00-03:00",
+  "expires_at": "2026-11-07T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "Gateway libera escrita de config_ci_iac nesses 3 caminhos ao devops, sem novo prompt, ate a feature ser aceita ou o prazo vencer.",
+    "rollback_plan": "Revogar a autorizacao; mudancas de arquivo revertidas por git.",
+    "justification": "Gateway negou ao backend a edicao do compose (fora do teto); devops tem config_ci_iac no teto.",
+    "requirement_ids": [
+      "REQ-P01"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Mudanca de CI pode afrouxar portoes",
+        "severity": "low",
+        "mitigation": "Validador independente e CI verde exigidos"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P03B",
+      "T-P05"
+    ],
+    "independent_work_continues": true
+  },
+  "scope_proposal": {
+    "environment": "dev",
+    "resources": [
+      "config_ci_iac"
+    ],
+    "operations": [
+      "edit_files"
+    ],
+    "valid_until": "2026-11-07T23:59:00-03:00"
+  },
+  "audit": {
+    "requested_event_ref": "events/673",
+    "decided_event_ref": "events/676"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T13:17:20-03:00",
+    "note": "Usuario escolheu no chat em 2026-11-06: devops + autorizacao"
+  },
+  "resulting_ref": {
+    "kind": "scope_authorization",
+    "id": "AUTH-001"
+  }
+}

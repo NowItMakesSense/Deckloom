@@ -1,0 +1,31 @@
+{
+  "schema_version": "0.1.0",
+  "kind": "reinforced",
+  "approval_id": "RA-001",
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-002",
+  "requested_by_agent": "orchestrator",
+  "environment": "dev",
+  "resource_class": "git",
+  "operation": "git push origin --delete chore/aceite-sem-database-colunas-imutaveis",
+  "destructive": true,
+  "presented": {
+    "plan_or_diff_ref": "PR merged; branch contida na main (75bc3eb)",
+    "impact": "Apaga a branch remota chore/aceite-sem-database-colunas-imutaveis. O conteudo ja esta na main (75bc3eb).",
+    "rollback_plan": "Recriar a branch a partir do commit: git branch chore/aceite-sem-database-colunas-imutaveis 75bc3eb && git push origin chore/aceite-sem-database-colunas-imutaveis",
+    "justification": "Regra permanente do usuario (2026-11-06): apos merge bem-sucedido, apagar sempre a branch local e a remota.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ]
+  },
+  "single_use": true,
+  "scope_authorization_reused": false,
+  "validity_minutes": 30,
+  "issued_at": "2026-11-06T13:43:21-03:00",
+  "expires_at": "2026-11-06T14:13:21-03:00",
+  "status": "approved",
+  "policy_version": "0.1.0",
+  "decided_by": "user",
+  "decided_at": "2026-11-06T13:43:21-03:00"
+}

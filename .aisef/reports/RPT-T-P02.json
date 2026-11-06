@@ -1,0 +1,244 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-P02",
+  "task_id": "T-P02",
+  "contract_version": 1,
+  "feature_id": "FEAT-PLATAFORMA",
+  "agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "medium",
+    "level": 3,
+    "attempt": 1,
+    "routed_by": "user"
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T13:00:00-03:00",
+    "finished_at": "2026-11-06T13:40:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "backend/src/Services/Deckloom.SuggestionService/Deckloom.SuggestionService.csproj",
+        "sha256_after": "9b3d16a9d030a9cd8b1811a599fe05b53eb64031474d9f7899068dcf45cc4e40"
+      },
+      {
+        "path": "backend/src/Services/Deckloom.SuggestionService/Program.cs",
+        "sha256_after": "8cc4183948c66958886d6c538c1a041b16864980a7da6c772c7ae4572251c479"
+      },
+      {
+        "path": "backend/tests/Deckloom.SuggestionService.Tests/Deckloom.SuggestionService.Tests.csproj",
+        "sha256_after": "aa25b8c1b6be6558febfb62a1a9a5e1c19fa0a0761e90068f84fb8eb781bbabb"
+      },
+      {
+        "path": "backend/tests/Deckloom.SuggestionService.Tests/HealthEndpointTests.cs",
+        "sha256_after": "ebc1fc5e43ae61015f56f2dcc113135e874082d5b053a0caa365bc4646eff9b1"
+      },
+      {
+        "path": "backend/src/Services/Deckloom.MetaIngestionService/Deckloom.MetaIngestionService.csproj",
+        "sha256_after": "9b3d16a9d030a9cd8b1811a599fe05b53eb64031474d9f7899068dcf45cc4e40"
+      },
+      {
+        "path": "backend/src/Services/Deckloom.MetaIngestionService/Program.cs",
+        "sha256_after": "8cc4183948c66958886d6c538c1a041b16864980a7da6c772c7ae4572251c479"
+      },
+      {
+        "path": "backend/tests/Deckloom.MetaIngestionService.Tests/Deckloom.MetaIngestionService.Tests.csproj",
+        "sha256_after": "9bf53c955d515c93e28b3fdda7c5bdb891cb556c6186b2cf144506bad7012e42"
+      },
+      {
+        "path": "backend/tests/Deckloom.MetaIngestionService.Tests/HealthEndpointTests.cs",
+        "sha256_after": "193d07700658c3a40380af5d0936f11b8df60f1d9ff8d277fcf3ee2b83b5412e"
+      },
+      {
+        "path": "backend/src/Services/Deckloom.NotificationService/Deckloom.NotificationService.csproj",
+        "sha256_after": "9b3d16a9d030a9cd8b1811a599fe05b53eb64031474d9f7899068dcf45cc4e40"
+      },
+      {
+        "path": "backend/src/Services/Deckloom.NotificationService/Program.cs",
+        "sha256_after": "8cc4183948c66958886d6c538c1a041b16864980a7da6c772c7ae4572251c479"
+      },
+      {
+        "path": "backend/tests/Deckloom.NotificationService.Tests/Deckloom.NotificationService.Tests.csproj",
+        "sha256_after": "682abf6b7eb977f2c1bc450c1ae4145987696ebaf5168735c696cabaf3f7da87"
+      },
+      {
+        "path": "backend/tests/Deckloom.NotificationService.Tests/HealthEndpointTests.cs",
+        "sha256_after": "b38d01c8d3c328db141d10721313558746d538b59e0371cbd4f44f73b04620da"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/ServiceIsolationTests.cs",
+        "sha256_after": "9056d52f178b268ea05bd4189d6e27a3228313d1cd8b5b3ba6d9dbed44eeef50"
+      }
+    ],
+    "modified": [
+      {
+        "path": "backend/Deckloom.sln",
+        "sha256_after": "0b5529933b41037f3e597eb25783305ab5bff507ee998f977b684d8c8e2f2958",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/SolutionLayout.cs",
+        "sha256_after": "031126130212043251f3144c1d3df02cbb21f1249b668fb429956c005b43872c",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/SastScopeTests.cs",
+        "sha256_after": "a4c6bec7493952c87943be08824030e9b43207a4d1382f6cefad811e6c982236",
+        "sha256_before": "n/a (sem operacao Git)"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Tres hosts ASP.NET Core minimos com GET /health, projetos de teste e entradas na solution.",
+      "reason": "REQ-P01, REQ-P03",
+      "requirement_ids": [
+        "REQ-P01",
+        "REQ-P03"
+      ],
+      "files": [
+        "backend/src/Services/Deckloom.SuggestionService/Deckloom.SuggestionService.csproj",
+        "backend/src/Services/Deckloom.SuggestionService/Program.cs",
+        "backend/tests/Deckloom.SuggestionService.Tests/Deckloom.SuggestionService.Tests.csproj",
+        "backend/tests/Deckloom.SuggestionService.Tests/HealthEndpointTests.cs",
+        "backend/src/Services/Deckloom.MetaIngestionService/Deckloom.MetaIngestionService.csproj",
+        "backend/src/Services/Deckloom.MetaIngestionService/Program.cs",
+        "backend/tests/Deckloom.MetaIngestionService.Tests/Deckloom.MetaIngestionService.Tests.csproj",
+        "backend/tests/Deckloom.MetaIngestionService.Tests/HealthEndpointTests.cs",
+        "backend/src/Services/Deckloom.NotificationService/Deckloom.NotificationService.csproj",
+        "backend/src/Services/Deckloom.NotificationService/Program.cs",
+        "backend/tests/Deckloom.NotificationService.Tests/Deckloom.NotificationService.Tests.csproj",
+        "backend/tests/Deckloom.NotificationService.Tests/HealthEndpointTests.cs",
+        "backend/Deckloom.sln"
+      ]
+    },
+    {
+      "summary": "ServiceIsolationTests e helpers em SolutionLayout: nucleo nao referencia servico e vice-versa.",
+      "reason": "REQ-P01",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "backend/tests/Deckloom.ArchitectureTests/ServiceIsolationTests.cs",
+        "backend/tests/Deckloom.ArchitectureTests/SolutionLayout.cs"
+      ]
+    },
+    {
+      "summary": "SastScopeTests passa a considerar so o nucleo (servicos ficam fora da closure da Api por desenho, ADR-0018).",
+      "reason": "Teste existente falhava por causa dos servicos novos",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "backend/tests/Deckloom.ArchitectureTests/SastScopeTests.cs"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2831,
+    "passed": 2831,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "HealthEndpointTests x3 (um por servico)",
+      "ServiceIsolationTests (3 testes)"
+    ],
+    "regression_run": true,
+    "commands": [
+      "dotnet build backend/Deckloom.sln -c Release",
+      "dotnet test backend/Deckloom.sln",
+      "dotnet format backend/Deckloom.sln --verify-no-changes"
+    ],
+    "evidence_ids": [
+      "EV-BUILD",
+      "EV-TEST",
+      "EV-RED"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-BUILD",
+      "type": "command_output",
+      "ref": "build Release 0 avisos, 0 erros; dotnet format --verify-no-changes exit 0; sln contem 3 servicos + 3 projetos de teste",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-TEST",
+      "type": "test_output",
+      "ref": "dotnet test: 2831 aprovados, 0 falhas (Architecture 151, Accounts.Application 815, Domain 606, Infrastructure 591, Api 647, DeckSuggestion.Infra 19, 3 servicos 1 cada)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-RED",
+      "type": "command_output",
+      "ref": "Com Api->SuggestionService e NotificationService->SharedKernel temporarios: ServiceIsolationTests 2 falhas ('Deckloom.Api -> Deckloom.SuggestionService', 'Deckloom.NotificationService -> Deckloom.SharedKernel'); revertido, 3 verdes. Health: sem MapHealthChecks retornou 404 (vermelho).",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-P02a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-BUILD"
+      ]
+    },
+    {
+      "criterion_id": "AC-P02b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-TEST",
+        "EV-RED"
+      ]
+    },
+    {
+      "criterion_id": "AC-P02c",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-TEST",
+        "EV-RED"
+      ]
+    }
+  ],
+  "problems": [],
+  "risks": [
+    {
+      "description": "Servicos fora da closure da Api: CodeQL (SAST) nao os cobre ate o workflow ser ajustado.",
+      "severity": "medium",
+      "mitigation": "T-P05 deve incluir build dos servicos no SAST e coverage (fora dos caminhos desta tarefa)."
+    }
+  ],
+  "pending": [
+    "T-P05: CI/CodeQL/cobertura dos novos projetos (.github, scripts/ci)",
+    "Dockerfile/compose dos servicos (fora de escopo)"
+  ],
+  "limitations": [
+    "Servicos sao so esqueleto; sem regra de negocio, persistencia ou mensageria.",
+    "Tarefa nao tocou em coverlet/check_coverage; cobertura dos servicos nao medida."
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/71cc49a0-1190-4aec-9b7f-ab64e2de1b9d/scratchpad/RPT-T-P02-tecnico.md",
+    "sha256": "dfd469d4d097dbdff5f429bdb3458a641e9b4b4563210433f7a608c15bb4abb9"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T13:40:00-03:00",
+    "event_log_ref": ".aisef/audit"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-015",
+  "request_type": "scope_change_decision",
+  "title": "T-P04: catalogo de TCGs num modulo Catalogo novo do nucleo",
+  "summary": "O contrato v2 da T-P04 so libera Migrations/Persistence, mas nao existe modulo de catalogo, pasta Persistence nem caminho de teste (TDD). O TCG favorito do jogador e lista fixa em codigo (FavoriteTcg, so mtg) e a feature exclui mudar requisitos da conta-jogador. A decisao define como a T-P04 entrega o catalogo dos 5 TCGs.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P04",
+  "created_at": "2026-11-06T16:10:00-03:00",
+  "expires_at": "2026-11-07T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "T-P04 passa para a v3: ganha caminhos do modulo novo (backend/src/Modules/Catalog/**, backend/tests/Deckloom.Catalog.*.Tests/**, backend/Deckloom.sln) e passa a depender da T-P02 (as duas editam o .sln). O TCG favorito continua so mtg ate a feature da conta.",
+    "justification": "Regra 4 do AISEF (escopo nao muda sozinho); ADR-0007 e ADR-0018 (catalogo e modulo do nucleo).",
+    "requirement_ids": [
+      "REQ-P02"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-1",
+      "label": "Modulo Catalogo (sem mudar TCG favorito)",
+      "description": "Novo modulo Catalog no nucleo: tabela catalog.tcg com os 5 TCGs, migration com rollback, testes em SQLite e porta de leitura.",
+      "impacts": [
+        "Catalogo com dono claro (ADR-0018)",
+        "Amplia paths da T-P04",
+        "T-P04 depois da T-P02"
+      ],
+      "risks": [
+        "Dado sem consumidor ate a feature da conta"
+      ],
+      "cost": "Baixo",
+      "migration": "Migration nova gerada como arquivo"
+    },
+    {
+      "option_id": "OPT-2",
+      "label": "Modulo Catalogo + TCG favorito",
+      "description": "OPT-1 e o TCG favorito passa a aceitar os 5 TCGs pelo catalogo.",
+      "impacts": [
+        "Muda requisito da conta-jogador (excluido da feature)"
+      ],
+      "risks": [
+        "Mudanca de requisito sem Feature Contract proprio"
+      ],
+      "cost": "Medio",
+      "migration": "Alterar FK/constraint de favorite_tcg"
+    },
+    {
+      "option_id": "OPT-3",
+      "label": "So migration no Accounts",
+      "description": "Tabela e carga dos 5 TCGs numa migration do Accounts, sem codigo que a use.",
+      "impacts": [
+        "Menor mudanca"
+      ],
+      "risks": [
+        "Dado sem dono nem consumidor; contraria ADR-0018"
+      ],
+      "cost": "Baixo",
+      "migration": "Migration no Accounts"
+    },
+    {
+      "option_id": "OPT-4",
+      "label": "Adiar a T-P04",
+      "description": "Remove a T-P04 desta feature; catalogo multi-TCG vira feature propria.",
+      "impacts": [
+        "Feature fecha sem REQ-P02"
+      ],
+      "risks": [
+        "REQ-P02 sem cobertura"
+      ],
+      "cost": "Nenhum agora",
+      "migration": "Nenhuma"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-1",
+    "rationale": "Mantem o catalogo como dado com dono (ADR-0007/0018) sem violar a exclusao da conta-jogador."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P04"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Ampliacao de escopo da T-P04",
+        "severity": "low",
+        "mitigation": "Paths explicitos e validador independente"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/571",
+    "decided_event_ref": "events/574"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T12:47:21-03:00",
+    "selected_option_id": "OPT-1",
+    "note": "Usuario escolheu no chat em 2026-11-06: Modulo Catalogo (Recomendado)"
+  }
+}

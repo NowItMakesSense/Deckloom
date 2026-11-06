@@ -9,8 +9,8 @@ namespace Deckloom.Accounts.Infrastructure;
 public sealed class NpgsqlDatabaseRoleInspector(IDbContextFactory<AccountsDbContext> contextFactory) : IDatabaseRoleInspector
 {
     // Colunas, em ordem: rolname, current_database(), rolsuper, rolcreaterole, rolcreatedb, rolbypassrls,
-    // CREATE no banco, CREATE no esquema accounts, CREATE no esquema deck_suggestion, posse de objetos ou
-    // esquemas nos dois esquemas. Esquema inexistente conta como "sem privilegio" em vez de falhar.
+    // CREATE no banco, CREATE no esquema accounts, CREATE no esquema deck_suggestion, CREATE no esquema catalog,
+    // posse de objetos ou esquemas nos tres esquemas. Esquema inexistente conta como "sem privilegio" em vez de falhar.
     private const string Query = """
         SELECT r.rolname,
                current_database(),
@@ -23,10 +23,12 @@ public sealed class NpgsqlDatabaseRoleInspector(IDbContextFactory<AccountsDbCont
                     ELSE has_schema_privilege(r.rolname, 'accounts', 'CREATE') END,
                CASE WHEN to_regnamespace('deck_suggestion') IS NULL THEN false
                     ELSE has_schema_privilege(r.rolname, 'deck_suggestion', 'CREATE') END,
+               CASE WHEN to_regnamespace('catalog') IS NULL THEN false
+                    ELSE has_schema_privilege(r.rolname, 'catalog', 'CREATE') END,
                EXISTS (SELECT 1 FROM pg_namespace n
-                       WHERE n.nspname IN ('accounts', 'deck_suggestion') AND n.nspowner = r.oid)
+                       WHERE n.nspname IN ('accounts', 'deck_suggestion', 'catalog') AND n.nspowner = r.oid)
                OR EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-                          WHERE n.nspname IN ('accounts', 'deck_suggestion') AND c.relowner = r.oid)
+                          WHERE n.nspname IN ('accounts', 'deck_suggestion', 'catalog') AND c.relowner = r.oid)
         FROM pg_roles r
         WHERE r.rolname = current_user
         """;
@@ -56,7 +58,8 @@ public sealed class NpgsqlDatabaseRoleInspector(IDbContextFactory<AccountsDbCont
             CanCreateInDatabase = reader.GetBoolean(6),
             CanCreateInAccountsSchema = reader.GetBoolean(7),
             CanCreateInDeckSuggestionSchema = reader.GetBoolean(8),
-            OwnsObjects = reader.GetBoolean(9),
+            CanCreateInCatalogSchema = reader.GetBoolean(9),
+            OwnsObjects = reader.GetBoolean(10),
         };
     }
 }

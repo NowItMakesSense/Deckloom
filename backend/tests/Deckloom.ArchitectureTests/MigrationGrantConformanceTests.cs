@@ -4,11 +4,12 @@ using Deckloom.ArchitectureTests.Support;
 namespace Deckloom.ArchitectureTests;
 
 /// <summary>
-/// T-066 (RED, ADR-0015). Os GRANT emitidos pelas migracoes geradas (Accounts e DeckSuggestion) so concedem USAGE nos
+/// T-066 (RED, ADR-0015). Os GRANT emitidos pelas migracoes geradas (Accounts, DeckSuggestion e Catalog) so concedem USAGE nos
 /// schemas do sistema, sem instrucao proibida e sempre com SQL literal. Verificacao estatica de arquivos .cs:
 /// nada e executado e nenhum banco e consultado.
 /// Layout (orquestrador): as migracoes ficam em src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations e
-/// src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/Migrations.
+/// src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/Migrations e
+/// src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations (T-P04).
 /// </summary>
 public sealed partial class MigrationGrantConformanceTests
 {
@@ -18,6 +19,7 @@ public sealed partial class MigrationGrantConformanceTests
     [
         "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations",
         "backend/src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/Migrations",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations",
     ];
 
     [GeneratedRegex(@"^(?<stamp>\d{14})_")]
@@ -57,11 +59,11 @@ public sealed partial class MigrationGrantConformanceTests
         MigrationGrantAnalyzer.Analyze(AllMigrationFiles().SelectMany(LiteralsOf));
 
     [Fact]
-    public void T066_migrations_grant_usage_on_exactly_the_accounts_and_deck_suggestion_schemas()
+    public void T066_migrations_grant_usage_on_exactly_the_accounts_catalog_and_deck_suggestion_schemas()
     {
         var analysis = AnalyzeAll();
 
-        Assert.Equal(["accounts", "deck_suggestion"], analysis.SchemaUsage.Order().ToList());
+        Assert.Equal(["accounts", "catalog", "deck_suggestion"], analysis.SchemaUsage.Order().ToList());
     }
 
     [Fact]

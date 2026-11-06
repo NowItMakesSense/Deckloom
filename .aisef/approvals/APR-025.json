@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-025",
+  "request_type": "scope_change_decision",
+  "title": "T-P04: ids dos TCGs, Catalog na composicao do Api e schema catalog nas verificacoes de papeis",
+  "summary": "A T-P04 v4 entregou o modulo Catalog (AC-P04a ok), mas SastScopeTests ficou vermelho (Catalog fora da closure do Deckloom.Api) e as verificacoes de papeis (NpgsqlDatabaseRoleInspector, DatabaseRolePolicy, scripts/db/criar-banco-local.ps1) so conhecem accounts e deck_suggestion.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P04",
+  "created_at": "2026-11-06T19:30:00-03:00",
+  "expires_at": "2026-11-07T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "Ids confirmados: mtg, pokemon, yugioh, onepiece, lorcana (nomes sem acento, como no REQ-P02). T-P04 v5 ganha Deckloom.Api (ProjectReference + registro do TcgCatalogDbContext e de ITcgCatalog, sem endpoint), Api.Tests, DatabaseRole do Accounts.Infrastructure e seus testes, e scripts/db/criar-banco-local.ps1.",
+    "justification": "Regra 4 do AISEF; guarda de SAST (SastScopeTests) e ADR-0015.",
+    "requirement_ids": [
+      "REQ-P02"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-REGISTRAR-PAPEIS",
+      "label": "Referenciar + registrar; papeis nesta feature",
+      "description": "Api referencia e registra o Catalog; schema catalog entra nas verificacoes de papeis e no script local.",
+      "impacts": [
+        "SAST cobre o Catalog",
+        "Migration aplicavel com papeis corretos"
+      ],
+      "risks": [
+        "Escopo maior da T-P04"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma nova"
+    },
+    {
+      "option_id": "OPT-SO-REFERENCIA",
+      "label": "So referenciar; papeis depois",
+      "description": "So ProjectReference no Api; papeis em item proprio.",
+      "impacts": [
+        "Menor"
+      ],
+      "risks": [
+        "Verificacoes de papeis incompletas"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-REGISTRAR-PAPEIS",
+    "rationale": "Mantem a guarda de SAST e a ADR-0015 completas para o schema novo."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P04"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Mudanca no inspetor de papeis em uso na partida da Api",
+        "severity": "low",
+        "mitigation": "TDD e suite completa; validador independente"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/978",
+    "decided_event_ref": "events/979"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T14:46:18-03:00",
+    "selected_option_id": "OPT-REGISTRAR-PAPEIS",
+    "note": "Usuario no chat em 2026-11-06: confirma ids, referenciar + registrar, papeis nesta feature"
+  }
+}

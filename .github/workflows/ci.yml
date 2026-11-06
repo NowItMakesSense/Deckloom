@@ -178,9 +178,15 @@ jobs:
         uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
         with:
           dotnet-version: "10.0.x"
-      - name: Build para o CodeQL (somente C#, modo manual; so Deckloom.Api e a closure dele, SEC-29)
+      # SEC-29: sem a solucao inteira (so Api e os servicos de src/Services, sem projetos de teste). A lista
+      # de servicos e vigiada por scripts/ci/test_ci_workflow.py: csproj novo em src/Services sem linha aqui falha.
+      - name: Build para o CodeQL (somente C#, modo manual; Deckloom.Api e os servicos de src/Services, SEC-29)
         if: matrix.language == 'csharp'
-        run: dotnet build backend/src/Deckloom.Api/Deckloom.Api.csproj -c Release
+        run: |
+          dotnet build backend/src/Deckloom.Api/Deckloom.Api.csproj -c Release
+          dotnet build backend/src/Services/Deckloom.SuggestionService/Deckloom.SuggestionService.csproj -c Release
+          dotnet build backend/src/Services/Deckloom.MetaIngestionService/Deckloom.MetaIngestionService.csproj -c Release
+          dotnet build backend/src/Services/Deckloom.NotificationService/Deckloom.NotificationService.csproj -c Release
       - name: Analisar (CodeQL, ${{ matrix.language }}; envia ao Code Scanning e grava SARIF local)
         uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
         with:

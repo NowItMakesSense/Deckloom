@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-P03B",
+  "task_id": "T-P03B",
+  "contract_version": 2,
+  "feature_id": "FEAT-PLATAFORMA",
+  "agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "medium",
+    "level": 3,
+    "attempt": 2,
+    "routed_by": "user",
+    "reasons": [
+      "instrucao do orquestrador: model=sonnet effort=medium level=3 (v2)"
+    ]
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T18:00:00-03:00",
+    "finished_at": "2026-11-06T18:20:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 1,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [],
+    "modified": [
+      {
+        "path": "docker-compose.yml",
+        "sha256_after": "5b059572555d72da44f3fc445d14d3b5e671906f32cba53c145d122062b3c58a"
+      },
+      {
+        "path": "backend/tests/Deckloom.Api.Tests/ComposeBrokerTests.cs"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/RepoHygieneTests.cs"
+      },
+      {
+        "path": "docs/adr/0018-arquitetura-nucleo-modular-com-servicos-de-carga-propria.md"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Servico rabbitmq sem bloco ports (so rede interna), tag fixa, credenciais via ${...}, healthcheck e volume nomeado.",
+      "reason": "AC-P03b / APR-016 / APR-020 (SEC-17).",
+      "requirement_ids": [
+        "AC-P03b"
+      ],
+      "files": [
+        "docker-compose.yml"
+      ]
+    },
+    {
+      "summary": "ComposeBrokerTests: teste de loopback trocado por exigencia de ausencia de ports no rabbitmq; T005 passa a listar rabbitmq.",
+      "reason": "APR-020; falhas da validacao da v1.",
+      "requirement_ids": [
+        "AC-P03b"
+      ],
+      "files": [
+        "backend/tests/Deckloom.Api.Tests/ComposeBrokerTests.cs",
+        "backend/tests/Deckloom.ArchitectureTests/RepoHygieneTests.cs"
+      ]
+    },
+    {
+      "summary": "ADR-0018: secao Emendas com Emenda 1 (RabbitMQ, sem porta, outbox no Accounts com publicador no-op/log, obrigacoes antes de producao, at-least-once) e pontos em aberto atualizados.",
+      "reason": "APR-016, APR-017, APR-020.",
+      "requirement_ids": [
+        "AC-P03b"
+      ],
+      "files": [
+        "docs/adr/0018-arquitetura-nucleo-modular-com-servicos-de-carga-propria.md"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2845,
+    "passed": 2844,
+    "failed": 1,
+    "skipped": 0,
+    "new_tests": [
+      "AC_P03b_the_broker_publishes_no_ports_and_is_reached_only_through_the_internal_network"
+    ],
+    "regression_run": true,
+    "commands": [
+      "dotnet test backend/tests/Deckloom.Api.Tests --filter ComposeBrokerTests (vermelho antes do compose, verde depois)",
+      "dotnet test backend/Deckloom.sln (2844 de 2845; falha unica: T005_every_compose_variable_is_declared_in_env_example)",
+      "dotnet format backend/Deckloom.sln --verify-no-changes (exit 0)",
+      "docker compose --env-file <vazio> config --quiet com variaveis falsas so na linha de comando (exit 0)",
+      "dotnet build-server shutdown"
+    ],
+    "evidence_ids": [
+      "EV-T-P03B-01",
+      "EV-T-P03B-02",
+      "EV-T-P03B-03"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-P03B-01",
+      "type": "test_output",
+      "ref": "ComposeBrokerTests antes do compose: 1 falha de 4 (ports presente); depois: 4 aprovados",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P03B-02",
+      "type": "command_output",
+      "ref": "dotnet format --verify-no-changes exit 0; docker compose config --quiet exit 0",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P03B-03",
+      "type": "test_output",
+      "ref": "dotnet test backend/Deckloom.sln: Total 2845, Aprovado 2844, Falha 1 (T005_every_compose_variable_is_declared_in_env_example); T153 e T005 de servicos aprovados",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-P03b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-P03B-01",
+        "EV-T-P03B-02",
+        "EV-T-P03B-03"
+      ],
+      "notes": "Broker sem porta publicada, credenciais do ambiente sem literal, healthcheck. Unica falha da suite e externa (arquivo de exemplo de ambiente)."
+    }
+  ],
+  "problems": [],
+  "risks": [],
+  "pending": [
+    "Usuario: declarar RABBITMQ_DEFAULT_USER e RABBITMQ_DEFAULT_PASS no arquivo de exemplo de ambiente (T005_every_compose_variable_is_declared_in_env_example falha ate la).",
+    "Validacao independente pelo validator."
+  ],
+  "limitations": [
+    "Tag rabbitmq:4.1-management e de minor, nao confirmada online.",
+    "Compose validado so por sintaxe; nenhum container foi subido.",
+    "Nenhuma operacao Git; arquivos de ambiente nao foram lidos nem editados."
+  ],
+  "scope_discoveries": [],
+  "operations_log_ref": "aisef_project.py append --type task_started (E731) e --type task_executed (E745)",
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "scratchpad da sessao: RPT-T-P03B-v2-relatorio-tecnico.txt",
+    "sha256": "b5560a253598bc65d87b6a179a75ac0a387ae083d22efe5df19bfbccbc6b24b6"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T18:20:00-03:00",
+    "event_log_ref": "E745 (task_executed v2, aisef_project.py append)"
+  }
+}

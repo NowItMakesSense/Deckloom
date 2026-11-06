@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-022",
+  "request_type": "git_operation",
+  "title": "Apagar a branch chore/aceite-sem-database-colunas-imutaveis (local e remota) apos o merge do PR #1",
+  "summary": "Regra do usuario (2026-11-06): apos merge bem-sucedido, apagar sempre a branch local e a remota. PR #1 esta MERGED (commit 75bc3eb na main).",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-002",
+  "created_at": "2026-11-06T13:42:30-03:00",
+  "expires_at": "2026-11-06T14:12:30-03:00",
+  "policy_version": "0.1.0",
+  "validity_minutes": 30,
+  "required_acknowledgements": [
+    "impact_read",
+    "rollback_read",
+    "diff_reviewed"
+  ],
+  "operation": {
+    "environment": "dev",
+    "resource_class": "git",
+    "operation": "git push origin --delete chore/aceite-sem-database-colunas-imutaveis && git branch -D chore/aceite-sem-database-colunas-imutaveis",
+    "destructive": true,
+    "sensitive_content_shown": false
+  },
+  "git": {
+    "operation": "branch_delete",
+    "branch": "chore/aceite-sem-database-colunas-imutaveis",
+    "target_branch": "origin/chore/aceite-sem-database-colunas-imutaveis",
+    "covers_only_this_operation": true
+  },
+  "presented": {
+    "impact": "Remove a branch do GitHub e a local. O conteudo ja esta na main (75bc3eb, rebase do 90cf23b, arvores identicas).",
+    "diff_ref": "git diff 90cf23b origin/main -- vazio (arvores identicas)",
+    "rollback_plan": "Recriar a branch: git branch chore/aceite-sem-database-colunas-imutaveis 90cf23b && git push origin chore/aceite-sem-database-colunas-imutaveis",
+    "justification": "Regra permanente do usuario: apagar branch local e remota apos merge bem-sucedido.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Exclusao de branch",
+        "severity": "medium",
+        "mitigation": "PR merged e arvore identica a main; commit recuperavel pelo hash"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "audit": {
+    "requested_event_ref": "events/782",
+    "decided_event_ref": "events/783"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T13:42:30-03:00",
+    "note": "Regra permanente do usuario no chat em 2026-11-06: apagar branch local e remota apos merge",
+    "acknowledged": [
+      "impact_read",
+      "rollback_read",
+      "diff_reviewed"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # ADR-0001: Monólito modular em Clean Architecture, um único PostgreSQL com um schema por contexto
 
-- Status: Accepted (2026-10-23); emendada em 2026-10-24 (ver "Emendas")
+- Status: Superseded in part by ADR-0018 (2026-11-06); Accepted (2026-10-23); emendada em 2026-10-24 (ver "Emendas")
 - Date: 2026-10-22
 - Deciders: architect (proposta), aprovação do usuário no gate da fase 3 (feature `conta-jogador`)
 

@@ -1,7 +1,10 @@
 using Deckloom.Accounts.Application;
 using Deckloom.Accounts.Domain;
 using Deckloom.Accounts.Infrastructure;
+using Deckloom.Catalog.Application;
+using Deckloom.Catalog.Infrastructure;
 using Deckloom.DeckSuggestion.Infrastructure;
+using Deckloom.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -71,6 +74,10 @@ public static class AccountsModuleExtensions
             builder.UseNpgsql(
                 ConnectionString(sp),
                 npgsql => npgsql.MigrationsHistoryTable("__ef_migrations_history", FormatCatalogDbContext.SchemaName)));
+        services.AddDbContext<TcgCatalogDbContext>((sp, builder) =>
+            builder.UseNpgsql(
+                ConnectionString(sp),
+                npgsql => npgsql.MigrationsHistoryTable("__ef_migrations_history", TcgCatalogDbContext.SchemaName)));
 
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
         services.AddScoped<IPlayerRepository, EfPlayerRepository>();
@@ -78,12 +85,18 @@ public static class AccountsModuleExtensions
         services.AddScoped<IAccessAttemptStore, EfAccessAttemptStore>();
         services.AddScoped<IPendingGoogleAuthStore, EfPendingGoogleAuthStore>();
         services.AddScoped<IFormatCatalog, EfFormatCatalog>();
+        services.AddScoped<ITcgCatalog, EfTcgCatalog>();
         services.AddSingleton<IAvatarPresetCatalog, EfAvatarPresetCatalog>();
         services.AddScoped<IAvatarStorage>(sp => new PostgresAvatarStorage(
             sp.GetRequiredService<AccountsDbContext>(),
             sp.GetRequiredService<TimeProvider>(),
             sp.GetRequiredService<IOptions<AvatarOptions>>().Value.MaxBytes));
         services.AddSingleton<IPlayerDecksPurger, NoDecksYetPurger>();
+
+        // Outbox (APR-017): a gravacao ocorre no AccountsDbContext; o publicador padrao nao fala com broker nenhum.
+        services.AddScoped<IOutboxStore, EfOutboxStore>();
+        services.AddScoped<OutboxDispatcher>();
+        services.AddSingleton<IIntegrationEventPublisher, LoggingIntegrationEventPublisher>();
 
         // DB7/UA2: so existe com o adapter PostgreSQL; fabricas de teste e host E2E removem o inspetor.
         services.AddSingleton<IDatabaseRoleInspector, NpgsqlDatabaseRoleInspector>();
@@ -194,6 +207,7 @@ public static class AccountsModuleExtensions
     private static void AddBackgroundWork(IServiceCollection services)
     {
         services.AddHostedService<PasswordResetEmailWorker>();
+        services.AddHostedService<OutboxDispatchService>();
         services.AddHostedService(sp => new ExpiredDataCleanupService(
             async ct =>
             {

@@ -452,6 +452,40 @@ namespace Deckloom.Accounts.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Deckloom.SharedKernel.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("OccurredAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("occurred_at");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("payload");
+
+                    b.Property<DateTime?>("ProcessedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("processed_at");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_outbox_message");
+
+                    b.HasIndex("OccurredAt")
+                        .HasDatabaseName("ix_outbox_message_pending")
+                        .HasFilter("processed_at IS NULL");
+
+                    b.ToTable("outbox_message", "accounts");
+                });
+
             modelBuilder.Entity("Deckloom.Accounts.Domain.Player", b =>
                 {
                     b.HasOne("Deckloom.Accounts.Infrastructure.AvatarPresetRow", null)

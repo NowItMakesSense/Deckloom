@@ -1,5 +1,7 @@
 using System.Reflection;
+using System.Text.Json;
 using Deckloom.Accounts.Domain;
+using Deckloom.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,6 +16,9 @@ public class AccountsDbContext : DbContext
         typeof(Player).GetProperty(nameof(Player.Avatar))!;
 
     private readonly HashSet<PlayerId> _formatsLoaded = [];
+
+    // Eventos de dominio ja convertidos em outbox_message (por referencia: os eventos sao records com igualdade por valor).
+    private readonly HashSet<DomainEvent> _outboxed = new(ReferenceEqualityComparer.Instance);
 
     public AccountsDbContext(DbContextOptions<AccountsDbContext> options)
         : base(options)
@@ -33,7 +38,23 @@ public class AccountsDbContext : DbContext
     {
         StampAvatarAndTimestamps();
         await SyncPreferredFormats(cancellationToken);
-        return await base.SaveChangesAsync(cancellationToken);
+        var enqueued = EnqueueOutboxMessages();
+        try
+        {
+            var saved = await base.SaveChangesAsync(cancellationToken);
+            _outboxed.UnionWith(enqueued.Select(e => e.Source));
+            return saved;
+        }
+        catch
+        {
+            // O save falhou: as mensagens enfileiradas nao existem no banco e nao podem vazar para um novo commit.
+            foreach (var (_, entry) in enqueued)
+            {
+                entry.State = EntityState.Detached;
+            }
+
+            throw;
+        }
     }
 
     // Padrao de producao: coluna de sistema xmin do PostgreSQL. Os testes (SQLite) sobrescrevem.
@@ -61,6 +82,7 @@ public class AccountsDbContext : DbContext
         modelBuilder.ApplyConfiguration(new AccessAttemptEntityConfiguration());
         modelBuilder.ApplyConfiguration(new AvatarImageEntityConfiguration());
         modelBuilder.ApplyConfiguration(new AvatarPresetEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new OutboxMessageEntityConfiguration());
     }
 
     // Player.Formats nao e rastreado pelo EF: as linhas de player_preferred_format sao reconciliadas com o conjunto
@@ -86,6 +108,26 @@ public class AccountsDbContext : DbContext
             Set<PlayerPreferredFormat>().AddRange(
                 wanted.Where(f => !present.Contains(f)).Select(f => new PlayerPreferredFormat { PlayerId = playerId, FormatId = f }));
         }
+    }
+
+    // Outbox transacional (APR-017): cada evento de dominio ainda nao gravado dos agregados rastreados vira uma linha de
+    // outbox_message no MESMO SaveChanges (mesma transacao). DomainEvents do agregado nao e alterado.
+    private List<(DomainEvent Source, EntityEntry Entry)> EnqueueOutboxMessages()
+    {
+        var now = TimeProvider.System.GetUtcNow();
+        var enqueued = new List<(DomainEvent, EntityEntry)>();
+
+        foreach (var aggregate in ChangeTracker.Entries<AggregateRoot>().Where(e => e.State != EntityState.Detached).ToList())
+        {
+            foreach (var domainEvent in aggregate.Entity.DomainEvents.Where(e => !_outboxed.Contains(e)))
+            {
+                var message = OutboxMessage.Create(
+                    domainEvent.GetType().Name, JsonSerializer.Serialize(domainEvent, domainEvent.GetType()), now);
+                enqueued.Add((domainEvent, Set<OutboxMessage>().Add(message)));
+            }
+        }
+
+        return enqueued;
     }
 
     private static void StampAvatar(EntityEntry<Player> entry)

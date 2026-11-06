@@ -1,0 +1,16 @@
+{
+  "schema_version": "0.1.0",
+  "id": "K-001",
+  "summary": "Teste REQ_028 do SmtpPasswordResetSenderTests e instavel sob carga (relogio falso); passa isolado",
+  "detail": "Teste REQ_028 do SmtpPasswordResetSenderTests e instavel sob carga (relogio falso); passa isolado",
+  "source": {
+    "kind": "file",
+    "ref": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/SmtpPasswordResetSenderTests.cs"
+  },
+  "tags": [
+    "teste-instavel"
+  ],
+  "created_by": "orchestrator",
+  "created_at": "2026-11-06T13:54:50-03:00",
+  "status": "active"
+}

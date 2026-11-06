@@ -3,6 +3,8 @@ using Deckloom.Accounts.Application;
 using Deckloom.Accounts.Domain;
 using Deckloom.Accounts.Infrastructure;
 using Deckloom.Accounts.Testing;
+using Deckloom.Catalog.Application;
+using Deckloom.Catalog.Infrastructure;
 using Deckloom.DeckSuggestion.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -67,6 +69,7 @@ public sealed class CompositionTests
         { typeof(IAvatarImageProcessor), typeof(SkiaAvatarImageProcessor) },
         { typeof(IAvatarPresetCatalog), typeof(EfAvatarPresetCatalog) },
         { typeof(IFormatCatalog), typeof(EfFormatCatalog) },
+        { typeof(ITcgCatalog), typeof(EfTcgCatalog) },
         { typeof(IPasswordHasher), typeof(Pbkdf2PasswordHasher) },
         { typeof(IKeyedHasher), typeof(HmacKeyedHasher) },
         { typeof(ITokenHasher), typeof(Deckloom.Accounts.Infrastructure.Sha256TokenHasher) },

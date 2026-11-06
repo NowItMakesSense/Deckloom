@@ -48,6 +48,17 @@ internal static class SolutionLayout
     public static IReadOnlyList<SourceProject> WithSuffix(string suffix) =>
         ProductionProjects().Where(p => p.Name.EndsWith(suffix, StringComparison.Ordinal)).ToList();
 
+    /// <summary>Serviço deployável separado (ADR-0018): projeto sob backend/src/Services.</summary>
+    public static bool IsService(SourceProject project) =>
+        project.CsprojPath.Replace('\\', '/').Contains("/src/Services/", StringComparison.Ordinal);
+
+    /// <summary>Núcleo (ADR-0018): Deckloom.Api, Deckloom.SharedKernel e os projetos de src/Modules.</summary>
+    public static IReadOnlyList<SourceProject> CoreProjects() =>
+        ProductionProjects().Where(p => !IsService(p)).ToList();
+
+    public static IReadOnlyList<SourceProject> ServiceProjects() =>
+        ProductionProjects().Where(IsService).ToList();
+
     public static SourceProject Named(string name) =>
         ProductionProjects().Single(p => p.Name == name);
 

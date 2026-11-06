@@ -1,0 +1,105 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-P03B",
+  "contract_version": 2,
+  "kind": "subtask",
+  "feature_id": "FEAT-PLATAFORMA",
+  "feature_contract_version": 2,
+  "title": "Broker RabbitMQ no docker-compose de desenvolvimento",
+  "objective": "RabbitMQ no compose de desenvolvimento sem porta publicada (APR-020), testes de higiene coerentes e ADR-0018 emendada",
+  "assigned_agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-P01",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Servico rabbitmq no docker-compose.yml SEM ports (so rede interna, como o db; SEC-17), credenciais ${...}, healthcheck, volume",
+      "ComposeBrokerTests: exigir que o rabbitmq NAO publique portas (TDD: vermelho antes de mudar o compose)",
+      "RepoHygieneTests T005: lista de servicos do compose inclui rabbitmq (sem afrouxar T153)",
+      "Emenda na ADR-0018: broker RabbitMQ (APR-016), sem porta publicada (APR-020), publicador no-op ate o adapter, adapter + retencao/limpeza da outbox (inclusive na exclusao de conta) obrigatorios antes do primeiro consumidor ou de producao"
+    ],
+    "excluded": [
+      ".env e .env.example (o usuario edita)",
+      "Codigo de producao do backend"
+    ],
+    "paths_allowed": [
+      "docker-compose.yml",
+      "backend/tests/Deckloom.Api.Tests/ComposeBrokerTests.cs",
+      "backend/tests/Deckloom.ArchitectureTests/RepoHygieneTests.cs",
+      "docs/adr/0018-*.md"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-PLATAFORMA.json",
+        "origin": "feature_contract",
+        "version": "2"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": "AUTH-001",
+    "resources": [
+      "repo_code",
+      "config_ci_iac"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-P03b",
+      "description": "docker-compose.yml sobe o broker so em 127.0.0.1, com credenciais vindas do ambiente (sem literal)",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P01"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T17:20:00-03:00"
+  },
+  "parent_task_id": "T-P03"
+}
