@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-021",
+  "request_type": "architecture_decision",
+  "title": "Acesso do Claude ao ambiente de desenvolvimento local (banco do compose e .env)",
+  "summary": "O usuario pediu em 2026-11-06 que o Claude tenha acesso amplo (banco, repositorio, segredos). Hoje a regra 2 do CLAUDE.md/AGENTS.md e a docs/security-policy.md proibem qualquer acesso a banco e .env. So existe o ambiente dev local (Postgres do docker compose e .env local).",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "created_at": "2026-11-06T18:40:00-03:00",
+  "expires_at": "2026-11-07T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "Muda a regra 2 do CLAUDE.md e do AGENTS.md, a secao 'Non-negotiable' da docs/security-policy.md e o .claude/settings.json; nova ADR-0020. Supersede em parte a 'prime directive 2' citada na ADR-0015.",
+    "rollback_plan": "Nova ADR revertendo; restaurar settings.json e textos pelo git.",
+    "justification": "Pedido explicito do usuario; regra 3 do AISEF exige decisao registrada.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-DEV-LOCAL",
+      "label": "Dev local completo",
+      "description": "Claude le/edita .env e .env.example e usa o Postgres do compose de dev (psql, dotnet ef database, docker exec, pg_dump) com aprovacao por operacao. Staging/producao proibidos; segredos nunca em logs, relatorios, commits ou painel; agentes especialistas continuam sem sensitive_files no teto.",
+      "impacts": [
+        "Destrava tarefas de ambiente local",
+        "Smoke e migrations locais pelo Claude"
+      ],
+      "risks": [
+        "Segredo local no contexto do modelo",
+        "Alteracao de dados locais"
+      ],
+      "cost": "Baixo",
+      "migration": "Textos, ADR e settings.json"
+    },
+    {
+      "option_id": "OPT-TUDO",
+      "label": "Tudo, sem restricao",
+      "description": "Remove as negacoes de segredos e banco em qualquer ambiente, inclusive futuros staging/producao.",
+      "impacts": [
+        "Maxima autonomia"
+      ],
+      "risks": [
+        "LGPD",
+        "Vazamento em repositorio publico",
+        "Alteracao de dados sem revisao"
+      ],
+      "cost": "Baixo agora, alto em incidente",
+      "migration": "Textos e settings.json"
+    },
+    {
+      "option_id": "OPT-EXEMPLO",
+      "label": "So arquivos de exemplo",
+      "description": "Libera apenas .env.example.",
+      "impacts": [
+        "Minimo"
+      ],
+      "risks": [
+        "Nao atende ao pedido"
+      ],
+      "cost": "Baixo",
+      "migration": "settings.json"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-DEV-LOCAL",
+    "rationale": "Atende ao pedido onde ha ambiente hoje (dev local) sem abrir staging/producao nem dados reais de jogadores; mantem o controle por operacao."
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Segredo local exposto em contexto/log",
+        "severity": "medium",
+        "mitigation": "Regra: nunca copiar valores para logs, relatorios, commits ou painel; .env fora do git"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "audit": {
+    "requested_event_ref": "events/749",
+    "decided_event_ref": "events/750"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T13:37:15-03:00",
+    "selected_option_id": "OPT-DEV-LOCAL",
+    "note": "Usuario escolheu no chat em 2026-11-06: dev local completo"
+  }
+}

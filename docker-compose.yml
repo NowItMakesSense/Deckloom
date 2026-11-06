@@ -65,6 +65,21 @@ services:
     ports:
       - "127.0.0.1:8025:8025"
 
+  rabbitmq:
+    # Broker de eventos de integracao (APR-016). Tag fixa de minor (nao confirmada online).
+    image: rabbitmq:4.1-management
+    # Sem porta publicada (APR-020, SEC-17): alcancado so pela rede interna, como o db.
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
 networks:
   # Rede dedicada entre web (nginx) e api, com sub-rede fixa para a lista de proxies confiaveis da API.
   # A rede default segue levando api a db e mail.
@@ -76,3 +91,4 @@ networks:
 volumes:
   db-data:
   api-dataprotection-keys:
+  rabbitmq-data:

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "task_id": "T-P03",
-  "contract_version": 1,
+  "contract_version": 2,
   "kind": "task",
   "feature_id": "FEAT-PLATAFORMA",
   "feature_contract_version": 2,
@@ -22,13 +22,23 @@
   },
   "scope": {
     "included": [
-      "Outbox no nucleo e broker no compose de desenvolvimento"
+      "Outbox no nucleo e broker no compose de desenvolvimento",
+      "APR-017/OPT-ACCOUNTS: abstracoes de outbox (mensagem, porta de publicacao) no SharedKernel",
+      "Tabela accounts.outbox_message com migration gerada como arquivo (Down + grants no padrao ADR-0015), gravada no mesmo SaveChanges do caso de uso no AccountsDbContext",
+      "Despachante no Deckloom.Api que publica cada mensagem pendente uma unica vez pela porta (fake nos testes)",
+      "RabbitMQ (APR-016) no docker-compose.yml so em 127.0.0.1, credenciais vindas do ambiente, variaveis documentadas em .env.example"
     ],
-    "excluded": [],
+    "excluded": [
+      "Adapter RabbitMQ real e pacote RabbitMQ.Client (APR-017: chega com o primeiro consumidor)",
+      "Consumidores nos servicos",
+      "Aplicar migrations ou acessar banco"
+    ],
     "paths_allowed": [
       "backend/src/Deckloom.SharedKernel/**",
       "backend/src/Deckloom.Api/**",
       "backend/tests/Deckloom.Api.Tests/**",
+      "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/**",
+      "backend/tests/Deckloom.Accounts.Infrastructure.Tests/**",
       "docker-compose.yml",
       ".env.example"
     ]

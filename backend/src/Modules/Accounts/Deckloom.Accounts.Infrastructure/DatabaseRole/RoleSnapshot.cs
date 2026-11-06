@@ -21,5 +21,7 @@ public sealed record RoleSnapshot
 
     public bool CanCreateInDeckSuggestionSchema { get; init; }
 
+    public bool CanCreateInCatalogSchema { get; init; }
+
     public bool OwnsObjects { get; init; }
 }

@@ -1,16 +1,16 @@
 {
   "schema_version": "0.1.0",
   "task_id": "T-P04",
-  "contract_version": 2,
+  "contract_version": 5,
   "kind": "task",
   "feature_id": "FEAT-PLATAFORMA",
   "feature_contract_version": 2,
   "title": "Catalogo de TCGs como dados com os 5 TCGs do MVP",
   "objective": "Catalogo de TCGs como dados com os 5 TCGs do MVP",
   "assigned_agent": {
-    "agent_id": "database",
+    "agent_id": "backend",
     "agent_contract_version": 1,
-    "role": "database"
+    "role": "backend"
   },
   "requirements": {
     "requirement_ids": [
@@ -22,17 +22,35 @@
   },
   "scope": {
     "included": [
-      "Catalogo de TCGs como dados com os 5 TCGs do MVP"
+      "Catalogo de TCGs como dados com os 5 TCGs do MVP",
+      "Modulo Catalog novo no nucleo (APR-015, OPT-1): tabela catalog.tcg (id textual estavel, nome, is_active, sort_order) com carga dos 5 TCGs (Magic: The Gathering, Pokemon TCG, Yu-Gi-Oh!, One Piece, Lorcana)",
+      "Migration gerada como arquivo, com Down (rollback) e grants no padrao da ADR-0015; nenhuma migration aplicada",
+      "Porta de leitura do catalogo e testes com EF Core sobre SQLite em memoria (ADR-0012)",
+      "APR-025: ids confirmados mtg, pokemon, yugioh, onepiece, lorcana",
+      "APR-025: Deckloom.Api referencia Catalog.Application/Infrastructure e registra TcgCatalogDbContext e ITcgCatalog na composicao (sem endpoint)",
+      "APR-025: schema catalog nas verificacoes de papeis (NpgsqlDatabaseRoleInspector/DatabaseRolePolicy, ADR-0015) e no scripts/db/criar-banco-local.ps1"
     ],
-    "excluded": [],
+    "excluded": [
+      "Mudar o TCG favorito do jogador (FavoriteTcg) ou qualquer requisito da conta-jogador",
+      "Endpoints novos de API",
+      "Mudar FavoriteTcg ou regras da conta-jogador"
+    ],
     "paths_allowed": [
-      "backend/src/Modules/**/Migrations/**",
-      "backend/src/Modules/**/Persistence/**"
+      "backend/src/Modules/Catalog/**",
+      "backend/tests/Deckloom.Catalog.*.Tests/**",
+      "backend/tests/Deckloom.ArchitectureTests/**",
+      "backend/Deckloom.sln",
+      "backend/src/Deckloom.Api/**",
+      "backend/tests/Deckloom.Api.Tests/**",
+      "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/**",
+      "backend/tests/Deckloom.Accounts.Infrastructure.Tests/**",
+      "scripts/db/criar-banco-local.ps1"
     ]
   },
   "dependencies": {
     "depends_on": [
-      "T-P01"
+      "T-P01",
+      "T-P02"
     ],
     "parallelizable": false
   },
@@ -49,7 +67,8 @@
     "environment": "dev",
     "scope_authorization_id": null,
     "resources": [
-      "repo_code"
+      "repo_code",
+      "db_schema"
     ]
   },
   "acceptance_criteria": [

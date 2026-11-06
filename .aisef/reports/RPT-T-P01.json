@@ -1,0 +1,139 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-P01",
+  "task_id": "T-P01",
+  "contract_version": 1,
+  "feature_id": "FEAT-PLATAFORMA",
+  "agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "execution_profile": {
+    "model": "haiku",
+    "effort": "medium",
+    "level": 1,
+    "attempt": 1,
+    "routed_by": "user",
+    "reasons": ["instrucao do orquestrador: model=haiku effort=medium"]
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T12:30:00-03:00",
+    "finished_at": "2026-11-06T12:44:08-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "docs/adr/0018-arquitetura-nucleo-modular-com-servicos-de-carga-propria.md",
+        "sha256_after": "3825a1b2996bae6c59cb5622f152a60c14cc489b2660358f6c41fbe2b5d7fec8"
+      }
+    ],
+    "modified": [
+      {
+        "path": "docs/adr/0001-monolito-modular-clean-architecture.md",
+        "sha256_after": "dd2647e33a5d22dcfb71ebd7469365d52cca2b152de7d804469531d651d214e9"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "ADR-0018 criada (Status Accepted, 2026-11-06): cita APR-004 e OPT-C; descreve nucleo modular, 3 servicos (sugestao + IA, ingestao de meta, notificacoes e alertas), mensageria com outbox, API interna, testes de fronteira, alternativas OPT-A e OPT-B, consequencias e pontos em aberto (broker, provedor de IA, D8).",
+      "reason": "REQ-P01 e REQ-P03: decisao arquitetural registrada em ADR, conforme APR-004.",
+      "requirement_ids": ["REQ-P01", "REQ-P03"],
+      "files": ["docs/adr/0018-arquitetura-nucleo-modular-com-servicos-de-carga-propria.md"]
+    },
+    {
+      "summary": "ADR-0001: somente a linha 3 (Status) recebeu 'Superseded in part by ADR-0018 (2026-11-06)' antes do status original. Corpo nao alterado (SHA-256 do arquivo com a linha revertida confere com o original).",
+      "reason": "REQ-P01 e REQ-P03 / AC-P01b: a ADR-0001 e superseded em parte pela ADR-0018.",
+      "requirement_ids": ["REQ-P01", "REQ-P03"],
+      "files": ["docs/adr/0001-monolito-modular-clean-architecture.md"]
+    }
+  ],
+  "tests": {
+    "executed": 3,
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [],
+    "regression_run": false,
+    "commands": [
+      "grep -n \"^- Status\" docs/adr/0001-*.md docs/adr/0018-*.md (linha 3 da ADR-0001 com 'Superseded in part by ADR-0018'; linha 3 da ADR-0018 com 'Accepted (2026-11-06)')",
+      "grep -n \"APR-004\" docs/adr/0018-*.md (mencoes nas linhas 5, 12 e 39)",
+      "sed da linha 3 em copia temporaria + sha256sum (hash revertido igual a f1bf9e038d13dd58d03c765e431e397f088ef6b3984c5ad8f39e181ede1a66b3, original)"
+    ],
+    "evidence_ids": ["EV-T-P01-01", "EV-T-P01-02", "EV-T-P01-03"]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-P01-01",
+      "type": "command_output",
+      "ref": "Relatorio tecnico secao 3 e comando grep de '^- Status' e 'APR-004' em docs/adr/0018-*.md: Status Accepted (2026-11-06) na linha 3; APR-004 citado nas linhas 5, 12 e 39; nucleo, servicos, outbox e mensageria descritos nas linhas 16 a 23",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P01-02",
+      "type": "command_output",
+      "ref": "grep de '^- Status' em docs/adr/0001-*.md: linha 3 = 'Superseded in part by ADR-0018 (2026-11-06); Accepted (2026-10-23); emendada em 2026-10-24'",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P01-03",
+      "type": "file_hash",
+      "ref": "Verificacao de corpo da ADR-0001: copia temporaria com a linha de Status revertida ao texto original; sha256 = f1bf9e038d13dd58d03c765e431e397f088ef6b3984c5ad8f39e181ede1a66b3, igual ao original",
+      "sha256": "f1bf9e038d13dd58d03c765e431e397f088ef6b3984c5ad8f39e181ede1a66b3",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-P01a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-P01-01"],
+      "notes": "docs/adr/0018-arquitetura-nucleo-modular-com-servicos-de-carga-propria.md existe, com Status Accepted, cita APR-004 e descreve nucleo, 3 servicos, mensageria e outbox."
+    },
+    {
+      "criterion_id": "AC-P01b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-P01-02", "EV-T-P01-03"],
+      "notes": "A ADR-0001 tem Status 'Superseded in part by ADR-0018'. Somente a linha de Status foi alterada; o hash confere com o original. O status original foi mantido no mesmo campo (ver problemas)."
+    }
+  ],
+  "problems": [
+    {
+      "description": "O criterio pede o Status 'Superseded in part by ADR-0018'. A linha 3 da ADR-0001 contem esse texto seguido do status original (Accepted 2026-10-23 e emenda 2026-10-24), para preservar o historico. Se o orquestrador preferir o texto isolado, a correcao e apenas nesta linha.",
+      "severity": "low",
+      "mitigation": "Decisao do orquestrador. O criterio esta atendido com o texto pedido presente."
+    }
+  ],
+  "risks": [],
+  "pending": [
+    "Broker de mensageria, provedor de IA e hospedagem de producao (D8) seguem em aberto, conforme APR-004; nao decididos nesta tarefa.",
+    "Validacao independente desta entrega pelo validator, conforme o Task Contract."
+  ],
+  "limitations": [
+    "Verificacao por grep e hash; nenhum teste de codigo foi executado (fora do escopo, sem alteracao de codigo).",
+    "Nenhuma operacao Git foi executada.",
+    "Horario de inicio e aproximado (nao registrado antes da primeira acao)."
+  ],
+  "scope_discoveries": [],
+  "operations_log_ref": "aisef_project.py append --type task_started (E530) e --type task_executed (E540)",
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:\\Users\\escor\\AppData\\Local\\Temp\\claude\\945f1d8d96cb45b5\\71cc49a0-1190-4aec-9b7f-ab64e2de1b9d\\scratchpad\\RPT-T-P01-relatorio-tecnico.txt",
+    "sha256": "b09cb15b411d6c4ecf6ff2551ec50bae95c8eb18fe7817aee90423b6a4c3cdb4"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T12:44:08-03:00",
+    "event_log_ref": "E540 (task_executed, aisef_project.py append)"
+  }
+}

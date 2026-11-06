@@ -115,6 +115,9 @@ public class RepoHygieneTests
     private static readonly string[] DbPasswordVariables =
         ["POSTGRES_PASSWORD", "DECKLOOM_APP_DB_PASSWORD", "DECKLOOM_MIGRATOR_DB_PASSWORD"];
 
+    // T-P03B (APR-016/APR-020): credenciais do RabbitMQ do compose de desenvolvimento.
+    private static readonly string[] BrokerVariables = ["RABBITMQ_DEFAULT_USER", "RABBITMQ_DEFAULT_PASS"];
+
     private const string RolesScriptRelativePath = "db/init/01-roles.sh";
 
     private static readonly string[] RootUsers = ["root", "0"];
@@ -122,13 +125,13 @@ public class RepoHygieneTests
     private static readonly string[] SecurityHeaderNames =
         ["Content-Security-Policy", "Referrer-Policy", "X-Content-Type-Options", "Permissions-Policy"];
 
-    private static readonly string[] SecretNameMarkers = ["Secret", "Password", "HmacKey", "ConnectionStrings"];
+    private static readonly string[] SecretNameMarkers = ["Secret", "Pass", "HmacKey", "ConnectionStrings"];
 
     [Fact]
-    public void T005_compose_defines_exactly_web_api_db_and_mail()
+    public void T005_compose_defines_exactly_web_api_db_mail_and_rabbitmq()
     {
         var services = ComposeServices();
-        Assert.Equal(["api", "db", "mail", "web"], services.Keys.OrderBy(k => k, StringComparer.Ordinal).ToArray());
+        Assert.Equal(["api", "db", "mail", "rabbitmq", "web"], services.Keys.OrderBy(k => k, StringComparer.Ordinal).ToArray());
     }
 
     [Fact]
@@ -559,6 +562,7 @@ public class RepoHygieneTests
     private static HashSet<string> ExpectedEnvExampleNames() =>
         DesignConfigNames.Select(n => n.Replace(":", "__", StringComparison.Ordinal))
             .Concat(DbPasswordVariables)
+            .Concat(BrokerVariables)
             .ToHashSet(StringComparer.Ordinal);
 
     private static string RolesScriptPath()

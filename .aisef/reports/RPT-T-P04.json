@@ -1,0 +1,322 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-P04",
+  "task_id": "T-P04",
+  "contract_version": 5,
+  "feature_id": "FEAT-PLATAFORMA",
+  "agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "high",
+    "level": 4,
+    "attempt": 2,
+    "routed_by": "orchestrator"
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T14:00:00-03:00",
+    "finished_at": "2026-11-06T16:00:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Application/Deckloom.Catalog.Application.csproj",
+        "sha256_after": "d016c711757607d6804347c8bb586e59679b440434da144a2869504f53284233"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Application/ITcgCatalog.cs",
+        "sha256_after": "8ca268e59c76d184e9399a886114c751ee7dbeb4b881b7bcd89655184a87989a"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Deckloom.Catalog.Infrastructure.csproj",
+        "sha256_after": "82384817853482619cf3a5670eb4b92f30f561f2834b6728fb7cb3137ae4e132"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/TcgRow.cs",
+        "sha256_after": "8da2a6e5d0b70fbdc316d0da806f88f5af2f04abf1d3802d5a738e9479801f4f"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/TcgCatalogDbContext.cs",
+        "sha256_after": "06d782a244d2410123b3923d9cda597f8548c06943e844f6298349f6ae3f4bb1"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/EfTcgCatalog.cs",
+        "sha256_after": "8564f6bed3c59abdc9bd94a3f455f807a7dc52fafdd2c485820cf7bed596b5ed"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/TcgCatalogDesignTimeDbContextFactory.cs",
+        "sha256_after": "5f4a0ae372f7fe43216a818863a0319a93681f78843d62e6731ee628c70f6384"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations/20261106170306_CreateTcgCatalog.cs",
+        "sha256_after": "6973837fd5cd2aecb496d0360be1ea659369d6c9572ea1e4c8696d75517d2beb"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations/20261106170306_CreateTcgCatalog.Designer.cs",
+        "sha256_after": "62a3d4ab3cf85fcfb4490e8cfe9938166d98aa7ad0804efdda713c688f2ac538"
+      },
+      {
+        "path": "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations/TcgCatalogDbContextModelSnapshot.cs",
+        "sha256_after": "cddefcefce2fdbafdd15e21fe0ba9ce18bb5254c791ad22650251c75345b3593"
+      },
+      {
+        "path": "backend/tests/Deckloom.Catalog.Infrastructure.Tests/Deckloom.Catalog.Infrastructure.Tests.csproj",
+        "sha256_after": "2ce3d4173ac3436425f13e1ac8417779684de90f187e111373bb8d047a6ee1d3"
+      },
+      {
+        "path": "backend/tests/Deckloom.Catalog.Infrastructure.Tests/TcgSeedTests.cs",
+        "sha256_after": "7aeb40fab854869a71573608a64ee058cd0ec0c065959849a6f5b7c2c5714fc3"
+      },
+      {
+        "path": "backend/tests/Deckloom.Catalog.Infrastructure.Tests/EfTcgCatalogTests.cs",
+        "sha256_after": "8d85b791e2b5d2b070c1454ea7542badfbcd5015acb8fb55047ad2d6747cdff3"
+      },
+      {
+        "path": "backend/tests/Deckloom.Catalog.Infrastructure.Tests/TcgModelConformanceTests.cs",
+        "sha256_after": "178372a897838976fc2240daa75a33fa6b4e7c2768250ec2a837c32f07ace5dc"
+      },
+      {
+        "path": "backend/tests/Deckloom.Catalog.Infrastructure.Tests/CreateTcgCatalogMigrationTests.cs",
+        "sha256_after": "704b0dcec0317c8ee3677d897a244813629224bb0a20665babd6f57b8ca377ca"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/NpgsqlDatabaseRoleInspectorQueryTests.cs",
+        "sha256_after": "1d0abd78112642c9117e24555a0574a62a48b8527267e04bb6e375dbbbcb9d4c"
+      }
+    ],
+    "modified": [
+      {
+        "path": "backend/src/Deckloom.Api/Deckloom.Api.csproj",
+        "sha256_after": "400498acd13036d1a8899296ef73cbc74547de606f0ddb1e4957ad54798b5183",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/src/Deckloom.Api/Composition/AccountsModuleExtensions.cs",
+        "sha256_after": "8bb382de5f62c24a7ee60ab5126bad638c0d99e17734f68bd069a2e5b75571b0",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/RoleSnapshot.cs",
+        "sha256_after": "b9cf8b6e744c1e9f9e2bb01217af9272f2bfef595ad5401bb9b99038b48b155b",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/DatabaseRolePolicy.cs",
+        "sha256_after": "eac882c4008b5f73135deefeeee6cbb4e6cfed54c2408d8e55c7ba18b9d5da29",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/NpgsqlDatabaseRoleInspector.cs",
+        "sha256_after": "af79fe5ba4d6451b9d59daa35013c62265175346518bb91bb5d8f0424fb48b3f",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/DatabaseRolePolicyTests.cs",
+        "sha256_after": "663950a291434c23e764b2e75d93404a289414d9149b73b636a1cc98c5f0cd4e",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/tests/Deckloom.Api.Tests/CompositionTests.cs",
+        "sha256_after": "990ea57e2f178fb6977daae1bc82ac6bc892bb2ecf9542880ec8224da6f7494e",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/MigrationGrantConformanceTests.cs",
+        "sha256_after": "c31c395a5bd2c3b0232d55f3510e3d5b048f88ba911b097708b3e5da3832352e",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/Deckloom.sln",
+        "sha256_after": "99afd061b68885acac2728b4c471ad8362ea6ec453699d6f95fb525f2b76d4e6",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "scripts/db/criar-banco-local.ps1",
+        "sha256_after": "36e39e38c9ef6c0bae32ed4e3afc956cfbcb3c4829bfd31f58e23d1b93aa09ff",
+        "sha256_before": "n/a (sem operacao Git)"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Modulo Catalog: porta ITcgCatalog, adapter EfTcgCatalog, TcgCatalogDbContext somente leitura no schema catalog, design-time factory.",
+      "reason": "APR-015 OPT-1; AC-P04a",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "files": [
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Application/Deckloom.Catalog.Application.csproj",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Application/ITcgCatalog.cs",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Deckloom.Catalog.Infrastructure.csproj",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/TcgRow.cs",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/TcgCatalogDbContext.cs",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/EfTcgCatalog.cs",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/TcgCatalogDesignTimeDbContextFactory.cs"
+      ]
+    },
+    {
+      "summary": "Migration CreateTcgCatalog gerada como arquivo (nao aplicada): catalog.tcg com os 5 TCGs, grants USAGE/SELECT a deckloom_app (ADR-0015), Down que remove a tabela; snapshot.",
+      "reason": "AC-P04a",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "files": [
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations/20261106170306_CreateTcgCatalog.cs",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations/20261106170306_CreateTcgCatalog.Designer.cs",
+        "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Migrations/TcgCatalogDbContextModelSnapshot.cs"
+      ]
+    },
+    {
+      "summary": "Deckloom.Api referencia os projetos Catalog e registra TcgCatalogDbContext e ITcgCatalog na composicao (sem endpoint); SastScopeTests verde.",
+      "reason": "APR-025 item 2",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "files": [
+        "backend/src/Deckloom.Api/Deckloom.Api.csproj",
+        "backend/src/Deckloom.Api/Composition/AccountsModuleExtensions.cs",
+        "backend/tests/Deckloom.Api.Tests/CompositionTests.cs"
+      ]
+    },
+    {
+      "summary": "Schema catalog nas verificacoes de papel: RoleSnapshot.CanCreateInCatalogSchema, condicao DB7_CREATE_IN_CATALOG_SCHEMA e consulta do inspetor (CREATE e posse em catalog).",
+      "reason": "APR-025 item 3; ADR-0015",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "files": [
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/RoleSnapshot.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/DatabaseRolePolicy.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/DatabaseRole/NpgsqlDatabaseRoleInspector.cs",
+        "backend/tests/Deckloom.Accounts.Infrastructure.Tests/DatabaseRolePolicyTests.cs",
+        "backend/tests/Deckloom.Accounts.Infrastructure.Tests/NpgsqlDatabaseRoleInspectorQueryTests.cs"
+      ]
+    },
+    {
+      "summary": "criar-banco-local.ps1 gera o contexto do Catalog e inclui catalog nas checagens e na listagem final (nao executado).",
+      "reason": "APR-025 item 3",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "files": [
+        "scripts/db/criar-banco-local.ps1"
+      ]
+    },
+    {
+      "summary": "Testes do Catalog em SQLite em memoria; projetos no .sln; MigrationGrantConformanceTests varre as migrations do Catalog e exige USAGE em accounts, catalog e deck_suggestion.",
+      "reason": "AC-P04a",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "files": [
+        "backend/tests/Deckloom.Catalog.Infrastructure.Tests/Deckloom.Catalog.Infrastructure.Tests.csproj",
+        "backend/tests/Deckloom.Catalog.Infrastructure.Tests/TcgSeedTests.cs",
+        "backend/tests/Deckloom.Catalog.Infrastructure.Tests/EfTcgCatalogTests.cs",
+        "backend/tests/Deckloom.Catalog.Infrastructure.Tests/TcgModelConformanceTests.cs",
+        "backend/tests/Deckloom.Catalog.Infrastructure.Tests/CreateTcgCatalogMigrationTests.cs",
+        "backend/tests/Deckloom.ArchitectureTests/MigrationGrantConformanceTests.cs",
+        "backend/Deckloom.sln"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2867,
+    "passed": 2867,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "TcgSeedTests x3",
+      "EfTcgCatalogTests x7",
+      "TcgModelConformanceTests x2",
+      "CreateTcgCatalogMigrationTests x4",
+      "NpgsqlDatabaseRoleInspectorQueryTests x4",
+      "DatabaseRolePolicyTests: condicao create_schema_catalog (9 condicoes)",
+      "CompositionTests: ITcgCatalog -> EfTcgCatalog"
+    ],
+    "regression_run": true,
+    "commands": [
+      "dotnet build backend/Deckloom.sln -c Release",
+      "dotnet test backend/Deckloom.sln",
+      "dotnet format backend/Deckloom.sln --verify-no-changes",
+      "dotnet build-server shutdown"
+    ],
+    "evidence_ids": [
+      "EV-BUILD",
+      "EV-TEST",
+      "EV-RED"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-BUILD",
+      "type": "command_output",
+      "ref": "build Release 0 avisos, 0 erros; dotnet format --verify-no-changes exit 0; migration gerada por dotnet ef migrations add com connection string ficticia (sem banco); nada aplicado; script .ps1 apenas editado",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-TEST",
+      "type": "test_output",
+      "ref": "dotnet test do .sln, zero falhas: Catalog 16, DeckSuggestion 19, Accounts.Application 815, Domain 606, Infrastructure 602, Architecture 151 (SastScopeTests e MigrationGrantConformanceTests verdes), Api 655, servicos 3; K-001 nao falhou",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-RED",
+      "type": "command_output",
+      "ref": "v4: build dos testes do Catalog falhou (CS0234/CS0246) e MigrationGrantConformanceTests ampliado teve 3 falhas antes do codigo. v5: DatabaseRolePolicyTests falhou na compilacao (CS0117 CanCreateInCatalogSchema) e CompositionTests (CS0234 namespace Deckloom.Catalog na Api) antes do codigo",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-P04a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-TEST",
+        "EV-RED",
+        "EV-BUILD"
+      ],
+      "notes": "Migration gerada como arquivo cria catalog.tcg com os 5 TCGs (ids confirmados) e tem Down (verificado pelas operacoes); nenhuma migration aplicada; os 5 TCGs lidos pela porta em SQLite em memoria; Api registra a porta; MigrationGrantConformanceTests e SastScopeTests verdes."
+    }
+  ],
+  "problems": [],
+  "risks": [
+    {
+      "description": "Dado sem consumidor ate a feature da conta (risco aceito em APR-015); FavoriteTcg intocado.",
+      "severity": "low",
+      "mitigation": "Consumo vira depois."
+    },
+    {
+      "description": "A consulta SQL do inspetor de papel (colunas por indice) e o script criar-banco-local.ps1 nao sao verificaveis em SQLite nem foram executados.",
+      "severity": "low",
+      "mitigation": "Verificacao humana ao aplicar a migration e subir o banco local; teste confere o texto da consulta."
+    }
+  ],
+  "pending": [
+    "Revisar e aplicar a migration CreateTcgCatalog (pessoa)",
+    "Verificacao humana da consulta do inspetor no PostgreSQL e do script criar-banco-local.ps1"
+  ],
+  "limitations": [
+    "Migration nao aplicada nem testada contra PostgreSQL real (ADR-0012): so operacoes inspecionadas e modelo em SQLite."
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/71cc49a0-1190-4aec-9b7f-ab64e2de1b9d/scratchpad/RPT-T-P04-tecnico.md",
+    "sha256": "994db7482242e8054c270523fea12560ae8e6cb8e466003e2d856554bfcd4f08"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T16:00:00-03:00",
+    "event_log_ref": ".aisef/audit"
+  }
+}

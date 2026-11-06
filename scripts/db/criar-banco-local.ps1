@@ -4,8 +4,8 @@
 
 .DESCRIPTION
   1. Verifica o arquivo .env (so a existencia; o conteudo nao e lido) e restaura o dotnet-ef fixado em backend/dotnet-tools.json.
-  2. Gera, com dotnet ef, o script idempotente de cada contexto. A ordem importa: deck_suggestion antes de accounts,
-     porque player_preferred_format tem FK para deck_suggestion.format.
+  2. Gera, com dotnet ef, o script idempotente de cada contexto (deck_suggestion, catalog e accounts). A ordem importa:
+     deck_suggestion antes de accounts, porque player_preferred_format tem FK para deck_suggestion.format.
   3. Sobe o servico db (e o mail) pelo docker compose e espera o Postgres responder.
   4. Confere se os papeis do ADR-0015 existem. Eles so sao criados pelo db/init/01-roles.sh, na primeira inicializacao do volume.
   5. Aplica o SQL no banco "deckloom" como deckloom_migrator (dono dos objetos: deckloom_owner, via ALTER ROLE ... SET role).
@@ -38,6 +38,7 @@ Set-Location $raiz
 $backend = Join-Path $raiz 'backend'
 $projetos = @(
     @{ Contexto = 'FormatCatalogDbContext'; Projeto = 'backend/src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/Deckloom.DeckSuggestion.Infrastructure.csproj' },
+    @{ Contexto = 'TcgCatalogDbContext';    Projeto = 'backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure/Deckloom.Catalog.Infrastructure.csproj' },
     @{ Contexto = 'AccountsDbContext';      Projeto = 'backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Deckloom.Accounts.Infrastructure.csproj' }
 )
 
@@ -75,7 +76,7 @@ foreach ($parte in $partes) {
 
 $conteudo = New-Object System.Text.StringBuilder
 [void]$conteudo.AppendLine("-- Criacao do banco Deckloom. Gerado por scripts/db/criar-banco-local.ps1 em $(Get-Date -Format s).")
-[void]$conteudo.AppendLine('-- Ordem: deck_suggestion antes de accounts (FK de player_preferred_format). Uma transacao. So para banco vazio.')
+[void]$conteudo.AppendLine('-- Ordem: deck_suggestion e catalog antes de accounts (FK de player_preferred_format). Uma transacao. So para banco vazio.')
 [void]$conteudo.AppendLine('BEGIN;')
 [void]$conteudo.Append($corpo.ToString())
 [void]$conteudo.AppendLine('COMMIT;')
@@ -110,9 +111,9 @@ if ($papeis -ne '3') {
 }
 
 Write-Host '==> Conferindo se o banco ainda esta vazio'
-$schemasExistentes = (docker compose exec -T db psql -U postgres -d deckloom -tA -c "SELECT count(*) FROM pg_namespace WHERE nspname IN ('accounts','deck_suggestion')").Trim()
+$schemasExistentes = (docker compose exec -T db psql -U postgres -d deckloom -tA -c "SELECT count(*) FROM pg_namespace WHERE nspname IN ('accounts','deck_suggestion','catalog')").Trim()
 if ($schemasExistentes -ne '0') {
-    throw 'Os schemas accounts/deck_suggestion ja existem. Este script so cria o banco do zero. Para recriar, apague o volume com "docker compose down -v" (destrutivo) e rode de novo.'
+    throw 'Os schemas accounts/deck_suggestion/catalog ja existem. Este script so cria o banco do zero. Para recriar, apague o volume com "docker compose down -v" (destrutivo) e rode de novo.'
 }
 
 Write-Host '==> Aplicando o SQL como deckloom_migrator'
@@ -121,6 +122,6 @@ Get-Content -Raw -Encoding UTF8 $sqlFinal |
 if ($LASTEXITCODE -ne 0) { throw 'A aplicacao do SQL falhou. Como o script e uma unica transacao, nada foi gravado. Corrija a causa (veja a mensagem acima) e rode de novo.' }
 
 Write-Host '==> Verificando o resultado (nomes de tabelas, sem dados)'
-docker compose exec -T db psql -U postgres -d deckloom -tA -c "SELECT table_schema || '.' || table_name FROM information_schema.tables WHERE table_schema IN ('accounts','deck_suggestion') ORDER BY 1"
+docker compose exec -T db psql -U postgres -d deckloom -tA -c "SELECT table_schema || '.' || table_name FROM information_schema.tables WHERE table_schema IN ('accounts','deck_suggestion','catalog') ORDER BY 1"
 
 Write-Host 'Banco criado. Proximo passo: docker compose up -d --build  (depois abra http://localhost:8081)'

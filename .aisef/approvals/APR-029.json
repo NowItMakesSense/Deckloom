@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-029",
+  "request_type": "git_operation",
+  "status": "approved",
+  "title": "Commit da FEAT-PLATAFORMA na branch feat/plataforma",
+  "summary": "Commit local de tudo da feature e das decisoes da sessao (ADR-0020, settings, CLAUDE/AGENTS).",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P05",
+  "created_at": "2026-11-06T22:10:00-03:00",
+  "expires_at": "2026-11-08T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "operation": {
+    "environment": "dev",
+    "resource_class": "git",
+    "operation": "git add -A && git commit",
+    "destructive": false,
+    "sensitive_content_shown": false
+  },
+  "git": {
+    "operation": "commit",
+    "branch": "feat/plataforma",
+    "target_branch": "feat/plataforma",
+    "covers_only_this_operation": true
+  },
+  "presented": {
+    "impact": "Commit local de tudo da feature e das decisoes da sessao (ADR-0020, settings, CLAUDE/AGENTS).",
+    "diff_ref": "git status / git diff na branch feat/plataforma",
+    "tests": {
+      "summary": "Backend 2867, frontend 1000, E2E 215, scripts CI 45; 0 falhas",
+      "executed": 4082,
+      "passed": 4082,
+      "failed": 0
+    },
+    "rollback_plan": "git reset --soft HEAD~1",
+    "justification": "Usuario escolheu 'Aceitar e publicar' no aceite da FEAT-PLATAFORMA (APR-028) em 2026-11-06.",
+    "requirement_ids": [
+      "REQ-P01",
+      "REQ-P02",
+      "REQ-P03"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Publicacao em repositorio publico",
+        "severity": "low",
+        "mitigation": "Sem segredos: .env fora do git; .env.example so com <set-me>"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "audit": {
+    "requested_event_ref": "events/1132",
+    "decided_event_ref": "events/1133"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T18:48:45-03:00",
+    "note": "Aceitar e publicar (APR-028), usuario no chat em 2026-11-06"
+  }
+}

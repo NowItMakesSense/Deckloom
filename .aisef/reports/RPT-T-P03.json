@@ -1,0 +1,261 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-P03",
+  "task_id": "T-P03",
+  "contract_version": 2,
+  "feature_id": "FEAT-PLATAFORMA",
+  "agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "medium",
+    "level": 3,
+    "attempt": 1,
+    "routed_by": "user"
+  },
+  "status": "blocked",
+  "timing": {
+    "started_at": "2026-11-06T13:10:00-03:00",
+    "finished_at": "2026-11-06T13:50:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "backend/src/Deckloom.SharedKernel/OutboxMessage.cs",
+        "sha256_after": "877aba6629baaa2a674f5d1b691d0917df56f3d9d6c25107b20f122069b8f6d7"
+      },
+      {
+        "path": "backend/src/Deckloom.SharedKernel/IIntegrationEventPublisher.cs",
+        "sha256_after": "2f185de66af754319e8801f736727c4aadbb47bfc67c1c35eaec76194cf91d1b"
+      },
+      {
+        "path": "backend/src/Deckloom.SharedKernel/IOutboxStore.cs",
+        "sha256_after": "fd57df87e7d2c3c343424aad0f915404973c272c1f11aa9e71c7d7040037b72c"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/OutboxMessageEntityConfiguration.cs",
+        "sha256_after": "210681a6d13eadeab83a93d83221e14ab50d69a21f915ff545066704c8746ac5"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/EfOutboxStore.cs",
+        "sha256_after": "c397f2d95ed32b9de77b3600f3e5fee4efd89dd991454be5feb8726b9d1d8a23"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/20261106160910_AddOutboxMessage.cs",
+        "sha256_after": "b8dfa27688b8d124f8024abb0c591bc6f05890693abfe35f64de95df8e02a2ea"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/20261106160910_AddOutboxMessage.Designer.cs",
+        "sha256_after": "ca6caea48ea196a04d9d43e20200f63458bc6ac54d39ba6fe60c6805d8e52fe6"
+      },
+      {
+        "path": "backend/src/Deckloom.Api/Composition/OutboxDispatcher.cs",
+        "sha256_after": "527383846025871e482c2d47d557a590226005812a7ea4729472ac42d3b45f3a"
+      },
+      {
+        "path": "backend/src/Deckloom.Api/Composition/OutboxDispatchService.cs",
+        "sha256_after": "4b3cdf3adb0cf7c82b4f0d1c0da1767ab0562728d1c8592e8279eba4e85f0fe2"
+      },
+      {
+        "path": "backend/src/Deckloom.Api/Composition/LoggingIntegrationEventPublisher.cs",
+        "sha256_after": "d92fe885bfbd46121c47e55adec41b5855619a02d387bd2344ec9ba1cf9448f0"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/OutboxPersistenceTests.cs",
+        "sha256_after": "3ee967d20c924df5ef3f47410754b8b5732ffd46775efee3dd99669ff7c334ae"
+      },
+      {
+        "path": "backend/tests/Deckloom.Api.Tests/OutboxDispatcherTests.cs",
+        "sha256_after": "0261d72a8eae33135c0372e126f07db32da175f17bfa86f5c4822fbe3f296c7c"
+      },
+      {
+        "path": "backend/tests/Deckloom.Api.Tests/ComposeBrokerTests.cs",
+        "sha256_after": "8e3caef565574f99ffe9df861c9523d7444d40485c1a3ddb9ec3267bca71eadf"
+      }
+    ],
+    "modified": [
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AccountsDbContext.cs",
+        "sha256_after": "b40ff0a825d4a7b484f24ac07ec5aec498de629c92978dcbe6f75924078eec84",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/AccountsDbContextModelSnapshot.cs",
+        "sha256_after": "1efe071a82e88ba1d9b9c72d6965b1cdc5a6766c91a41c5f8fbc53ec8bfda6de",
+        "sha256_before": "n/a (sem operacao Git)"
+      },
+      {
+        "path": "backend/src/Deckloom.Api/Composition/AccountsModuleExtensions.cs",
+        "sha256_after": "d92eb7d07f578bd374982fe63483b896d8f7b314e1428752b653300367d5c570",
+        "sha256_before": "n/a (sem operacao Git)"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Abstracoes de outbox no SharedKernel (OutboxMessage, IIntegrationEventPublisher, IOutboxStore).",
+      "reason": "APR-017",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "backend/src/Deckloom.SharedKernel/OutboxMessage.cs",
+        "backend/src/Deckloom.SharedKernel/IIntegrationEventPublisher.cs",
+        "backend/src/Deckloom.SharedKernel/IOutboxStore.cs"
+      ]
+    },
+    {
+      "summary": "Tabela accounts.outbox_message, EfOutboxStore, gravacao dos eventos de dominio no mesmo SaveChanges do AccountsDbContext, migration AddOutboxMessage com Down e grants ADR-0015, snapshot.",
+      "reason": "AC-P03a",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/OutboxMessageEntityConfiguration.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/EfOutboxStore.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/20261106160910_AddOutboxMessage.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/20261106160910_AddOutboxMessage.Designer.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AccountsDbContext.cs",
+        "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/AccountsDbContextModelSnapshot.cs"
+      ]
+    },
+    {
+      "summary": "OutboxDispatcher, OutboxDispatchService e publicador padrao por log sem payload; registro na composicao.",
+      "reason": "AC-P03a",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "backend/src/Deckloom.Api/Composition/OutboxDispatcher.cs",
+        "backend/src/Deckloom.Api/Composition/OutboxDispatchService.cs",
+        "backend/src/Deckloom.Api/Composition/LoggingIntegrationEventPublisher.cs",
+        "backend/src/Deckloom.Api/Composition/AccountsModuleExtensions.cs"
+      ]
+    },
+    {
+      "summary": "Testes: OutboxPersistenceTests, OutboxDispatcherTests e ComposeBrokerTests (este ainda vermelho: compose nao editado).",
+      "reason": "AC-P03a, AC-P03b",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "backend/tests/Deckloom.Accounts.Infrastructure.Tests/OutboxPersistenceTests.cs",
+        "backend/tests/Deckloom.Api.Tests/OutboxDispatcherTests.cs",
+        "backend/tests/Deckloom.Api.Tests/ComposeBrokerTests.cs"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2847,
+    "passed": 2843,
+    "failed": 4,
+    "skipped": 0,
+    "new_tests": [
+      "OutboxPersistenceTests x6 (SQLite em memoria)",
+      "OutboxDispatcherTests x3",
+      "ComposeBrokerTests x4 (vermelhos ate o compose ser editado)"
+    ],
+    "regression_run": true,
+    "commands": [
+      "dotnet build backend/Deckloom.sln -c Release",
+      "dotnet test backend/Deckloom.sln",
+      "dotnet format backend/Deckloom.sln --verify-no-changes",
+      "dotnet build-server shutdown"
+    ],
+    "evidence_ids": [
+      "EV-BUILD",
+      "EV-TEST",
+      "EV-RED"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-BUILD",
+      "type": "command_output",
+      "ref": "build Release 0 avisos, 0 erros; dotnet format --verify-no-changes exit 0; migration gerada por dotnet ef migrations add (sem banco)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-TEST",
+      "type": "test_output",
+      "ref": "dotnet test: Infrastructure 597 aprovados (6 de OutboxPersistence: commit grava agregado e mensagens, rollback do caso de uso, save falho, save duplo sem duplicar, marcacao unica, ordem/lote); Api 650 aprovados + 4 falhas ComposeBrokerTests; Architecture 151 (MigrationGrantConformance verde), Application 815, Domain 606, DeckSuggestion 19, servicos 3",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-RED",
+      "type": "command_output",
+      "ref": "Outbox*: build dos testes falhou com CS0246 (EfOutboxStore, IOutboxStore, OutboxMessage, OutboxDispatcher inexistentes) antes do codigo. ComposeBrokerTests: 4 falhas 'servico rabbitmq ausente do docker-compose.yml' (continuam, compose nao editado)",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-P03a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-TEST",
+        "EV-RED"
+      ],
+      "notes": "Despachante rodado duas vezes publica 1 vez (fake); gravacao na mesma transacao verificada em SQLite em memoria."
+    },
+    {
+      "criterion_id": "AC-P03b",
+      "required": true,
+      "result": "not_met",
+      "evidence_ids": [
+        "EV-RED"
+      ],
+      "notes": "Hook AISEF negou a edicao de docker-compose.yml e .env.example; teste escrito e vermelho; bloco rabbitmq entregue na resposta para o orquestrador aplicar."
+    }
+  ],
+  "problems": [
+    {
+      "description": "Hooks do AISEF negaram ao agente backend editar docker-compose.yml (config_ci_iac) e .env.example (sensitive_files), embora estejam em paths_allowed do contrato.",
+      "severity": "high",
+      "mitigation": "Orquestrador aplica o bloco rabbitmq e as variaveis RABBITMQ_DEFAULT_USER/PASS em .env.example (ou amplia o teto do agente) e reexecuta ComposeBrokerTests."
+    }
+  ],
+  "risks": [
+    {
+      "description": "Publicador padrao e no-op: com o despachante ativo, mensagens ficam marcadas como processadas sem chegar a um broker.",
+      "severity": "medium",
+      "mitigation": "Aceito pelo contrato ate o adapter RabbitMQ (APR-017); nao ha consumidores ainda."
+    },
+    {
+      "description": "Entrega at-least-once: queda entre publicar e marcar republica a mensagem.",
+      "severity": "low",
+      "mitigation": "Consumidor deduplica por OutboxMessage.Id."
+    }
+  ],
+  "pending": [
+    "Aplicar bloco rabbitmq no docker-compose.yml e variaveis no .env.example (bloqueado por hook)",
+    "Revisar e aplicar a migration AddOutboxMessage (pessoa)",
+    "Adapter RabbitMQ real com o primeiro consumidor"
+  ],
+  "limitations": [
+    "docker compose config nao executado (compose nao editado).",
+    "Retencao/limpeza de outbox_message nao implementada (sem grant de DELETE por desenho)."
+  ],
+  "intervention": {
+    "needed": true,
+    "reason": "scope_exceeded",
+    "details": "Edicao de docker-compose.yml e .env.example negada por hook do AISEF apesar de constar em paths_allowed; parte AC-P03b parada, nao contornada."
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/71cc49a0-1190-4aec-9b7f-ab64e2de1b9d/scratchpad/RPT-T-P03-tecnico.md",
+    "sha256": "94bcc6a880636431598ac1030b05b4f6eab7cb27a8b3c6c97be296d8369ca5ea"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T13:50:00-03:00",
+    "event_log_ref": ".aisef/audit"
+  }
+}

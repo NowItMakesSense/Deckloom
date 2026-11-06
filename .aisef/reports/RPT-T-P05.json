@@ -1,0 +1,186 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-P05",
+  "task_id": "T-P05",
+  "contract_version": 2,
+  "feature_id": "FEAT-PLATAFORMA",
+  "agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "execution_profile": {
+    "model": "haiku",
+    "effort": "medium",
+    "level": 1,
+    "attempt": 2,
+    "routed_by": "orchestrator",
+    "reasons": [
+      "instrucao do orquestrador: model=haiku effort=medium level=1 (contrato v2)",
+      "tentativa 2: decisao do orquestrador classificou Deckloom.Catalog.Application e Deckloom.Catalog.Infrastructure como produto"
+    ]
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T18:05:00-03:00",
+    "finished_at": "2026-11-06T18:45:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 2,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [],
+    "modified": [
+      {
+        "path": ".github/workflows/ci.yml",
+        "sha256_after": "97be82a442a77876082a7600278f8d0b0c0b28d6ac1019c76ee619a3909e2f72"
+      },
+      {
+        "path": "scripts/ci/check_coverage.py",
+        "sha256_after": "fb8017548d47e375c5f864bc0cfd63e6a98270430fc24fdf7f3f4baebbd5c8ae"
+      },
+      {
+        "path": "scripts/ci/test_ci_workflow.py",
+        "sha256_after": "8c7fa9892d94e03800f9c0179c8affbca04b5925f8f54a4d215fa34d6eb34651"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Passo 'Build para o CodeQL (C#)' passa a compilar, alem de Deckloom.Api, os 3 servicos de backend/src/Services (um dotnet build por csproj). Sem projetos de teste e sem a solucao inteira.",
+      "reason": "AC-P05c: os servicos nao sao referenciados pela Api (ADR-0018), por isso o CodeQL nao os analisava; mantem SEC-29.",
+      "requirement_ids": ["REQ-P01"],
+      "files": [".github/workflows/ci.yml"]
+    },
+    {
+      "summary": "PRODUCT_PACKAGES inclui os 3 servicos (MetaIngestionService, NotificationService, SuggestionService) e os 2 pacotes do Catalog (Catalog.Application, Catalog.Infrastructure), medidos pelo mesmo portao de 80%. Catalog classificado por decisao do orquestrador (codigo de producao do nucleo, ADR-0018/APR-015).",
+      "reason": "AC-P05a: sem a classificacao o portao reprova os pacotes como sem classificacao.",
+      "requirement_ids": ["REQ-P01"],
+      "files": ["scripts/ci/check_coverage.py"]
+    },
+    {
+      "summary": "test_ci_workflow.py: teste do build do CodeQL exige 'Api + cada servico exatamente uma vez' (substitui o antigo 'so Api'); novos testes: job backend compila e testa a sln; sln contem cada servico e seu projeto de teste; job backend usa o portao com COVERAGE_THRESHOLD; cada servico esta em PRODUCT_PACKAGES; todo csproj de backend/src esta em PRODUCT_PACKAGES ou TEST_SUPPORT_PACKAGES.",
+      "reason": "AC-P05a e AC-P05c: guarda automatica que falha se um servico ou um projeto de producao sair do build do CodeQL, da solucao ou do portao.",
+      "requirement_ids": ["REQ-P01"],
+      "files": ["scripts/ci/test_ci_workflow.py"]
+    }
+  ],
+  "tests": {
+    "executed": 45,
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "test_codeql_build_compiles_api_and_every_service_csproj_exactly_once",
+      "test_backend_job_builds_and_tests_the_solution_that_holds_the_services",
+      "test_solution_lists_every_service_csproj_and_its_test_project",
+      "test_backend_coverage_gate_uses_the_ci_threshold",
+      "test_every_service_csproj_is_a_product_package_of_the_coverage_gate",
+      "test_every_production_csproj_is_classified_in_the_coverage_gate"
+    ],
+    "regression_run": true,
+    "commands": [
+      "python -m unittest discover -s scripts/ci -p \"test_*.py\" (45 testes, OK; vermelho: 3 falhas na 1a rodada, 2 reais depois; vermelho da guarda de classificacao com Catalog fora: 1 falha)",
+      "dotnet test backend/Deckloom.sln -c Release --settings backend/coverlet.runsettings --collect:\"XPlat Code Coverage\" (exit 0; 10 resumos 'Aprovado!'; saida fora do repositorio)",
+      "python scripts/ci/check_coverage.py --reports-dir <scratchpad>/cov --threshold 80 (exit 0: 'Cobertura de produto >= 80%: OK')",
+      "dotnet build <Api e 3 servicos> -c Release (exit 0, 0 erros cada)",
+      "mutacao 1: remover servico de PRODUCT_PACKAGES -> 1 falha; revertido -> OK",
+      "mutacao 2: remover NotificationService do build do CodeQL em ci.yml -> 1 falha; revertido e comparado ao backup -> OK"
+    ],
+    "evidence_ids": ["EV-T-P05-01", "EV-T-P05-02", "EV-T-P05-03", "EV-T-P05-04", "EV-T-P05-05", "EV-T-P05-06"]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-P05-01",
+      "type": "test_output",
+      "ref": "python -m unittest discover -s scripts/ci -p \"test_*.py\": vermelho (3 falhas de 44 na 1a rodada, 2 reais depois; guarda de classificacao 1 falha com Catalog fora); verde final: Ran 45 tests, OK",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P05-02",
+      "type": "command_output",
+      "ref": "dotnet test backend/Deckloom.sln (Release, coverlet, mesmo comando do CI): exit 0, 10 resumos 'Aprovado!'. Gate: python scripts/ci/check_coverage.py --reports-dir <scratchpad>/cov --threshold 80: exit 0, 'Cobertura de produto >= 80%: OK' (Catalog.Application 100% 1/1, Catalog.Infrastructure 100% 46/46, SuggestionService/MetaIngestionService/NotificationService 100% 5/5 cada)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P05-03",
+      "type": "command_output",
+      "ref": "dotnet build em Release de Deckloom.Api.csproj, Deckloom.SuggestionService.csproj, Deckloom.MetaIngestionService.csproj e Deckloom.NotificationService.csproj: exit 0 nos 4, 0 erros cada",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P05-04",
+      "type": "test_output",
+      "ref": "mutacao 1 (sem SuggestionService em PRODUCT_PACKAGES): 1 falha; mutacao 2 (sem NotificationService no build do CodeQL): 1 falha, '3 != 4'. Ambas revertidas: 45 OK, ci.yml igual ao backup",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P05-05",
+      "type": "report",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/71cc49a0-1190-4aec-9b7f-ab64e2de1b9d/scratchpad/RPT-T-P05-relatorio-tecnico.txt",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-P05-06",
+      "type": "test_output",
+      "ref": "guarda test_every_production_csproj_is_classified_in_the_coverage_gate: vermelho com Catalog.Application e Catalog.Infrastructure fora de PRODUCT_PACKAGES e TEST_SUPPORT_PACKAGES; verde apos a inclusao, com os 2 pacotes em PRODUCT_PACKAGES",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-P05a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-P05-02", "EV-T-P05-01", "EV-T-P05-06"],
+      "notes": "Os 3 servicos sao compilados e testados pelo job backend (a sln os inclui), medidos e aprovados pelo mesmo portao de 80% (100% cada). O portao local passa (exit 0) depois da classificacao do Catalog pelo orquestrador."
+    },
+    {
+      "criterion_id": "AC-P05b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-P05-01"],
+      "notes": "python -m unittest discover -s scripts/ci -p \"test_*.py\": 45 testes, OK."
+    },
+    {
+      "criterion_id": "AC-P05c",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-P05-01", "EV-T-P05-03", "EV-T-P05-04"],
+      "notes": "Build do CodeQL compila Api e os 3 servicos. Teste vermelho com servico removido do passo verificado (mutacao 2) e revertido."
+    }
+  ],
+  "problems": [],
+  "risks": [],
+  "pending": [
+    "Validacao independente pelo validator (T-P05 exige validador independente)."
+  ],
+  "limitations": [
+    "Nenhuma operacao Git. Nenhum arquivo de segredo ou de ambiente foi lido. Nenhum banco foi acessado (testes .NET com fakes e SQLite em memoria).",
+    "Os jobs reais do GitHub Actions nao foram executados; a verificacao e local, com os mesmos comandos do workflow.",
+    "O build do CodeQL em modo manual nao foi executado pelo CodeQL; foram verificados os builds dos csproj que ele roda.",
+    "timing.started_at e aproximado: o horario exato do evento task_started (E1066) nao foi conferido no log.",
+    "Relatorio de cobertura de referencia gravado fora do repositorio (scratchpad da sessao)."
+  ],
+  "scope_discoveries": [
+    {
+      "description": "Deckloom.Catalog.Application e Deckloom.Catalog.Infrastructure (producao, com testes na sln) estavam fora do check_coverage.py; o portao do job backend reprovava por isso.",
+      "impact": "Job backend vermelho por causa do portao, independentemente dos servicos.",
+      "affected_part_stopped": "Classificacao do Catalog: parada e reportada; resolvida por decisao do orquestrador (classificados como produto) e aplicada nesta segunda execucao."
+    }
+  ],
+  "operations_log_ref": "aisef_project.py append --type task_started (E1066), --type task_executed (E1093) e --type task_executed (E1102)",
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/71cc49a0-1190-4aec-9b7f-ab64e2de1b9d/scratchpad/RPT-T-P05-relatorio-tecnico.txt",
+    "sha256": "035125e437c2030d3eb4eb31114fd94e87725de1670b085b386b9e888e79d993"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T18:45:00-03:00",
+    "event_log_ref": "E1102 (task_executed, aisef_project.py append)"
+  }
+}

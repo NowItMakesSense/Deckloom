@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "task_id": "T-P05",
-  "contract_version": 1,
+  "contract_version": 2,
   "kind": "task",
   "feature_id": "FEAT-PLATAFORMA",
   "feature_contract_version": 2,
@@ -22,7 +22,9 @@
   },
   "scope": {
     "included": [
-      "CI cobre os servicos novos"
+      "CI cobre os servicos novos",
+      "Build do CodeQL (C#) compila tambem os 3 servicos de backend/src/Services (lacuna aberta pela T-P02 ao restringir SastScopeTests ao nucleo)",
+      "Guarda automatizada em scripts/ci que falha se algum csproj de backend/src/Services ficar fora do build do CodeQL no ci.yml"
     ],
     "excluded": [],
     "paths_allowed": [
@@ -72,6 +74,18 @@
       "verification": {
         "method": "automated_test",
         "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P01"
+      ]
+    },
+    {
+      "id": "AC-P05c",
+      "description": "o passo de build do CodeQL (C#) no ci.yml compila os 3 servicos, e um teste em scripts/ci falha se um csproj de backend/src/Services ficar fora dele",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste e teste vermelho com um servico removido do passo"
       },
       "requirement_ids": [
         "REQ-P01"

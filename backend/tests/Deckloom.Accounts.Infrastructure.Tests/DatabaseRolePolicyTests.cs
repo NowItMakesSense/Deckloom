@@ -3,7 +3,7 @@ namespace Deckloom.Accounts.Infrastructure.Tests;
 // T-134 (habilitadora; DB7/UA2; ADR-0015): decisao pura sobre o papel de conexao, sem conexao a banco.
 // Contrato esperado (a ser criado pelo implementer):
 //   record RoleSnapshot { RoleName, DatabaseName, IsSuperuser, CanCreateRole, CanCreateDatabase, BypassesRowLevelSecurity,
-//                         CanCreateInDatabase, CanCreateInAccountsSchema, CanCreateInDeckSuggestionSchema, OwnsObjects }
+//                         CanCreateInDatabase, CanCreateInAccountsSchema, CanCreateInDeckSuggestionSchema, CanCreateInCatalogSchema, OwnsObjects }
 //   DatabaseRolePolicy.Evaluate(RoleSnapshot) -> DatabaseRoleDecision { IsAccepted, Reasons }
 //   Reasons: IReadOnlyCollection<DatabaseRoleRejection> com Code (string estavel) e Message.
 public class DatabaseRolePolicyTests
@@ -22,6 +22,7 @@ public class DatabaseRolePolicyTests
         CanCreateInDatabase = false,
         CanCreateInAccountsSchema = false,
         CanCreateInDeckSuggestionSchema = false,
+        CanCreateInCatalogSchema = false,
         OwnsObjects = false,
     };
 
@@ -34,6 +35,7 @@ public class DatabaseRolePolicyTests
         { "create_database", Compliant() with { CanCreateInDatabase = true } },
         { "create_schema_accounts", Compliant() with { CanCreateInAccountsSchema = true } },
         { "create_schema_deck_suggestion", Compliant() with { CanCreateInDeckSuggestionSchema = true } },
+        { "create_schema_catalog", Compliant() with { CanCreateInCatalogSchema = true } },
         { "owns_objects", Compliant() with { OwnsObjects = true } },
     };
 
@@ -63,7 +65,7 @@ public class DatabaseRolePolicyTests
             .Select(row => DatabaseRolePolicy.Evaluate((RoleSnapshot)row[1]).Reasons.Single().Code)
             .ToList();
 
-        Assert.Equal(8, codes.Distinct().Count());
+        Assert.Equal(9, codes.Distinct().Count());
         Assert.All(codes, code => Assert.False(string.IsNullOrWhiteSpace(code)));
     }
 
@@ -95,7 +97,7 @@ public class DatabaseRolePolicyTests
     }
 
     [Fact]
-    public void DB7_all_conditions_together_return_eight_reasons()
+    public void DB7_all_conditions_together_return_nine_reasons()
     {
         var snapshot = Compliant() with
         {
@@ -106,12 +108,13 @@ public class DatabaseRolePolicyTests
             CanCreateInDatabase = true,
             CanCreateInAccountsSchema = true,
             CanCreateInDeckSuggestionSchema = true,
+            CanCreateInCatalogSchema = true,
             OwnsObjects = true,
         };
 
         var decision = DatabaseRolePolicy.Evaluate(snapshot);
 
-        Assert.Equal(8, decision.Reasons.Count);
+        Assert.Equal(9, decision.Reasons.Count);
     }
 
     [Fact]
@@ -126,6 +129,7 @@ public class DatabaseRolePolicyTests
             CanCreateInDatabase = true,
             CanCreateInAccountsSchema = true,
             CanCreateInDeckSuggestionSchema = true,
+            CanCreateInCatalogSchema = true,
             OwnsObjects = true,
         };
         string[] forbidden =

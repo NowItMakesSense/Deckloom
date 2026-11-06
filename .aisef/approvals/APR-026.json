@@ -1,0 +1,80 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-026",
+  "request_type": "git_operation",
+  "title": "Apagar a branch remota feat/v0.5.0-modo-continuo apos o merge (repo NowItMakesSense/aisef, v0.5.0, PR #2)",
+  "summary": "Apaga a branch remota feat/v0.5.0-modo-continuo. O conteudo ja esta na main (1c72c55).",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-002",
+  "created_at": "2026-11-06T18:21:39-03:00",
+  "expires_at": "2026-11-06T18:51:39-03:00",
+  "policy_version": "0.1.0",
+  "validity_minutes": 30,
+  "required_acknowledgements": [
+    "impact_read",
+    "rollback_read",
+    "diff_reviewed"
+  ],
+  "operation": {
+    "environment": "dev",
+    "resource_class": "git",
+    "operation": "git -C C:/Users/escor/Documents/Projetos/IAS/my-workflow-setup push origin --delete feat/v0.5.0-modo-continuo",
+    "destructive": true,
+    "sensitive_content_shown": false
+  },
+  "git": {
+    "operation": "branch_delete",
+    "branch": "feat/v0.5.0-modo-continuo",
+    "target_branch": "origin/feat/v0.5.0-modo-continuo",
+    "covers_only_this_operation": true
+  },
+  "presented": {
+    "impact": "Apaga a branch feat/v0.5.0-modo-continuo do repositorio do plugin AISEF (my-workflow-setup). PR #2 MERGED (1c72c55).",
+    "diff_ref": "PR merged; branch contida na main (1c72c55)",
+    "rollback_plan": "Recriar a branch a partir do commit: git branch feat/v0.5.0-modo-continuo 1c72c55 && git push origin feat/v0.5.0-modo-continuo",
+    "justification": "Regra permanente do usuario (2026-11-06): apos merge bem-sucedido, apagar sempre a branch local e a remota.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Exclusao de branch",
+        "severity": "medium",
+        "mitigation": "PR merged; commit recuperavel pelo hash"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "audit": {
+    "requested_event_ref": "events/1043",
+    "decided_event_ref": "events/1044"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T18:21:40-03:00",
+    "note": "Release v0.5.0 aprovado pelo usuario no chat em 2026-11-06; regra de apagar branch apos merge",
+    "acknowledged": [
+      "impact_read",
+      "rollback_read",
+      "diff_reviewed"
+    ]
+  },
+  "resulting_ref": {
+    "kind": "reinforced_approval",
+    "id": "RA-003"
+  }
+}

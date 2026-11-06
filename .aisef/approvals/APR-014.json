@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "request_id": "APR-014",
+  "request_type": "git_operation",
+  "title": "Merge do PR #1 (chore/aceite-sem-database-colunas-imutaveis) na main",
+  "summary": "Faz o merge do PR #1 na main do repositorio publico (rebase do unico commit 90cf23b, historico linear). Nao apaga o branch (isso seria outro pedido).",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-002",
+  "created_at": "2026-11-06T15:40:00-03:00",
+  "expires_at": "2026-11-06T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "operation": {
+    "environment": "dev",
+    "resource_class": "git",
+    "operation": "gh pr merge 1 --rebase",
+    "destructive": false,
+    "sensitive_content_shown": false
+  },
+  "git": {
+    "operation": "merge",
+    "branch": "chore/aceite-sem-database-colunas-imutaveis",
+    "target_branch": "main",
+    "covers_only_this_operation": true
+  },
+  "presented": {
+    "impact": "A main passa a conter as features aceitas FEAT-SEM-DATABASE-DOCS e FEAT-COLUNAS-IMUTAVEIS e os contratos da FEAT-PLATAFORMA; base para iniciar a FEAT-PLATAFORMA.",
+    "diff_ref": "https://github.com/NowItMakesSense/Deckloom/pull/1 (133 arquivos)",
+    "tests": {
+      "summary": "CI do PR #1 verde nos 9 jobs; dotnet test local 2826/2826",
+      "executed": 2826,
+      "passed": 2826,
+      "failed": 0
+    },
+    "rollback_plan": "git revert do commit na main via novo PR.",
+    "justification": "Pedido do usuario no chat em 2026-11-06 ('Abra e depois vamos para a plataforma').",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Merge na main publica",
+        "severity": "low",
+        "mitigation": "CI verde no commit; revert simples"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-P01"
+    ],
+    "independent_work_continues": true
+  },
+  "audit": {
+    "requested_event_ref": "events/515",
+    "decided_event_ref": "events/518"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T12:40:16-03:00",
+    "note": "Usuario pediu no chat em 2026-11-06: 'Abra e depois vamos para a plataforma'"
+  }
+}
