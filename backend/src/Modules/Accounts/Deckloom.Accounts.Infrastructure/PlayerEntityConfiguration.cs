@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Mapeamento de Database/tables/accounts.player.md. O Avatar (tres colunas) e sincronizado por AccountsDbContext
+// Mapeamento de accounts.player. O Avatar (tres colunas) e sincronizado por AccountsDbContext
 // atraves das propriedades sombra declaradas aqui; identidade externa tem tabela propria (owned); formatos
 // preferidos sao linhas de PlayerPreferredFormat; o token de redefinicao tem tabela propria (owned, 1:0..1).
 internal sealed class PlayerEntityConfiguration(Action<EntityTypeBuilder<Player>> configureConcurrencyToken)
@@ -111,7 +111,7 @@ internal sealed class PlayerEntityConfiguration(Action<EntityTypeBuilder<Player>
         configureConcurrencyToken(player);
     }
 
-    // Database/tables/accounts.player_external_identity.md: tabela propria, uma linha por provedor.
+    // accounts.player_external_identity: tabela propria, uma linha por provedor.
     // linked_at e uma propriedade sombra carimbada por AccountsDbContext (o dominio nao a conhece).
     private static void ConfigureExternalIdentity(EntityTypeBuilder<Player> player)
     {
@@ -138,7 +138,7 @@ internal sealed class PlayerEntityConfiguration(Action<EntityTypeBuilder<Player>
         });
     }
 
-    // Database/tables/accounts.password_reset_token.md: PK = player_id (no maximo um token por Jogador);
+    // accounts.password_reset_token: PK = player_id (no maximo um token por Jogador);
     // so o hash SHA-256 e persistido. Emitir substitui a linha; consumir apaga (1 linha afetada ou conflito).
     private static void ConfigureResetToken(EntityTypeBuilder<Player> player)
     {

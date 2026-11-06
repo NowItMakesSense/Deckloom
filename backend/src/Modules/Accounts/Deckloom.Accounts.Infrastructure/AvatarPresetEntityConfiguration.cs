@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Mapeamento de Database/tables/accounts.avatar_preset.md. No maximo um padrao: indice unico parcial em is_default.
+// Mapeamento de accounts.avatar_preset. No maximo um padrao: indice unico parcial em is_default.
 internal sealed class AvatarPresetEntityConfiguration : IEntityTypeConfiguration<AvatarPresetRow>
 {
     public const string TableName = "avatar_preset";

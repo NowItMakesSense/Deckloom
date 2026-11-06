@@ -1,6 +1,6 @@
 namespace Deckloom.Accounts.Infrastructure;
 
-// Linha de Database/tables/accounts.avatar_preset.md. Catalogo gerido fora da aplicacao; aqui so e lido.
+// Linha de accounts.avatar_preset. Catalogo gerido fora da aplicacao; aqui so e lido.
 internal sealed class AvatarPresetRow
 {
     public string Id { get; init; } = string.Empty;

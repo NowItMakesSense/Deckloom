@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-P03",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-PLATAFORMA",
+  "feature_contract_version": 2,
+  "title": "Outbox no nucleo e broker no compose de desenvolvimento",
+  "objective": "Outbox no nucleo e broker no compose de desenvolvimento",
+  "assigned_agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-P01",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Outbox no nucleo e broker no compose de desenvolvimento"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "backend/src/Deckloom.SharedKernel/**",
+      "backend/src/Deckloom.Api/**",
+      "backend/tests/Deckloom.Api.Tests/**",
+      "docker-compose.yml",
+      ".env.example"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-P02"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-PLATAFORMA.json",
+        "origin": "feature_contract",
+        "version": "2"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-P03a",
+      "description": "teste automatizado: evento gravado na outbox na mesma transacao do caso de uso e publicado uma unica vez",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P01"
+      ]
+    },
+    {
+      "id": "AC-P03b",
+      "description": "docker-compose.yml sobe o broker so em 127.0.0.1, com credenciais vindas do ambiente (sem literal)",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-P01"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:22:46-03:00"
+  }
+}

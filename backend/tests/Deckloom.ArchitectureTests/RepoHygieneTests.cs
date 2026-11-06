@@ -315,46 +315,6 @@ public class RepoHygieneTests
     }
 
     [Fact]
-    public void T005_role_docs_define_the_three_roles_and_the_parser_reads_their_values()
-    {
-        var roles = RoleDocs.Load(RepoRoot());
-        Assert.Equal(
-            ["deckloom_app", "deckloom_migrator", "deckloom_owner"],
-            roles.Select(r => r.Role).ToArray());
-        // Guarda do parser: um papel com LOGIN tem limite de conexões e parâmetros nos .md; um parser que
-        // devolvesse vazio faria os testes de divergência passarem em silêncio.
-        foreach (var r in roles.Where(r => r.Attributes.Contains("LOGIN")))
-        {
-            Assert.True(r.ConnectionLimit is > 0, $"{r.Role}.md: CONNECTION LIMIT não lido.");
-            Assert.Contains(r.Settings, x => x.Parameter == "search_path");
-            Assert.Contains(r.Settings, x => x.Parameter == "statement_timeout");
-        }
-    }
-
-    [Fact]
-    public void T005_roles_script_creates_the_roles_with_the_attributes_and_limits_of_the_role_docs()
-    {
-        var sql = Sql();
-        var problems = new List<string>();
-        foreach (var role in RoleDocs.Load(RepoRoot()))
-        {
-            var create = Regex.Match(sql, $@"CREATE\s+ROLE\s+{role.Role}\b([^;]*);", RegexOptions.IgnoreCase);
-            if (!create.Success) { problems.Add($"{role.Role}: sem CREATE ROLE"); continue; }
-            var body = create.Groups[1].Value.ToUpperInvariant();
-            var inScript = RoleDocs.AttributeKeywords
-                .Where(k => Regex.IsMatch(body, $@"\b{k}\b")).ToHashSet(StringComparer.Ordinal);
-            foreach (var attr in role.Attributes.Except(inScript)) problems.Add($"{role.Role}: falta {attr} (doc)");
-            foreach (var attr in inScript.Except(role.Attributes)) problems.Add($"{role.Role}: {attr} no script, ausente do doc");
-
-            var scriptLimit = Regex.Match(sql, $@"(CREATE|ALTER)\s+ROLE\s+{role.Role}\b[^;]*CONNECTION\s+LIMIT\s+(\d+)\b", RegexOptions.IgnoreCase);
-            var scriptLimitValue = scriptLimit.Success ? int.Parse(scriptLimit.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture) : (int?)null;
-            if (scriptLimitValue != role.ConnectionLimit)
-                problems.Add($"{role.Role}: CONNECTION LIMIT {scriptLimitValue?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "ausente"} no script, {role.ConnectionLimit?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "ausente"} no doc");
-        }
-        Assert.True(problems.Count == 0, string.Join("; ", problems));
-    }
-
-    [Fact]
     public void T005_roles_script_makes_migrator_a_set_only_member_of_owner()
     {
         var grant = Regex.Match(Sql(), @"GRANT\s+deckloom_owner\s+TO\s+deckloom_migrator\b([^;]*);", RegexOptions.IgnoreCase);
@@ -362,29 +322,6 @@ public class RepoHygieneTests
         Assert.Matches(@"(?i)INHERIT\s+FALSE", grant.Groups[1].Value);
         Assert.Matches(@"(?i)SET\s+TRUE", grant.Groups[1].Value);
         Assert.DoesNotMatch(@"(?i)\bADMIN\b", grant.Groups[1].Value);
-    }
-
-    [Fact]
-    public void T005_roles_script_applies_exactly_the_per_role_settings_of_the_role_docs()
-    {
-        var sql = Sql();
-        var inScript = Regex.Matches(
-                sql,
-                @"ALTER\s+ROLE\s+(\w+)\s+IN\s+DATABASE\s+deckloom\s+SET\s+(\w+)\s*(?:=|TO)\s*'?([^';\s]+)'?\s*;",
-                RegexOptions.IgnoreCase)
-            .Select(m => (Role: m.Groups[1].Value, Parameter: m.Groups[2].Value, Value: m.Groups[3].Value))
-            .ToList();
-
-        var problems = new List<string>();
-        var docs = RoleDocs.Load(RepoRoot());
-        foreach (var doc in docs)
-        {
-            var script = inScript.Where(x => x.Role == doc.Role).Select(x => (x.Parameter, x.Value)).ToHashSet();
-            problems.AddRange(doc.Settings.Except(script).Select(x => $"{doc.Role}.{x.Parameter}={x.Value} no doc, ausente/diferente no script"));
-            problems.AddRange(script.Except(doc.Settings).Select(x => $"{doc.Role}.{x.Parameter}={x.Value} no script, ausente/diferente no doc"));
-        }
-        problems.AddRange(inScript.Where(x => docs.All(d => d.Role != x.Role)).Select(x => $"{x.Role}: papel sem doc"));
-        Assert.True(problems.Count == 0, $"Divergência entre Database/roles/*.md e db/init/01-roles.sh: {string.Join("; ", problems)}");
     }
 
     // R-11 (UA4): o motivo de o bootstrap ser .sh e não .sql fica registrado no cabeçalho do script.

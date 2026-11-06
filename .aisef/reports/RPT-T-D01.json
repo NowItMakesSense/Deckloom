@@ -1,0 +1,356 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-D01",
+  "task_id": "T-D01",
+  "contract_version": 1,
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T11:28:00-03:00",
+    "finished_at": "2026-11-06T11:37:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/UpdateStatementCaptureTests.cs",
+        "sha256_after": "3be9cbb72ea36428612f951b7f6d2d30f6c1520ac26700bffefd2b7863873a01"
+      }
+    ],
+    "modified": [
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/Deckloom.Accounts.Infrastructure.Tests.csproj",
+        "sha256_after": "b19d3a03d7adc489dcc0b4ea779d1544ac54f4b69d1a96e7b1d5c839bc8c1e61"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/MigrationGrantConformanceTests.cs",
+        "sha256_after": "a63732bd4958de3ff3610a4853d84596ae32dc0ce5ef8a0c8cb7f48474904a2c"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/RepoHygieneTests.cs",
+        "sha256_after": "28c381754c37325bd77485681a2a189a0a43ebfd0678eea16e035c91b9075d44"
+      },
+      {
+        "path": "backend/tests/Deckloom.DeckSuggestion.Infrastructure.Tests/FormatModelConformanceTests.cs",
+        "sha256_after": "3e578d659a4b5c516ac9d4ce1106a89205ae23215ade3120016ce5cf8d638066"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Application.Tests/PurgeExpiredDataTests.cs",
+        "sha256_after": "9194be47de102d4c7e307c18711fb95744423ae636164126c1afeb86c32ed068"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Domain/Player.cs",
+        "sha256_after": "22b02c5ce718254466e7ffb8de1d434bf55edab0fc19e91909e31a6d55792dcb"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AccessAttemptEntityConfiguration.cs",
+        "sha256_after": "03cecee6e4a17b3ee0020c35ef0c6c62f1c1947671c67d3dee15633bc3a31056"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AccessAttemptRow.cs",
+        "sha256_after": "06ed01c69183a269832c49e0fd8dbb48684f9f39844021618b1d8fec6991eb8b"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AvatarImageEntityConfiguration.cs",
+        "sha256_after": "716ce3e2de876da9ab6c4c1d4c845b068b104432308b15177691f8af46c2c43e"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AvatarImageRow.cs",
+        "sha256_after": "c5534cca1ceffc954d960d32c9e06c2fc72c40227d55982b3025f012af285a5f"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AvatarPresetEntityConfiguration.cs",
+        "sha256_after": "9d8661f4f2711c82acb0804d8c876a633c00c2e785289e7f866f48d16c9efe83"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AvatarPresetRow.cs",
+        "sha256_after": "87e44f4e77c9f26aa953d12f478887c0f405b6eeef43ccf7745a2f824ca4a4e7"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/PendingGoogleAuthEntityConfiguration.cs",
+        "sha256_after": "c08b3c7e8884542da8625e717366856f971c7d6071be0f9aca37f325bc5584c3"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/PendingGoogleAuthRow.cs",
+        "sha256_after": "6b1f11817985d0576c5cadd47ec05073f5ec67f9ab609f45fee506eb31f35c82"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/PlayerEntityConfiguration.cs",
+        "sha256_after": "36565b8ba995e91cf8b36f3e2734a5d9e21da9cd5bdc58bf85cab98ee2b944aa"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/PlayerPreferredFormat.cs",
+        "sha256_after": "d07c931333424961695b562c09502ce900f8659b101b52962206c0b8234d97d9"
+      },
+      {
+        "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/SessionEntityConfiguration.cs",
+        "sha256_after": "8edc3859065a7f5a2927c843f89129abe71b93b7f382d7fe1ae3d27e08a5f676"
+      },
+      {
+        "path": "backend/src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/FormatCatalogDbContext.cs",
+        "sha256_after": "98703226a4e61a4168f6192bedf688ac961be77edf3f50be41cf78008351d8c0"
+      },
+      {
+        "path": "backend/src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure/FormatRow.cs",
+        "sha256_after": "ab1a7286c26ae4b93791b4bfd80b6577cefe29dab6114abbe3345a03ae16310c"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/AccessAttemptPersistenceTests.cs",
+        "sha256_after": "077c33dbdc3de864004b555f2894d5ec824a4ece4ee44d497f5a395e125d044a"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/AvatarStoragePersistenceTests.cs",
+        "sha256_after": "e0f86453479c74c384eb626d329f1c3632f7513270d9c889a21c658fbac68c22"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/CatalogAdapterTests.cs",
+        "sha256_after": "aaf2371fc0bfbbe81e3689855ed711f3f1eaa38472978aa7314273609873d224"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/CatalogSeedTests.cs",
+        "sha256_after": "c06b71d9ef21c68b34afb6a6e84aab508d9bd95c8725a4e2bac0650a4be7f1c7"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/PendingGoogleAuthPersistenceTests.cs",
+        "sha256_after": "f6c82ca5abbb5f2f1cc24dcc761483c2665de1cd7f2572148fcda70528bd046d"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/PlayerRelationsPersistenceTests.cs",
+        "sha256_after": "448fb0c16b68fdaa9320661b50145a71e293422f5b96b74e4e287ef70dee79af"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/ResetTokenPersistenceTests.cs",
+        "sha256_after": "a21043158285bc1278e72269392331cac039b59c2aa04acf8d196aa1a72899eb"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/SessionPersistenceTests.cs",
+        "sha256_after": "73b441855042f723c401f63c19159b5b1a6eb7d15ff7c858876bf8ec2e7c92f3"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/SqliteInMemoryFixture.cs",
+        "sha256_after": "fcbdf7ad47bb7c7915e0c0b2ec8149289f9f502d391dccbe9e1983686b4b0093"
+      },
+      {
+        "path": "backend/tests/Deckloom.DeckSuggestion.Infrastructure.Tests/FormatCatalogTests.cs",
+        "sha256_after": "b72a017e666ab6966c9ae6a33b69763b62888a25e0049c725f500ce03642d459"
+      }
+    ],
+    "deleted": [
+      {
+        "path": "Database/ (pasta inteira, 59 arquivos .md)"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/DatabaseDocs.cs"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/ModelConformanceTests.cs"
+      },
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/GeneratedUpdateColumnsTests.cs"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/PrivilegeMatrixTests.cs"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/RoleDocs.cs"
+      },
+      {
+        "path": "backend/tests/Deckloom.ArchitectureTests/Support/PrivilegeMatrix.cs"
+      }
+    ]
+  },
+  "changes": [
+    {
+      "summary": "Pasta Database/ apagada (59 .md).",
+      "reason": "Decisao do usuario de 2026-11-06 (FEAT-SEM-DATABASE-DOCS).",
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ],
+      "files": [
+        "Database/"
+      ]
+    },
+    {
+      "summary": "Apagados 6 arquivos de teste/helper que dependiam inteiramente de Database/ (DatabaseDocs, ModelConformanceTests, GeneratedUpdateColumnsTests, PrivilegeMatrixTests, RoleDocs, Support/PrivilegeMatrix) e o Compile Include do link de PrivilegeMatrix.cs no csproj de Accounts.Infrastructure.Tests.",
+      "reason": "Testes usavam Database/ como fonte de verdade; decisao: remover sem substituto.",
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ]
+    },
+    {
+      "summary": "Removidos so os testes dependentes em arquivos parciais: 3 em MigrationGrantConformanceTests (mais helper Matrix() e regex sem uso), 3 em RepoHygieneTests (RoleDocs), 1 em FormatModelConformanceTests (mais DocumentedColumns/RepoRoot).",
+      "reason": "Manter os testes que nao dependem de Database/.",
+      "requirement_ids": [
+        "REQ-D01",
+        "REQ-D02"
+      ]
+    },
+    {
+      "summary": "Theory UA1_capture_parses_the_set_columns_of_an_update movida sem alteracao para UpdateStatementCaptureTests.cs.",
+      "reason": "Nao depende de Database/ e testa o interceptor ainda usado por CleanupJobBatchingTests; a classe de origem foi apagada porque carregava a matriz num campo estatico.",
+      "requirement_ids": [
+        "REQ-D02"
+      ],
+      "files": [
+        "backend/tests/Deckloom.Accounts.Infrastructure.Tests/UpdateStatementCaptureTests.cs"
+      ]
+    },
+    {
+      "summary": "Comentarios que citavam Database/tables/<schema>.<tabela>.md reescritos como <schema>.<tabela> (13 arquivos em src, 10 em tests); citacao 'privilege-matrix' removida de PurgeExpiredDataTests.cs. Sem mudanca de codigo.",
+      "reason": "Criterio AC-D01b e item 3 da tarefa.",
+      "requirement_ids": [
+        "REQ-D01"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2801,
+    "passed": 2801,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "Deckloom.Accounts.Infrastructure.Tests.UpdateStatementCaptureTests.UA1_capture_parses_the_set_columns_of_an_update (movido)"
+    ],
+    "regression_run": true,
+    "commands": [
+      "ls Database",
+      "grep -rnE \"Database/|DatabaseDocs|RoleDocs|PrivilegeMatrix\" backend",
+      "dotnet restore backend/Deckloom.sln",
+      "dotnet format backend/Deckloom.sln --verify-no-changes --no-restore",
+      "dotnet build backend/Deckloom.sln -c Release --no-restore",
+      "dotnet test backend/Deckloom.sln -c Release --no-build --settings backend/coverlet.runsettings --collect:\"XPlat Code Coverage\" --results-directory backend/TestResults",
+      "python scripts/ci/check_coverage.py --reports-dir backend/TestResults --threshold 80",
+      "dotnet build-server shutdown"
+    ],
+    "evidence_ids": [
+      "EV-TEST",
+      "EV-COV"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-NODIR",
+      "type": "command_output",
+      "ref": "ls Database -> 'No such file or directory'",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-GREP",
+      "type": "command_output",
+      "ref": "grep -rnE \"Database/|DatabaseDocs|RoleDocs|PrivilegeMatrix\" backend (inclui bin/obj apos rebuild) -> exit 1, sem resultados",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-RESTORE",
+      "type": "command_output",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/restore.log (exit 0)",
+      "secrets_redacted": true,
+      "sha256": "5e19bb104f42ed353eea282196d0c4325f200da10f26c11c1abab304f6d26e3e"
+    },
+    {
+      "id": "EV-FORMAT",
+      "type": "command_output",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/format.log (exit 0, vazio)",
+      "secrets_redacted": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "EV-BUILD",
+      "type": "command_output",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/build.log (exit 0, 0 avisos, 0 erros)",
+      "secrets_redacted": true,
+      "sha256": "ca5cde5f518028f8c6c9688e61675e6a2d148f5a8556eef1fa6e5a9803dac462"
+    },
+    {
+      "id": "EV-TEST",
+      "type": "test_output",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/test.log (exit 0; 2801 aprovados: Application 815, Domain 606, Accounts.Infrastructure 566, Api 647, Architecture 148, DeckSuggestion.Infrastructure 19)",
+      "secrets_redacted": true,
+      "sha256": "7b0e629359bac51fbc25e27b3aeaba31e45f683c2e203d00a01f22abf1c3b4d4"
+    },
+    {
+      "id": "EV-COV",
+      "type": "command_output",
+      "ref": "check_coverage.py --threshold 80 -> exit 0; Application 97.96%, Domain 99.60%, Accounts.Infrastructure 93.67%, Api 97.41%, DeckSuggestion.Infrastructure 100%, SharedKernel 100%; igual com so os relatorios desta execucao",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-D01a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-NODIR"
+      ]
+    },
+    {
+      "criterion_id": "AC-D01b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-GREP"
+      ]
+    },
+    {
+      "criterion_id": "AC-D01c",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-RESTORE",
+        "EV-FORMAT",
+        "EV-BUILD",
+        "EV-TEST"
+      ]
+    },
+    {
+      "criterion_id": "AC-D01d",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-COV"
+      ]
+    }
+  ],
+  "problems": [],
+  "risks": [
+    {
+      "description": "Sem verificacao automatica de conformidade entre modelo EF, GRANTs das migracoes, colunas de UPDATE geradas e roles de db/init com a matriz/documentacao (decisao do usuario: sem substituto).",
+      "severity": "medium",
+      "mitigation": "Revisao de codigo nas mudancas de migracoes/mapeamentos; testes restantes de GRANT (instrucoes proibidas, schemas, SQL literal) e de 01-roles.sh seguem ativos."
+    },
+    {
+      "description": "O teste removido de FormatModelConformanceTests tambem conferia nome de tabela, schema e pk_format de deck_suggestion.format.",
+      "severity": "low",
+      "mitigation": "Schema padrao segue coberto por T066_model_has_an_explicit_deck_suggestion_default_schema_and_no_unqualified_entity."
+    }
+  ],
+  "pending": [
+    "Referencias a Database/ fora de backend/ (docs, CI, .aisef) nao foram verificadas nem alteradas por estarem fora dos paths permitidos."
+  ],
+  "limitations": [
+    "backend/TestResults contem 8 pastas de execucoes anteriores (fora dos paths permitidos, nao apagadas); o check de cobertura foi repetido so com os 6 relatorios desta execucao, com o mesmo resultado.",
+    "Diretorio sem controle de versao: nao ha diff; arquivos alterados listados com sha256."
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "Mensagem de handback ao orquestrador (texto integral; copia em C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/RPT-T-D01-tecnico.md)",
+    "sha256": "80f97f675302b79a5cba1ca196c9d749547d00a1b1d90871a91aef2ed599965a"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T11:37:00-03:00",
+    "event_log_ref": ".aisef/audit"
+  }
+}

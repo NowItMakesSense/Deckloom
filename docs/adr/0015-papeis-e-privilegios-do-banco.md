@@ -1,6 +1,6 @@
 # ADR-0015: Papéis e privilégios do PostgreSQL - dono sem login, migrador humano, um papel de aplicação com privilégio mínimo por tabela
 
-- Status: Accepted (2026-10-23, dono do projeto (NowItMakesSense))
+- Status: Accepted (2026-10-23, dono do projeto (NowItMakesSense)); Superseded in part by ADR-0019 (2026-11-06): a matriz e as docs em Database/ deixaram de existir
 - Date: 2026-10-23
 - Deciders: architect (proposta); usuário confirmou em 2026-10-23 os itens 3 (`UPDATE` por coluna), 7 (verificação de papel na inicialização), 8 (TLS), 9 (limites e regra de transação) e o bootstrap por `db/init/01-roles.sh` com a connection string montada pelo compose (item 13); a ADR passa a Accepted na reaprovação do `design.md` da feature `conta-jogador` (emenda de controle de acesso ao banco)
 

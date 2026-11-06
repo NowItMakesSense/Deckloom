@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Linha de Database/tables/accounts.player_preferred_format.md. O agregado guarda o conjunto em Player.Formats;
+// Linha de accounts.player_preferred_format. O agregado guarda o conjunto em Player.Formats;
 // AccountsDbContext sincroniza as linhas no SaveChanges e EfPlayerRepository as carrega na leitura.
 // A FK format_id -> deck_suggestion.format (entre schemas, ADR-0001; RESTRICT, ADR-0007) e declarada contra
 // ReferencedFormat: um alvo minimo so de modelo, sem codigo de acesso, que nunca e criado pelas migrations de Accounts.

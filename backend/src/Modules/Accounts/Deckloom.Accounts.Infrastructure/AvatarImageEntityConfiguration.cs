@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Mapeamento de Database/tables/accounts.avatar_image.md. Sem default de data do banco: o "agora" vem do TimeProvider.
+// Mapeamento de accounts.avatar_image. Sem default de data do banco: o "agora" vem do TimeProvider.
 // O CHECK octet_length(content) <= 262144 so existe no PostgreSQL e NAO e verificado pelo SQLite dos testes.
 internal sealed class AvatarImageEntityConfiguration : IEntityTypeConfiguration<AvatarImageRow>
 {

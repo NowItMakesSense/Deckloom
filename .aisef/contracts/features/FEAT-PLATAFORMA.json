@@ -1,0 +1,295 @@
+{
+  "schema_version": "0.1.0",
+  "feature_id": "FEAT-PLATAFORMA",
+  "contract_version": 2,
+  "cycle": {
+    "number": 1
+  },
+  "title": "Fundacao da plataforma revista",
+  "objective": "Preparar a base tecnica da plataforma revista em 2026-11-06: arquitetura intermediaria (nucleo modular + servicos de IA, ingestao de meta e notificacoes) e catalogo dos 5 TCGs do MVP",
+  "problem": "O usuario redefiniu o produto (lojas como atores, 5 TCGs, IA hibrida, colecao, social, alertas) e a arquitetura (ADR-0001 deixa de cobrir o desenho); sem fundacao comum, as features novas nao tem onde se apoiar",
+  "business_priority": {
+    "level": "high",
+    "set_by": "user"
+  },
+  "requirements": [
+    {
+      "id": "REQ-P01",
+      "version": 1,
+      "kind": "non_functional",
+      "statement": "A plataforma segue a arquitetura OPT-C escolhida pelo usuario no APR-004: nucleo .NET modular (identidade, catalogo, lojas, ofertas, pedidos, colecao, decks, social) e servicos separados, com deploy e banco proprios, para sugestao/IA, ingestao de meta e notificacoes, integrados por mensageria com outbox",
+      "origin": "decision",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "A plataforma segue a arquitetura OPT-C escolhida pelo usuario no APR-004: nucleo .NET modular (identidade, catalogo, lojas, ofertas, pedidos, colecao, decks, social) e servicos separados, com deploy e banco proprios, para sugestao/IA, ingestao de meta e notificacoes, integrados por mensageria com outbox",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T11:22:46-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-P02",
+      "version": 1,
+      "kind": "functional",
+      "statement": "O MVP suporta os TCGs Magic: The Gathering, Pokemon TCG, Yu-Gi-Oh!, One Piece e Lorcana",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "O MVP suporta os TCGs Magic: The Gathering, Pokemon TCG, Yu-Gi-Oh!, One Piece e Lorcana",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T11:22:46-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-P03",
+      "version": 1,
+      "kind": "non_functional",
+      "statement": "O backend continua em .NET e o frontend em React",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "O backend continua em .NET e o frontend em React",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T11:22:46-03:00"
+        }
+      ]
+    }
+  ],
+  "business_rules": [],
+  "scope": {
+    "included": [
+      "ADR da arquitetura OPT-C (substitui parcialmente a ADR-0001)",
+      "esqueleto dos servicos de IA/sugestao, ingestao de meta e notificacoes, com health check, build e testes no CI",
+      "broker de mensagens no compose de desenvolvimento e outbox no nucleo",
+      "catalogo de TCGs como dados (5 TCGs), com migration gerada como arquivo"
+    ],
+    "excluded": [
+      "contas e painel de loja, ofertas, pedidos e checkout (feature propria; provedor de pagamento das lojas desconhecido)",
+      "regras e prompts de IA (feature propria; provedor de IA desconhecido)",
+      "importacao de colecao, social e alertas de preco (features proprias, com desconhecidos)",
+      "scrapers de meta concretos",
+      "hospedagem de producao (D8 indefinido)",
+      "mudanca nos requisitos da conta-jogador"
+    ]
+  },
+  "architectural_decisions": [],
+  "dependencies": {},
+  "constraints": [],
+  "risks": [
+    {
+      "id": "RISK-FEAT-PLATAFORMA-1",
+      "description": "Escopo total do MVP muito grande (decisao do usuario: tudo junto, 5 TCGs)",
+      "severity": "high",
+      "mitigation": "Fundacao pequena e features seguintes fatiadas em contratos de ate ~40 tarefas"
+    },
+    {
+      "id": "RISK-FEAT-PLATAFORMA-2",
+      "description": "Sistema distribuido aumenta custo de operacao e de testes",
+      "severity": "medium",
+      "mitigation": "So 3 servicos separados; testes de arquitetura impedem acoplamento do nucleo com os servicos"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-P01a",
+      "description": "docs/adr/0018-*.md existe com Status Accepted, cita APR-004 e descreve nucleo, 3 servicos, mensageria e outbox",
+      "requirement_ids": [
+        "REQ-P01",
+        "REQ-P03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P01b",
+      "description": "docs/adr/0001-*.md tem o Status 'Superseded in part by ADR-0018' sem alterar o corpo",
+      "requirement_ids": [
+        "REQ-P01",
+        "REQ-P03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P02a",
+      "description": "backend/Deckloom.sln contem os 3 servicos e seus projetos de teste; dotnet build -c Release passa",
+      "requirement_ids": [
+        "REQ-P01",
+        "REQ-P03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P02b",
+      "description": "teste automatizado de cada servico: GET /health responde 200",
+      "requirement_ids": [
+        "REQ-P01",
+        "REQ-P03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P02c",
+      "description": "teste de arquitetura falha se o nucleo (Deckloom.Api e modulos) referenciar um projeto de servico, ou o contrario",
+      "requirement_ids": [
+        "REQ-P01",
+        "REQ-P03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P03a",
+      "description": "teste automatizado: evento gravado na outbox na mesma transacao do caso de uso e publicado uma unica vez",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P03b",
+      "description": "docker-compose.yml sobe o broker so em 127.0.0.1, com credenciais vindas do ambiente (sem literal)",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P04a",
+      "description": "migration gerada como arquivo cria o catalogo de TCGs com os 5 TCGs e tem rollback; nenhuma migration e aplicada",
+      "requirement_ids": [
+        "REQ-P02"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P05a",
+      "description": "o job backend do CI compila e testa os 3 servicos com o mesmo portao de cobertura de 80%",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-P05b",
+      "description": "python -m unittest discover -s scripts/ci passa",
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "verification": "automated_test"
+    }
+  ],
+  "task_plan": [
+    {
+      "task_id": "T-P01",
+      "contract_version": 1,
+      "role": "devops"
+    },
+    {
+      "task_id": "T-P02",
+      "contract_version": 1,
+      "role": "backend",
+      "depends_on": [
+        "T-P01"
+      ]
+    },
+    {
+      "task_id": "T-P03",
+      "contract_version": 1,
+      "role": "backend",
+      "depends_on": [
+        "T-P02"
+      ]
+    },
+    {
+      "task_id": "T-P04",
+      "contract_version": 2,
+      "role": "database",
+      "depends_on": [
+        "T-P01"
+      ]
+    },
+    {
+      "task_id": "T-P05",
+      "contract_version": 1,
+      "role": "devops",
+      "depends_on": [
+        "T-P02"
+      ]
+    }
+  ],
+  "tests": {
+    "integration_required": true,
+    "regression_required": true
+  },
+  "rtm": [
+    {
+      "requirement_id": "REQ-P01",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-P01",
+        "T-P02",
+        "T-P03",
+        "T-P05"
+      ],
+      "criterion_ids": [
+        "AC-P01a",
+        "AC-P01b",
+        "AC-P02a",
+        "AC-P02b",
+        "AC-P02c",
+        "AC-P03a",
+        "AC-P03b",
+        "AC-P05a",
+        "AC-P05b"
+      ]
+    },
+    {
+      "requirement_id": "REQ-P02",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-P04"
+      ],
+      "criterion_ids": [
+        "AC-P04a"
+      ]
+    },
+    {
+      "requirement_id": "REQ-P03",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-P01",
+        "T-P02"
+      ],
+      "criterion_ids": [
+        "AC-P01a",
+        "AC-P01b",
+        "AC-P02a",
+        "AC-P02b",
+        "AC-P02c"
+      ]
+    }
+  ],
+  "approval": {
+    "plan": {
+      "status": "approved",
+      "granularity": "feature",
+      "approved_by": "user",
+      "approved_at": "2026-11-06T11:24:22-03:00"
+    }
+  },
+  "state": {
+    "status": "approved_for_execution"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T11:22:46-03:00"
+  }
+}

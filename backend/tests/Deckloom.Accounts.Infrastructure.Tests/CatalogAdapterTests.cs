@@ -6,8 +6,8 @@ using Microsoft.Extensions.Time.Testing;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-062 (REQ-018, 022, 037, 046). Tabelas: Database/tables/accounts.avatar_preset.md,
-// accounts.player_preferred_format.md; ADR-0007; design.md (cache em memoria de 5 min). Contrato para o implementer (GREEN):
+// T-062 (REQ-018, 022, 037, 046). Tabelas: accounts.avatar_preset,
+// accounts.player_preferred_format; ADR-0007; design.md (cache em memoria de 5 min). Contrato para o implementer (GREEN):
 //   sealed class EfAvatarPresetCatalog : IAvatarPresetCatalog  // namespace Deckloom.Accounts.Infrastructure
 //     ctor(IDbContextFactory<AccountsDbContext> contexts, TimeProvider time)
 //       // factory porque o cache vive mais que um escopo de requisicao; cada leitura cria e descarta um contexto.

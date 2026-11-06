@@ -1,0 +1,42 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-007",
+  "request_type": "plan_approval",
+  "status": "withdrawn",
+  "title": "Plano v2 da FEAT-SEM-DATABASE-DOCS: manter a protecao de colunas imutaveis",
+  "summary": "Acrescenta REQ-D04 e a tarefa T-D03 (backend): recriar so o teste que impede UPDATE gerado pelo EF de alterar colunas imutaveis, com a lista no proprio teste, sem Database/ nem matriz. REQ-D02 passa a v2. T-D01 (concluida) e T-D02 (em andamento) nao mudam.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "created_at": "2026-11-06T12:30:00-03:00",
+  "expires_at": "2026-11-13T12:30:00-03:00",
+  "presented": {
+    "impact": "Plano da feature FEAT-SEM-DATABASE-DOCS v2: 4 requisito(s), 3 tarefa(s). Nova: T-D03 (backend, paths so em backend/tests/Deckloom.Accounts.Infrastructure.Tests/**, depende de T-D01, paralela a T-D02). Ver contracts/features/FEAT-SEM-DATABASE-DOCS.json",
+    "requirement_ids": [
+      "REQ-D02",
+      "REQ-D04"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": []
+  },
+  "blocks": {
+    "blocked_task_ids": [],
+    "independent_work_continues": true
+  },
+  "plan": {
+    "granularity": "feature",
+    "task_plan_ref": "contracts/features/FEAT-SEM-DATABASE-DOCS.json#task_plan",
+    "requirements_count": 4,
+    "tasks_count": 3
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/254"
+  }
+}

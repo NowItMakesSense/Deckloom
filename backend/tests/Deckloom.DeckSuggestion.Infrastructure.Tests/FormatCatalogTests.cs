@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Deckloom.DeckSuggestion.Infrastructure.Tests;
 
-// T-062 (REQ-037, 046). Tabela: Database/tables/deck_suggestion.format.md; ADR-0007 (dono: Sugestao de Deck) e ADR-0001.
+// T-062 (REQ-037, 046). Tabela: deck_suggestion.format; ADR-0007 (dono: Sugestao de Deck) e ADR-0001.
 // Contrato para o implementer (GREEN), namespace Deckloom.DeckSuggestion.Infrastructure:
 //   sealed class FormatCatalogDbContext : DbContext
 //     public const string SchemaName = "deck_suggestion"

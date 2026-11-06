@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deckloom.Accounts.Infrastructure;
 
-// Mapeamento de Database/tables/accounts.access_attempt.md. Sem FK para player (anti-enumeracao), sem default nem
+// Mapeamento de accounts.access_attempt. Sem FK para player (anti-enumeracao), sem default nem
 // funcao de data do banco: o "agora" chega sempre como parametro. Datas gravadas como DateTime UTC (timestamptz),
 // o que permite ao EF traduzir as comparacoes de janela tambem no SQLite dos testes.
 internal sealed class AccessAttemptEntityConfiguration : IEntityTypeConfiguration<AccessAttemptRow>

@@ -17,7 +17,7 @@ Deckloom is a TCG deck builder for players, starting with Magic: The Gathering (
 Test: `dotnet test backend/Deckloom.sln && npm --prefix frontend run test -- --run` | Lint: `dotnet format backend/Deckloom.sln --verify-no-changes && npm --prefix frontend run lint && npm --prefix frontend run format:check` | Build: `dotnet build backend/Deckloom.sln -c Release && npm --prefix frontend run build` | E2E: `npm --prefix frontend run e2e` | Coverage threshold: `80`
 
 ## Where things live
-`.aisef/` current engineering state (discovery, contracts, blueprints, approvals, audit log) - `docs/adr/` decisions - `docs/glossary.md` domain language - `docs/design-system.md` UI rules - `Database/` documented roles, tables and indexes - `docs/specs/` historical specs from before AISEF (read-only record).
+`.aisef/` current engineering state (discovery, contracts, blueprints, approvals, audit log) - `docs/adr/` decisions - `docs/glossary.md` domain language - `docs/design-system.md` UI rules - `docs/specs/` historical specs from before AISEF (read-only record).
 
 ## AISEF
 

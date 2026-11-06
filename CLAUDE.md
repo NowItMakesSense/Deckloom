@@ -24,4 +24,4 @@ Este projeto usa o AISEF (plugin aisef): estado em .aisef/, regras em AGENTS.md 
 - Cobertura mínima: `80` (backend via `scripts/ci/check_coverage.py`, frontend via `frontend/vite.config.ts`)
 
 ## Onde ficam as coisas
-`.aisef/` estado de engenharia atual - `docs/adr/` decisões - `docs/glossary.md` domínio - `docs/design-system.md` UI - `Database/` papéis, tabelas e índices documentados - `docs/specs/` histórico anterior ao AISEF (discovery inicial e `conta-jogador`).
+`.aisef/` estado de engenharia atual - `docs/adr/` decisões - `docs/glossary.md` domínio - `docs/design-system.md` UI - `docs/specs/` histórico anterior ao AISEF (discovery inicial e `conta-jogador`).

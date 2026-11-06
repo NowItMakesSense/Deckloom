@@ -3,7 +3,7 @@ using Deckloom.Accounts.Domain;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-057 (REQ-010, 012, 030, 035). Tabela: Database/tables/accounts.player_session.md; design.md (Session, S1-S6,
+// T-057 (REQ-010, 012, 030, 035). Tabela: accounts.player_session; design.md (Session, S1-S6,
 // ISessionRepository). Contrato para o implementer (GREEN):
 //   sealed class EfSessionRepository : ISessionRepository    // ctor(AccountsDbContext), namespace Deckloom.Accounts.Infrastructure
 //     Add/Save so ENFILEIRAM no contexto; nada e gravado ate EfUnitOfWork.CommitAsync (como EfPlayerRepository).

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Bootstrap dos papeis do PostgreSQL (ADR-0015). Executado pelo entrypoint da imagem como postgres,
-# so na primeira inicializacao do volume. Descricao dos papeis: Database/roles/*.md.
+# so na primeira inicializacao do volume. Decisao dos papeis: ADR-0015 (ver ADR-0019 sobre a documentacao removida).
 # Nao cria schemas nem tabelas (migracoes, T-066) e nao concede nada em tabelas.
 # Por que .sh e nao .sql (UA4): um .sql em docker-entrypoint-initdb.d nao le variaveis de ambiente
 # nem verifica se estao definidas; aqui as senhas vem do ambiente e a ausencia delas aborta (UA4).

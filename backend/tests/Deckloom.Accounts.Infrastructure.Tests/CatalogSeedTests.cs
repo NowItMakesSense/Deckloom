@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
 // T-065 (REQ-018, REQ-022; U11, ADR-0007). Carga inicial de avatar_preset via HasData no modelo de Accounts.
-// Padrao de id: Database/tables/accounts.avatar_preset.md -> ^[a-z0-9-]{1,40}$. A correspondencia com os SVG e T-129.
+// Padrao de id: accounts.avatar_preset -> ^[a-z0-9-]{1,40}$. A correspondencia com os SVG e T-129.
 public sealed partial class CatalogSeedTests : IDisposable
 {
     private readonly SqliteInMemoryFixture _fixture = new();

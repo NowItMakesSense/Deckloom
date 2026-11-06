@@ -3,8 +3,8 @@ using Deckloom.Accounts.Domain;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-056 (REQ-007, 014, 016, 036, 046). Tabelas: Database/tables/accounts.player_preferred_format.md e
-// accounts.player_external_identity.md. A FK format_id -> deck_suggestion.format e entre schemas (ADR-0001) e nao
+// T-056 (REQ-007, 014, 016, 036, 046). Tabelas: accounts.player_preferred_format e
+// accounts.player_external_identity. A FK format_id -> deck_suggestion.format e entre schemas (ADR-0001) e nao
 // existe no banco SQLite de teste; aqui so se verifica a FK para player.
 // Contrato para o implementer (GREEN):
 //   player_preferred_format(player_id, format_id) PK composta pk_player_preferred_format, FK cascade para player;

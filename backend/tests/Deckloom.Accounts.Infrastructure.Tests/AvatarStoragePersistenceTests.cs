@@ -3,7 +3,7 @@ using Deckloom.Accounts.Domain;
 
 namespace Deckloom.Accounts.Infrastructure.Tests;
 
-// T-061 (REQ-019, 021, 024). Tabela: Database/tables/accounts.avatar_image.md; ADR-0009; design.md (P2). Contrato para
+// T-061 (REQ-019, 021, 024). Tabela: accounts.avatar_image; ADR-0009; design.md (P2). Contrato para
 // o implementer (GREEN):
 //   sealed class PostgresAvatarStorage : IAvatarStorage      // namespace Deckloom.Accounts.Infrastructure
 //     ctor(AccountsDbContext context)                          // mesmo DbContext do EfPlayerRepository/EfUnitOfWork

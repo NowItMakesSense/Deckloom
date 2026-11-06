@@ -1,0 +1,67 @@
+{
+  "schema_version": "0.1.0",
+  "status": "approved",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-002",
+  "created_at": "2026-11-06T15:00:00-03:00",
+  "expires_at": "2026-11-06T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "blocks": {
+    "blocked_task_ids": [
+      "T-MAINT-002"
+    ],
+    "independent_work_continues": true
+  },
+  "request_id": "APR-013",
+  "request_type": "operation_approval",
+  "title": "Abrir PR de chore/aceite-sem-database-colunas-imutaveis para main",
+  "summary": "Abre o pull request chore/aceite-sem-database-colunas-imutaveis -> main no GitHub com o resumo das duas features aceitas. Nao faz merge (merge e outro pedido).",
+  "operation": {
+    "environment": "dev",
+    "resource_class": "repo_code",
+    "operation": "gh pr create --base main --head chore/aceite-sem-database-colunas-imutaveis",
+    "destructive": false,
+    "sensitive_content_shown": false
+  },
+  "presented": {
+    "impact": "Cria um PR publico; nao altera a main.",
+    "diff_ref": "git diff --cached --stat (128 arquivos, +3507 -2224)",
+    "tests": {
+      "summary": "dotnet test backend/Deckloom.sln: 6 projetos, 2826 aprovados, 0 falhas; aisef-check 0 erros",
+      "executed": 2826,
+      "passed": 2826,
+      "failed": 0
+    },
+    "rollback_plan": "Fechar o PR (gh pr close).",
+    "justification": "T-MAINT-002: registrar no git as features aceitas (APR-009, APR-010) antes de iniciar a FEAT-PLATAFORMA.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Publicacao em repositorio publico",
+        "severity": "low",
+        "mitigation": "Diff sem segredos; .env nao versionado"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/494",
+    "decided_event_ref": "events/501"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T12:29:28-03:00",
+    "note": "Aprovado pelo usuario no chat em 2026-11-06 (abrir PR no GitHub)"
+  }
+}

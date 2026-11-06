@@ -1,0 +1,138 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-I01",
+  "task_id": "T-I01",
+  "contract_version": 1,
+  "feature_id": "FEAT-COLUNAS-IMUTAVEIS",
+  "agent": {
+    "agent_id": "backend",
+    "agent_contract_version": 1,
+    "role": "backend"
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-06T11:50:00-03:00",
+    "finished_at": "2026-11-06T12:20:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "backend/tests/Deckloom.Accounts.Infrastructure.Tests/ImmutableColumnsTests.cs",
+        "sha256_after": "d31b5231bfcafcd90c4d592af6aab787efb8cee5e62bd30191efde427d24ecb1"
+      }
+    ],
+    "modified": [],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Novo ImmutableColumnsTests: lista de colunas imutaveis no teste, fluxos reais de player/player_session/password_reset_token/pending_google_auth, checagem da lista contra o modelo EF e provas de deteccao.",
+      "reason": "REQ-I01",
+      "requirement_ids": [
+        "REQ-I01"
+      ],
+      "files": [
+        "backend/tests/Deckloom.Accounts.Infrastructure.Tests/ImmutableColumnsTests.cs"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2826,
+    "passed": 2826,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "Deckloom.Accounts.Infrastructure.Tests.ImmutableColumnsTests (25 testes)"
+    ],
+    "regression_run": true,
+    "commands": [
+      "dotnet format backend/Deckloom.sln --verify-no-changes",
+      "dotnet build backend/Deckloom.sln -c Release",
+      "dotnet test backend/Deckloom.sln -c Release --no-build --settings backend/coverlet.runsettings --collect:\"XPlat Code Coverage\"",
+      "python scripts/ci/check_coverage.py --threshold 80"
+    ],
+    "evidence_ids": [
+      "EV-TEST",
+      "EV-COV"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-BUILD",
+      "type": "command_output",
+      "ref": "dotnet format exit 0; build Release exit 0, 0 avisos, 0 erros",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-TEST",
+      "type": "test_output",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/test.log (exit 0; 2826 aprovados, 0 falhas; Accounts.Infrastructure 591)",
+      "secrets_redacted": true,
+      "sha256": "c60c21898ac7246fb9d078d3e7bf5a59b01fb5d44905d19e0799c8a653a5a3b8"
+    },
+    {
+      "id": "EV-COV",
+      "type": "command_output",
+      "ref": "check_coverage.py --threshold 80 exit 0; Application 97.96%, Domain 99.60%, Accounts.Infrastructure 93.67%, Api 97.41%, DeckSuggestion.Infrastructure 100%, SharedKernel 100%",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-I01a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-TEST"
+      ],
+      "notes": "Dbset_update_on_a_detached_player e Theory de 12 casos reprovam UPDATE com coluna imutavel."
+    },
+    {
+      "criterion_id": "AC-I01b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-TEST"
+      ]
+    },
+    {
+      "criterion_id": "AC-I01c",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-BUILD",
+        "EV-TEST",
+        "EV-COV"
+      ]
+    }
+  ],
+  "problems": [],
+  "risks": [
+    {
+      "description": "Lista de colunas pode ficar desatualizada ao crescer o modelo (novas colunas imutaveis nao entram sozinhas).",
+      "severity": "low",
+      "mitigation": "Teste falha se coluna listada deixar de existir; revisao ao mudar o modelo."
+    }
+  ],
+  "pending": [],
+  "limitations": [
+    "SQLite pode diferir do Npgsql (ADR-0012).",
+    "Casos de uso (Application) nao exercitados diretamente; usados repositorios/store.",
+    "Diretorio sem diff; sha256 listado."
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/bc550f2e-7493-4f80-ac20-8e9781d83b8c/scratchpad/RPT-T-I01-tecnico.md",
+    "sha256": "eaecf5f3c9f08d613f0e222be01fa0ef31010793375f9e2e7ac48b97325e9ff7"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T12:20:00-03:00",
+    "event_log_ref": ".aisef/audit"
+  }
+}

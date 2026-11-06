@@ -1,0 +1,236 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-D02",
+  "task_id": "T-D02",
+  "contract_version": 1,
+  "feature_id": "FEAT-SEM-DATABASE-DOCS",
+  "agent": {
+    "agent_id": "devops",
+    "agent_contract_version": 1,
+    "role": "devops"
+  },
+  "status": "needs_intervention",
+  "timing": {
+    "started_at": "2026-11-06T11:40:00-03:00",
+    "finished_at": "2026-11-06T11:49:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "docs/adr/0019-remocao-da-documentacao-do-banco.md",
+        "sha256_after": "875bf6dbcd6b6de1b833a2e63cc5a8c0fdf1ea9725028df70f7c450a5d455aa6"
+      }
+    ],
+    "modified": [
+      {
+        "path": "docs/adr/0015-papeis-e-privilegios-do-banco.md",
+        "sha256_after": "8ef0fc55adf795eead20220027050799b22b500ff4a846daa4ec945576eeed2f"
+      },
+      {
+        "path": "README.md",
+        "sha256_after": "7310c8a8e8da830bed033a703e9de57a161ceef83a449d4e43e368c9d6d36ece"
+      },
+      {
+        "path": "CLAUDE.md",
+        "sha256_after": "be83e3d3dbaf443b3842b59440f8b2118a293e5c6f982cdbaa4c6bfce4679e6c"
+      },
+      {
+        "path": "AGENTS.md",
+        "sha256_after": "29f5090ffeb550727689f228c96f975c8ff4ef5e753aa15b08ebaa02d9f596e8"
+      },
+      {
+        "path": "docs/security-policy.md",
+        "sha256_after": "655a0e40b9e21770cba04b808bb048b440673b00c3104158a99645148070240b"
+      },
+      {
+        "path": "db/init/01-roles.sh",
+        "sha256_after": "1f845ff1f89041211566e74e3fa54c6533162430eb699e5147ea7510d6f5ba4b"
+      },
+      {
+        "path": ".aisef/discovery.md",
+        "sha256_after": "5187561f234fc33d52341e8edca294f2c9584f4d66e7179570c1d6d1aec3cefd"
+      },
+      {
+        "path": ".aisef/contracts/tasks/T-P04.json",
+        "sha256_after": "f78757760c31206434613dace6931a17ff767ae7c05eea23cf368976ea21ba87"
+      },
+      {
+        "path": ".aisef/contracts/features/FEAT-PLATAFORMA.json",
+        "sha256_after": "55b7570006acd940b13043f5d03bbe76bfafe3aec8cee81f7299dc70fcb16dc0"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "ADR-0019 criada: remocao de Database/ e da documentacao do banco, consequencias (3 protecoes perdidas, risco medio aceito) e alternativas.",
+      "reason": "REQ-D03: a decisao precisa estar registrada em ADR.",
+      "requirement_ids": ["REQ-D03"],
+      "files": ["docs/adr/0019-remocao-da-documentacao-do-banco.md"]
+    },
+    {
+      "summary": "ADR-0015: somente a linha de Status recebeu 'Superseded in part by ADR-0019 (2026-11-06)'. Corpo sem alteracao.",
+      "reason": "REQ-D03 / AC-D02b.",
+      "requirement_ids": ["REQ-D03"],
+      "files": ["docs/adr/0015-papeis-e-privilegios-do-banco.md"]
+    },
+    {
+      "summary": "Documentos vivos sem referencias a Database/ (README, CLAUDE.md, AGENTS.md, security-policy, comentario de db/init/01-roles.sh, discovery.md). Referencias trocadas por migrations e ADR-0015/ADR-0019; discovery.md ganhou item de risco.",
+      "reason": "REQ-D03 / AC-D02c.",
+      "requirement_ids": ["REQ-D03"],
+      "files": ["README.md", "CLAUDE.md", "AGENTS.md", "docs/security-policy.md", "db/init/01-roles.sh", ".aisef/discovery.md"]
+    },
+    {
+      "summary": "T-P04: removidos AC-P04b e path Database/**; contract_version 1 -> 2. FEAT-PLATAFORMA: removido AC-P04b da lista de criterios e da RTM (REQ-P02 cita so AC-P04a); entrada T-P04 do task_plan em contract_version 2.",
+      "reason": "REQ-D03 / AC-D02d: T-P04 e FEAT-PLATAFORMA nao citam Database/.",
+      "requirement_ids": ["REQ-D03", "REQ-P02"],
+      "files": [".aisef/contracts/tasks/T-P04.json", ".aisef/contracts/features/FEAT-PLATAFORMA.json"]
+    },
+    {
+      "summary": "Evento contract_changed registrado (E292) via aisef_project.py append. FEAT-PLATAFORMA.contract_version mantido em 1 porque aisef-check (PLAN-FEATURE-VERSION) exige que todas as tarefas da feature referenciem a mesma versao.",
+      "reason": "Rastreabilidade da mudanca de contrato (AC-D02d).",
+      "requirement_ids": ["REQ-D03"],
+      "files": []
+    }
+  ],
+  "tests": {
+    "executed": 5,
+    "passed": 4,
+    "failed": 1,
+    "skipped": 0,
+    "new_tests": [],
+    "regression_run": false,
+    "commands": [
+      "grep -rn \"Database/\" README.md CLAUDE.md AGENTS.md docs/security-policy.md db/ .aisef/discovery.md (sem saida; exit 1 na busca isolada)",
+      "grep -n \"Database/\" .aisef/contracts/tasks/T-P04.json .aisef/contracts/features/FEAT-PLATAFORMA.json (sem saida; exit 1)",
+      "python -I validacao JSON de T-P04.json e FEAT-PLATAFORMA.json (exit 0)",
+      "python -I aisef_project.py append --type contract_changed --feature FEAT-PLATAFORMA --task T-P04 (exit 0, E292)",
+      "python -I check_project.py --project .aisef (exit 1 na 1a execucao com 5 erros; exit 1 na 2a com 4 erros, todos fora do escopo)"
+    ],
+    "evidence_ids": ["EV-T-D02-01", "EV-T-D02-02", "EV-T-D02-03", "EV-T-D02-04", "EV-T-D02-05"]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-D02-01",
+      "type": "command_output",
+      "ref": "Relatorio tecnico secao 3: AC-D02a e AC-D02b (conteudo de docs/adr/0019 e linha 3 de docs/adr/0015)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-D02-02",
+      "type": "command_output",
+      "ref": "Relatorio tecnico secao 3: grep de AC-D02c sem saida nas fontes listadas",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-D02-03",
+      "type": "command_output",
+      "ref": "Relatorio tecnico secao 3: grep de T-P04 e FEAT-PLATAFORMA sem saida; JSON valido; AC-P04b removido da lista e da RTM",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-D02-04",
+      "type": "command_output",
+      "ref": "Evento E292 (contract_changed) registrado pelo aisef_project.py append (exit 0)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-D02-05",
+      "type": "static_analysis",
+      "ref": "aisef-check: exit 1 na 2a execucao com 4 erros (LOG-TASK-ACTOR E126, E169, E214; LOG-UNKNOWN-AGENT E212). Na 1a execucao havia tambem APPROVAL-BLOCKED-TASK (APR-007/T-D03). Detalhes na secao 3 do relatorio tecnico.",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-D02a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-D02-01"],
+      "notes": "ADR-0019 com Status Accepted, decisao, risco aceito e citacao da ADR-0015."
+    },
+    {
+      "criterion_id": "AC-D02b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-D02-01"],
+      "notes": "Linha de Status da ADR-0015 com 'Superseded in part by ADR-0019'; corpo nao alterado."
+    },
+    {
+      "criterion_id": "AC-D02c",
+      "required": true,
+      "result": "met",
+      "evidence_ids": ["EV-T-D02-02"],
+      "notes": "Grep por 'Database/' nas seis fontes sem saida. Nota: .aisef/contracts ainda cita Database/ em FEAT-SEM-DATABASE-DOCS, T-D01 e T-D02 (contratos que descrevem a remocao; fora de escopo)."
+    },
+    {
+      "criterion_id": "AC-D02d",
+      "required": true,
+      "result": "not_met",
+      "evidence_ids": ["EV-T-D02-03", "EV-T-D02-04", "EV-T-D02-05"],
+      "notes": "T-P04 e FEAT-PLATAFORMA nao citam Database/ e contract_changed foi registrado (E292). aisef-check retornou erros (4 na 2a execucao) que nao foram causados por esta tarefa e estao fora do escopo permitido."
+    }
+  ],
+  "problems": [
+    {
+      "description": "aisef-check: APPROVAL-BLOCKED-TASK em APR-007 (bloqueava T-D03, tarefa inexistente) apareceu na 1a execucao e sumiu na 2a; a causa da mudanca nao foi investigada.",
+      "severity": "low",
+      "mitigation": "Orquestrador confirma o estado de APR-007; fora do escopo de T-D02."
+    },
+    {
+      "description": "aisef-check: LOG-TASK-ACTOR em E126, E169 e E214 (eventos 'aisef' para tarefas de backend/devops) e LOG-UNKNOWN-AGENT em E212 (agente 'aisef' inexistente).",
+      "severity": "medium",
+      "mitigation": "Log de auditoria so e alterado pelo hook de auditoria; decisao do orquestrador/usuario. Nao foi tocado por esta tarefa."
+    }
+  ],
+  "risks": [
+    {
+      "description": "Perda de tres protecoes automaticas: GeneratedUpdateColumnsTests (colunas imutaveis fora do UPDATE gerado), MigrationGrantConformanceTests (GRANT x matriz) e RepoHygieneTests (01-roles.sh x doc de papeis).",
+      "severity": "medium",
+      "mitigation": "Registrado na ADR-0019 como consequencia e risco aceito pelo usuario (RISK-FEAT-SEM-DATABASE-DOCS-1). Revisao humana das migrations obrigatoria."
+    },
+    {
+      "description": "Privilegio excessivo do deckloom_app em migration pode passar sem falha de teste.",
+      "severity": "medium",
+      "mitigation": "Risco aceito; revisao humana das migrations antes de aplicar; ADR-0015 e ADR-0019."
+    }
+  ],
+  "pending": [
+    "Resolver os 4 erros restantes do aisef-check e reexecutar; so entao AC-D02d pode virar met. Confirmar a origem da mudanca em APR-007 entre as execucoes.",
+    "Decidir se FEAT-PLATAFORMA sobe para contract_version 2 (exige atualizar feature_contract_version de T-P01..T-P05).",
+    "Contratos FEAT-SEM-DATABASE-DOCS, T-D01 e T-D02 ainda citam Database/ por descreverem a remocao; decidir se isso e aceitavel para o criterio de grep em .aisef/contracts."
+  ],
+  "limitations": [
+    "Sem commit (instrucao). Repositorio nao e git nesta sessao; hashes calculados sobre o conteudo atual.",
+    "Nenhum codigo de aplicacao alterado; dotnet build/test nao executados (fora do escopo).",
+    "tests.executed conta verificacoes de comando, nao testes unitarios.",
+    "Artefatos de build em backend/src/Deckloom.Api/bin/ nao analisados.",
+    "Log de auditoria nao foi lido por restricao do hook; evidencia do evento E292 vem do retorno do comando append.",
+    "Horarios de timing sao aproximados (nao houve registro exato do inicio da execucao)."
+  ],
+  "scope_discoveries": [
+    {
+      "description": "aisef-check reporta erros no log de auditoria (E126, E169, E212, E214) que nao foram causados por T-D02 e estao fora dos paths permitidos; na 1a execucao tambem reportou APR-007.",
+      "impact": "AC-D02d nao pode ser atendido sem decisao do orquestrador.",
+      "affected_part_stopped": true
+    }
+  ],
+  "operations_log_ref": "aisef_project.py append --type contract_changed (evento E292)",
+  "intervention": {
+    "needed": true,
+    "reason": "unexpected_risk",
+    "details": "AC-D02d (aisef-check sem erros) nao atendido por 4 erros de log de auditoria (E126, E169, E212, E214) fora do escopo; na 1a execucao tambem havia APR-007. Orquestrador decide a correcao. Demais criterios (AC-D02a..c) atendidos."
+  },
+  "technical_report": {
+    "ref": "C:\\Users\\escor\\AppData\\Local\\Temp\\claude\\945f1d8d96cb45b5\\bc550f2e-7493-4f80-ac20-8e9781d83b8c\\scratchpad\\RPT-T-D02-relatorio-tecnico.txt",
+    "sha256": "6e04e24237d89c7c87eca8ae8910cfb83b9359f5f7175b18de6acfffaeda2193"
+  },
+  "integrity": {
+    "created_at": "2026-11-06T11:49:00-03:00",
+    "event_log_ref": "E292 (contract_changed, aisef_project.py append)"
+  }
+}
