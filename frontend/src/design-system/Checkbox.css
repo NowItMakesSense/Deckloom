@@ -1,0 +1,26 @@
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+}
+
+.checkbox__input {
+  flex: none;
+  width: var(--space-6);
+  height: var(--space-6);
+  margin: calc((var(--target-min) - var(--space-6)) / 2) 0;
+  accent-color: var(--color-primary);
+}
+
+/* Bloco de texto (nao flex): rotulo com links continua uma frase; o padding centraliza a 1a linha no alvo de 44px. */
+.checkbox__label {
+  display: block;
+  box-sizing: border-box;
+  padding-block: calc((var(--target-min) - 1.5em) / 2);
+  min-height: var(--target-min);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+  font-size: var(--text-base);
+}

@@ -1,0 +1,66 @@
+/* Coluna e painel de .edit-profile: pageShell.css. */
+.edit-profile__loading {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.edit-profile__loading > .skeleton {
+  min-height: var(--space-6);
+}
+
+.edit-profile__identity {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.edit-profile__identity .avatar {
+  flex-shrink: 0;
+}
+
+.edit-profile__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.edit-profile__form input,
+.edit-profile__form textarea {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.edit-profile__formats {
+  min-width: 0;
+}
+
+.edit-profile__formats .choice-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1) var(--space-4);
+}
+
+.edit-profile__formats .choice-group > legend,
+.edit-profile__formats .choice-group > .form-error,
+.edit-profile__formats .choice-group > .choice-group__empty {
+  grid-column: 1 / -1;
+}
+
+.edit-profile__formats .checkbox {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 640px) {
+  .edit-profile__formats .choice-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.edit-profile__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}

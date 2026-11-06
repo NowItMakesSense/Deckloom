@@ -1,0 +1,19 @@
+# Configuracao do gitleaks (CI: job secret-scan; local: gitleaks dir .).
+# Regras padrao do gitleaks, mais uma allowlist de valores FICTICIOS usados nas suites de teste
+# (SEC-27, ADR-0017). A lista e por valor exato, nao por caminho: um segredo real num arquivo de teste
+# continua sendo detectado. Ao criar um valor ficticio novo que dispare a regra, acrescente-o aqui.
+title = "Deckloom gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Senhas, tokens e subjects ficticios das suites de teste"
+regexes = [
+  '''^senha-valida-123$''',
+  '''^senha-nova-4567$''',
+  '''^nova-senha-456-xyz$''',
+  '''^tok-abc123xyz$''',
+  '''^tok-abc123_XYZ$''',
+  '''^SUBJECT-SECRETO-123$''',
+]

@@ -1,0 +1,23 @@
+.link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-hover) var(--ease-out);
+}
+
+.link--standalone {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+}
+
+.link__hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--color-primary-hover);
+  }
+}

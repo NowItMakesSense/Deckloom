@@ -1,0 +1,10 @@
+{
+  "schema_version": "0.1.0",
+  "project_id": "PRJ-DECKLOOM",
+  "log_id": "PRJ-DECKLOOM",
+  "name": "Deckloom",
+  "environment": "dev",
+  "created_at": "2026-11-06T10:11:09-03:00",
+  "policy": "permission-policy.v0.1.json",
+  "defaults": "orchestration-defaults.v0.1.json"
+}

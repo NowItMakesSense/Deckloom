@@ -1,0 +1,81 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  min-width: var(--target-min);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font: inherit;
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+/* 11rem cresce com o texto; o limite de 100% impede o estouro a 320px com texto a 200% (U-10). */
+[data-stable="true"] {
+  min-width: min(11rem, 100%);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+.button__spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: var(--radius-full);
+  animation: button-spin var(--duration-spin) linear infinite;
+}
+
+@keyframes button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button__spinner {
+    animation: none;
+  }
+}
+
+[data-variant="google"],
+[data-variant="secondary"] {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border-control);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-variant="google"]:hover,
+  [data-variant="secondary"]:hover {
+    background-color: var(--color-ground);
+  }
+}
+
+[data-variant="danger"] {
+  background: var(--color-surface);
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-variant="danger"]:hover {
+    background-color: var(--color-danger-subtle);
+  }
+}

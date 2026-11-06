@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.1.0",
+  "feature_id": "FEAT-MAINT",
+  "contract_version": 1,
+  "cycle": {
+    "number": 1
+  },
+  "title": "Manutencao continua",
+  "objective": "Mudancas pequenas sem alteracao de comportamento (caminho rapido)",
+  "problem": "Ajustes triviais nao justificam o ciclo completo de feature",
+  "business_priority": {
+    "level": "low",
+    "set_by": "user"
+  },
+  "requirements": [
+    {
+      "id": "REQ-MAINT",
+      "version": 1,
+      "kind": "non_functional",
+      "statement": "Mudancas de manutencao nao alteram comportamento observavel nem contratos",
+      "origin": "decision",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Mudancas de manutencao nao alteram comportamento observavel nem contratos",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T10:58:00-03:00"
+        }
+      ]
+    }
+  ],
+  "business_rules": [],
+  "scope": {
+    "included": [
+      "correcoes triviais, textos, ajustes de configuracao local, atualizacoes de dependencia sem quebra"
+    ],
+    "excluded": [
+      "mudanca de comportamento",
+      "API, schema de banco, seguranca, CI/CD, producao"
+    ]
+  },
+  "architectural_decisions": [],
+  "dependencies": {},
+  "constraints": [],
+  "risks": [],
+  "acceptance_criteria": [
+    {
+      "id": "AC-T-MAINT-001",
+      "description": "Suite de testes passa sem regressao apos a mudanca",
+      "requirement_ids": [
+        "REQ-MAINT"
+      ],
+      "verification": "automated_test"
+    }
+  ],
+  "task_plan": [
+    {
+      "task_id": "T-MAINT-001",
+      "contract_version": 1,
+      "role": "orchestrator"
+    }
+  ],
+  "tests": {
+    "integration_required": true,
+    "regression_required": true
+  },
+  "rtm": [
+    {
+      "requirement_id": "REQ-MAINT",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-MAINT-001"
+      ],
+      "criterion_ids": [
+        "AC-T-MAINT-001"
+      ]
+    }
+  ],
+  "approval": {
+    "plan": {
+      "status": "approved",
+      "granularity": "feature",
+      "approved_by": "user",
+      "approved_at": "2026-11-06T10:59:20-03:00"
+    }
+  },
+  "state": {
+    "status": "approved_for_execution"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T10:58:00-03:00"
+  }
+}

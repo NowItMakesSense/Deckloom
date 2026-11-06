@@ -1,0 +1,21 @@
+# Segredos (nunca versionar; .env.example segue rastreavel)
+.env
+.env.*
+!.env.example
+
+# Saida de build e dependencias
+bin/
+obj/
+node_modules/
+dist/
+coverage/
+TestResults/
+
+# IDE e SO
+.vs/
+.idea/
+*.user
+.DS_Store
+Thumbs.db
+__pycache__/
+*.tsbuildinfo

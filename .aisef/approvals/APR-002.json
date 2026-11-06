@@ -1,0 +1,72 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-002",
+  "request_type": "git_operation",
+  "status": "approved",
+  "title": "Commit inicial do repositorio (migracao para o AISEF)",
+  "summary": "Cria o primeiro commit da branch main com o estado importado do Deckloom_old (merge do PR #4) e a migracao para o AISEF. Se aprovar, o commit e local; o push e um pedido separado (APR-003). Se recusar, a pasta fica pronta e sem commit.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-001",
+  "created_at": "2026-11-06T11:00:00-03:00",
+  "expires_at": "2026-11-06T23:59:00-03:00",
+  "operation": {
+    "environment": "dev",
+    "resource_class": "git",
+    "operation": "git commit -F <mensagem> na branch main (commit inicial, todos os arquivos staged)",
+    "destructive": false,
+    "sensitive_content_shown": false
+  },
+  "git": {
+    "operation": "commit",
+    "branch": "main",
+    "covers_only_this_operation": true
+  },
+  "presented": {
+    "impact": "Primeiro commit da main com cerca de 800 arquivos: codigo do backend/frontend importado sem mudanca de comportamento, remocao do ferramental antigo de .claude/, .aisef/, CLAUDE.md/AGENTS.md reescritos, CI ajustado (ci-scripts, CodeQL com upload, .gitleaks.toml) e docs atualizados. Autor: identidade noreply do GitHub configurada so neste repositorio.",
+    "diff_ref": "git diff --cached (commit inicial); comparacao com a arvore cfe263a de Deckloom_old",
+    "tests": {
+      "summary": "Backend 2843/2843, frontend 928/928, E2E 215/215, scripts de CI 39/39, cobertura >= 80%, gitleaks dir sem achados, aisef-check 0 erros",
+      "executed": 4025,
+      "passed": 4025,
+      "failed": 0
+    },
+    "rollback_plan": "Commit local e o primeiro do repositorio: para desfazer, apagar a pasta .git (Deckloom_old segue intacta como backup) ou criar um commit corretivo.",
+    "justification": "Plano de migracao aprovado pelo usuario em 2026-11-06 (historico reiniciado, ADR-0017); o usuario aprovou no chat commit + criar repo + push.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "O log de auditoria continua recebendo eventos depois do commit; esses eventos entram no proximo commit",
+        "severity": "low",
+        "mitigation": "Commit seguinte de manutencao inclui o log atualizado"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-MAINT-001"
+    ],
+    "independent_work_continues": true
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/71",
+    "decided_event_ref": "events/80"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T10:59:21-03:00",
+    "note": "Commit inicial aprovado pelo usuario no chat em 2026-11-06"
+  }
+}

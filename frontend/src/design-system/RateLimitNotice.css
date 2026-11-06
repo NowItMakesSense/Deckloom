@@ -1,0 +1,22 @@
+/* Espaço reservado (WC-12): o aviso entra sem empurrar o formulário. */
+.rate-limit-notice {
+  min-height: calc(var(--text-sm) * 3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* MOT-05/MOT-06: entrada só com opacity; sem deslocamento. */
+.rate-limit-notice__text {
+  display: block;
+  animation: rate-limit-notice-in var(--duration-fade) var(--ease-out);
+}
+
+@keyframes rate-limit-notice-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

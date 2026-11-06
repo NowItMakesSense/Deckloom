@@ -1,0 +1,78 @@
+# Desenvolvimento local. web e api compartilham UMA origem (nginx faz proxy de /api):
+# os cookies __Host- exigem origem unica; por isso api nao publica porta.
+services:
+  web:
+    build:
+      context: ./frontend
+    # Publicacao so em loopback: compose de desenvolvimento local (SEC-17).
+    ports:
+      - "127.0.0.1:8081:80"
+    # Somente edge: com web tambem em default, o DNS poderia resolver "api" fora da sub-rede confiavel (R-31).
+    networks:
+      - edge
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./backend
+    expose:
+      - "8080"
+    networks:
+      - edge
+      - default
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # R-14: a API so confia no X-Forwarded-For vindo da sub-rede edge (onde fica o nginx do web).
+      Forwarding__TrustedProxies__0: 172.28.10.0/24
+      Auth__PublicOrigin: ${Auth__PublicOrigin}
+      Auth__Google__ClientId: ${Auth__Google__ClientId}
+      Auth__Google__ClientSecret: ${Auth__Google__ClientSecret}
+      Auth__RateLimitHmacKey: ${Auth__RateLimitHmacKey}
+      # Valores de desenvolvimento (nao sao segredo); os documentos reais entram antes do release.
+      Legal__TermsVersion: dev-2026-11-01
+      Legal__TermsUrl: http://localhost:8081/termos
+      Legal__PrivacyUrl: http://localhost:8081/privacidade
+      ConnectionStrings__Deckloom: "Host=db;Port=5432;Database=deckloom;Username=deckloom_app;Password=${DECKLOOM_APP_DB_PASSWORD};SSL Mode=Disable;Maximum Pool Size=20;Command Timeout=5;Timeout=5;Application Name=deckloom-api"
+      Email__Smtp__Host: ${Email__Smtp__Host}
+      Email__Smtp__Port: ${Email__Smtp__Port}
+      Email__Smtp__UseTls: ${Email__Smtp__UseTls}
+      Email__Smtp__User: ${Email__Smtp__User}
+      Email__Smtp__Password: ${Email__Smtp__Password}
+      Email__From: ${Email__From}
+    volumes:
+      - api-dataprotection-keys:/home/app/.aspnet/DataProtection-Keys
+    depends_on:
+      - db
+      - mail
+
+  db:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: deckloom
+      POSTGRES_USER: postgres
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DECKLOOM_APP_DB_PASSWORD: ${DECKLOOM_APP_DB_PASSWORD}
+      DECKLOOM_MIGRATOR_DB_PASSWORD: ${DECKLOOM_MIGRATOR_DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+  mail:
+    image: axllent/mailpit:v1.27.0
+    # Publicacao so em loopback: compose de desenvolvimento local (SEC-17).
+    ports:
+      - "127.0.0.1:8025:8025"
+
+networks:
+  # Rede dedicada entre web (nginx) e api, com sub-rede fixa para a lista de proxies confiaveis da API.
+  # A rede default segue levando api a db e mail.
+  edge:
+    ipam:
+      config:
+        - subnet: 172.28.10.0/24
+
+volumes:
+  db-data:
+  api-dataprotection-keys:

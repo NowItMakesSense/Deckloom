@@ -1,0 +1,4 @@
+# gerado pelo AISEF
+*.lock
+*.tmp
+panel/

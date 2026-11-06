@@ -1,0 +1,143 @@
+.avatar-picker__legend {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-base);
+}
+
+.avatar-picker__message {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.avatar-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(var(--target-min), 1fr));
+  gap: var(--space-2);
+  width: 100%;
+}
+
+@media (max-width: 320px) {
+  .avatar-picker__grid {
+    grid-template-columns: repeat(3, minmax(var(--target-min), 1fr));
+  }
+}
+
+.avatar-picker__option {
+  position: relative;
+  display: block;
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  aspect-ratio: 1;
+}
+
+.avatar-picker__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.avatar-picker__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-decor);
+  box-sizing: border-box;
+}
+
+.avatar-picker__input:checked + .avatar-picker__image {
+  border-color: var(--color-primary);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.avatar-picker__input:focus-visible + .avatar-picker__image {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.avatar-picker__skeleton {
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  aspect-ratio: 1;
+}
+
+.avatar-picker__skeleton .skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.file-upload__label {
+  color: var(--color-text);
+  font-size: var(--text-base);
+}
+
+.file-upload__input {
+  max-width: 100%;
+  min-height: var(--target-min);
+}
+
+.file-upload__hint {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.file-upload__name {
+  margin: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+}
+
+.avatar-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.avatar-dialog__presets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.avatar-dialog__presets > legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+}
+
+.avatar-dialog__upload {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-decor);
+}
+
+.avatar-dialog__upload > p {
+  margin: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.avatar-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}

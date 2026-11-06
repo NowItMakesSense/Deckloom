@@ -1,0 +1,95 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-MAINT-001",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-MAINT",
+  "feature_contract_version": 1,
+  "title": "Commit inicial e publicacao da migracao para o AISEF",
+  "objective": "Commit inicial e publicacao da migracao para o AISEF (motivo: Historico git reiniciado e repositorio publico novo (ADR-0017); estado verificado localmente)",
+  "assigned_agent": {
+    "agent_id": "orchestrator",
+    "agent_contract_version": 1,
+    "role": "orchestrator"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-MAINT",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Commit inicial e publicacao da migracao para o AISEF"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "depends_on": [],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-MAINT.json",
+        "origin": "feature_contract",
+        "version": "1"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-T-MAINT-001",
+      "description": "Suite de testes passa sem regressao apos a mudanca",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste",
+        "command": "dotnet test backend/Deckloom.sln && npm --prefix frontend run test -- --run"
+      },
+      "requirement_ids": [
+        "REQ-MAINT"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": false,
+    "validator_role": "orchestrator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T10:58:00-03:00"
+  }
+}

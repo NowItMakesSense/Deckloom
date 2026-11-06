@@ -1,0 +1,4 @@
+# Somente projetos de teste.
+[*.cs]
+# CA1707 desligado: nomes de teste em snake_case descrevem o comportamento (convencao em docs/test-strategy.md).
+dotnet_diagnostic.CA1707.severity = none

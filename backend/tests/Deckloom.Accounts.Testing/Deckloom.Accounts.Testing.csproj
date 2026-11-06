@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Biblioteca de apoio: o pacote xunit (xunit.core) a marca como projeto de teste, e o dotnet test a executaria. -->
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
+    <!-- T-140: as suites de contrato abstratas moram ao lado dos fakes e levam [Fact]. -->
+    <PackageReference Include="xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Modules/Accounts/Deckloom.Accounts.Application/Deckloom.Accounts.Application.csproj" />
+  </ItemGroup>
+
+</Project>

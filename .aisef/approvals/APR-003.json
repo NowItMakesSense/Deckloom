@@ -1,0 +1,73 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-003",
+  "request_type": "git_operation",
+  "status": "approved",
+  "title": "Push da main para o repositorio publico novo NowItMakesSense/Deckloom",
+  "summary": "Cria o repositorio PUBLICO NowItMakesSense/Deckloom no GitHub (gh repo create, remoto origin) e envia a main (git push -u origin main). Se aprovar, todo o conteudo commitado fica publico e o CI roda. Se recusar, o commit fica so local.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "task_id": "T-MAINT-001",
+  "created_at": "2026-11-06T11:00:00-03:00",
+  "expires_at": "2026-11-06T23:59:00-03:00",
+  "operation": {
+    "environment": "dev",
+    "resource_class": "git",
+    "operation": "gh repo create NowItMakesSense/Deckloom --public --source . --remote origin; git push -u origin main",
+    "destructive": false,
+    "sensitive_content_shown": false
+  },
+  "git": {
+    "operation": "push",
+    "branch": "main",
+    "target_branch": "origin/main",
+    "covers_only_this_operation": true
+  },
+  "presented": {
+    "impact": "Publica o codigo, os docs (incluindo security-report e findings-ledger da conta-jogador) e .aisef/ (contratos, discovery, log de auditoria e chave PUBLICA) num repositorio publico. Nenhum segredo: .env nao e versionado e o gitleaks local nao achou nada. Dispara o CI (7 jobs).",
+    "diff_ref": "git log origin/main..main (so o commit inicial)",
+    "tests": {
+      "summary": "Mesmas evidencias do APR-002; o primeiro run do CI sera acompanhado",
+      "executed": 4025,
+      "passed": 4025,
+      "failed": 0
+    },
+    "rollback_plan": "Tornar o repositorio privado (gh repo edit --visibility private) ou apaga-lo; conteudo ja publicado pode ter sido copiado ou indexado.",
+    "justification": "Decisao do usuario no plano aprovado em 2026-11-06: repositorio novo e publico (ADR-0017).",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Publicacao e irreversivel na pratica (copias e indexacao)",
+        "severity": "medium",
+        "mitigation": "Varredura de segredos local limpa, e-mail pessoal removido dos docs e do autor do commit"
+      }
+    ]
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-MAINT-001"
+    ],
+    "independent_work_continues": true
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/71",
+    "decided_event_ref": "events/82"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T10:59:22-03:00",
+    "note": "Push publico aprovado pelo usuario no chat em 2026-11-06"
+  }
+}

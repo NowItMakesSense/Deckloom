@@ -1,0 +1,83 @@
+/* Shell "No sidebar" (design-system.md 1.5) com Panel v0.1: formularios em coluna centralizada de 28rem,
+   superficie sobre o fundo, sem borda e sem sombra em repouso. */
+.login-page,
+.cadastro-page,
+.forgot-password-page,
+.reset-password-page,
+.google-link-page,
+.google-signup-page,
+.google-return-page,
+.edit-profile {
+  box-sizing: border-box;
+  width: calc(100% - 2 * var(--space-4));
+  max-width: 28rem;
+  margin-inline: auto;
+  margin-block: var(--space-6) var(--space-12);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .login-page,
+  .cadastro-page,
+  .forgot-password-page,
+  .reset-password-page,
+  .google-link-page,
+  .google-signup-page,
+  .google-return-page,
+  .edit-profile {
+    margin-block-start: var(--space-12);
+    padding: var(--space-6);
+  }
+}
+
+@media (prefers-contrast: more) {
+  .login-page,
+  .cadastro-page,
+  .forgot-password-page,
+  .reset-password-page,
+  .google-link-page,
+  .google-signup-page,
+  .google-return-page,
+  .edit-profile {
+    border: 1px solid var(--color-border-control);
+  }
+}
+
+.login-page > h1,
+.cadastro-page > h1,
+.forgot-password-page > h1,
+.reset-password-page > h1,
+.google-link-page > h1,
+.google-signup-page > h1,
+.google-return-page > h1,
+.edit-profile > h1 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.login-page > p,
+.cadastro-page > p,
+.forgot-password-page > p,
+.reset-password-page > p,
+.google-link-page > p,
+.google-signup-page > p,
+.google-return-page > p {
+  margin: 0;
+}
+
+/* Email verificado do Google em S4 e S5 (design.md A.8.5): sem pontos de quebra, passava da largura da tela. */
+.page-readonly-email {
+  overflow-wrap: anywhere;
+}
+
+.page-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}

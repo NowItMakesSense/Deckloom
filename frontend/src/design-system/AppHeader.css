@@ -1,0 +1,50 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 56px;
+  box-sizing: border-box;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-ground);
+  color: var(--color-text);
+}
+
+.app-header__wordmark {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.app-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  /* Quando desce de linha, o texto dos links alinha com o wordmark (o padding do link some na margem). */
+  margin-inline-start: calc(-1 * var(--space-3));
+}
+
+/* O menu da conta fica no canto direito mesmo quando o header quebra: o painel abre para a esquerda dele. */
+.app-header .account-menu {
+  margin-inline-start: auto;
+}
+
+/* Espaco neutro durante a leitura da sessao: o header nao muda de altura quando as acoes chegam. */
+.app-header__actions--pending {
+  min-height: var(--target-min);
+}
+
+.app-header__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+}
+
+@media (max-width: 479.98px) {
+  .app-header .account-menu__name {
+    display: none;
+  }
+}

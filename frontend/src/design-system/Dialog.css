@@ -1,0 +1,116 @@
+.dialog__scrim {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4, 16px);
+  background: var(--color-scrim);
+}
+
+.dialog__panel {
+  /* A entrada parte de scale(0.97): o alvo nunca fica abaixo de 44px, nem no primeiro quadro (ART-08). */
+  --target-min: calc(44px / 0.97);
+
+  box-sizing: border-box;
+  width: min(32rem, 100%);
+  max-height: 100dvh;
+  overflow-y: auto;
+  /* Palavra longa ("permanentemente") a 320px com texto a 200%: quebra em vez de alargar o painel (R-58). */
+  overflow-wrap: anywhere;
+  padding: var(--space-6, 24px);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-dialog);
+  animation: dialog-in var(--duration-dialog-in) var(--ease-out) both;
+}
+
+.dialog__panel[data-state="closing"] {
+  animation: dialog-out var(--duration-dialog-out) var(--ease-in-out) both;
+}
+
+.dialog__title {
+  margin: 0 0 var(--space-2, 8px);
+  font-size: 1.25rem;
+}
+
+.dialog__description {
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-4, 16px);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dialog-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog__panel {
+    animation-name: dialog-fade-in;
+  }
+
+  .dialog__panel[data-state="closing"] {
+    animation-name: dialog-fade-out;
+  }
+
+  @keyframes dialog-fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes dialog-fade-out {
+    from {
+      opacity: 1;
+    }
+
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+@media (prefers-contrast: more) {
+  .dialog__panel {
+    --color-text-muted: var(--color-text);
+
+    border: 1px solid currentcolor;
+  }
+}
+
+/* O botao de perigo e o unico preenchido do dialogo (ART-02); na S8 segue em contorno. */
+.dialog__panel [data-variant="danger"] {
+  background: var(--color-danger);
+  color: var(--color-on-primary);
+  border-color: var(--color-danger);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dialog__panel [data-variant="danger"]:hover {
+    background-color: var(--color-danger-hover);
+  }
+}

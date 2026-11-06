@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-001",
+  "request_type": "plan_approval",
+  "status": "approved",
+  "title": "Plano da feature FEAT-MAINT: Manutencao continua",
+  "summary": "Mudancas pequenas sem alteracao de comportamento (caminho rapido)",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-MAINT",
+  "created_at": "2026-11-06T10:58:00-03:00",
+  "expires_at": "2026-11-13T10:58:00-03:00",
+  "presented": {
+    "impact": "Plano da feature FEAT-MAINT: 1 requisito(s), 1 tarefa(s). Ver contracts/features/FEAT-MAINT.json",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ],
+    "evidence_ids": []
+  },
+  "risk": {
+    "level": "low",
+    "items": []
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-MAINT-001"
+    ],
+    "independent_work_continues": true
+  },
+  "plan": {
+    "granularity": "feature",
+    "task_plan_ref": "contracts/features/FEAT-MAINT.json#task_plan",
+    "requirements_count": 1,
+    "tasks_count": 1
+  },
+  "policy_version": "0.1.0",
+  "audit": {
+    "requested_event_ref": "events/71",
+    "decided_event_ref": "events/78"
+  },
+  "decision": {
+    "choice": "approve",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T10:59:20-03:00",
+    "note": "Aprovado pelo usuario no chat em 2026-11-06"
+  }
+}

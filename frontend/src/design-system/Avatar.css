@@ -1,0 +1,18 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--avatar-size, 40px);
+  height: var(--avatar-size, 40px);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.avatar--fallback {
+  background: var(--color-primary-subtle);
+  color: var(--color-on-primary-subtle);
+  font-size: calc(var(--avatar-size, 40px) * 0.4);
+  font-weight: 600;
+}

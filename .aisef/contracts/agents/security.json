@@ -1,0 +1,92 @@
+{
+  "schema_version": "0.1.0",
+  "agent_id": "security",
+  "contract_version": 1,
+  "role": "security",
+  "name": "Agente de Seguranca",
+  "description": "Agente security do plugin AISEF (perfil em plugins/aisef/agents/security.md)",
+  "responsibilities": [
+    "Ameacas, controle de acesso, segredos e exposicao de dados"
+  ],
+  "task_types": [
+    "security_review",
+    "review"
+  ],
+  "tools": {
+    "allowed": [
+      "Read",
+      "Grep",
+      "Glob",
+      "Bash"
+    ],
+    "via_execution_gateway": true
+  },
+  "permission_ceiling": {
+    "resources": [
+      "repo_code"
+    ],
+    "max_environment": "dev",
+    "git_operations": [
+      "status_log_diff"
+    ]
+  },
+  "context_access": {
+    "layers": [
+      "mandatory",
+      "referenced",
+      "on_demand"
+    ]
+  },
+  "communication": {
+    "route": "orchestrator",
+    "can_delegate_directly": false,
+    "can_message_other_agents_directly": false,
+    "reports_discoveries_to_orchestrator": true
+  },
+  "authority": {
+    "can_change_scope": false,
+    "can_modify_approved_decisions": false,
+    "can_modify_other_agents_contracts": false,
+    "can_modify_own_contract": false,
+    "can_contest_with_evidence": true,
+    "must_stop_on_scope_change": true
+  },
+  "output": {
+    "execution_report_schema": "execution-report/0.1.0",
+    "formats": [
+      "json",
+      "technical_report"
+    ],
+    "secrets_in_output": false
+  },
+  "validation_role": {
+    "can_self_attest_delivery": false,
+    "can_validate_own_work": false
+  },
+  "memory": {
+    "permanent_knowledge_source": false,
+    "writes_discoveries_to": "project_knowledge_base"
+  },
+  "handoff": {
+    "replaceable": true,
+    "preserved_on_replacement": [
+      "contract",
+      "history",
+      "evidence",
+      "changes",
+      "tests",
+      "identified_problems",
+      "original_permissions"
+    ]
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "status": "active",
+  "audit": {
+    "created_by": "aisef-init",
+    "created_at": "2026-11-06T10:11:09-03:00",
+    "approved_by": "user",
+    "approved_at": "2026-11-06T10:13:44-03:00"
+  }
+}

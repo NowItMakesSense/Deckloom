@@ -1,0 +1,30 @@
+.choice-group__radios {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.radio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+}
+
+.radio__input {
+  flex: none;
+  width: var(--space-6);
+  height: var(--space-6);
+  margin: calc((var(--target-min) - var(--space-6)) / 2) 0;
+  accent-color: var(--color-primary);
+}
+
+.radio__label {
+  display: flex;
+  align-items: center;
+  min-height: var(--target-min);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--color-text);
+  font-size: var(--text-base);
+}

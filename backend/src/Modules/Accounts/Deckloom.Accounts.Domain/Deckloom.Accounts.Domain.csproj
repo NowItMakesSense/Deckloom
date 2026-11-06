@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="../../../Deckloom.SharedKernel/Deckloom.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/common-passwords.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Deckloom.Accounts.Domain.Tests" />
+    <InternalsVisibleTo Include="Deckloom.Accounts.Application" />
+  </ItemGroup>
+
+</Project>

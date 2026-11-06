@@ -1,0 +1,5 @@
+.skeleton {
+  min-height: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-skeleton);
+}

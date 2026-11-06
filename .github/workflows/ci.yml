@@ -1,0 +1,241 @@
+# CI do Deckloom. Comandos de CLAUDE.md > "Comandos"; limite de cobertura = COVERAGE_THRESHOLD (CLAUDE.md).
+# A governanca dos agentes de IA (gateway, contratos, rastreabilidade) e do AISEF e roda localmente (ADR-0017).
+#
+# Regras deste pipeline:
+# - Nunca roda migracao nem comando que toque banco. Nenhum job recebe credencial de banco.
+# - Segredos: o unico segredo lido e o GITHUB_TOKEN automatico (secret scan). O E2E usa os valores
+#   FALSOS que ja estao em backend/tests/Deckloom.Api.E2E.Host/appsettings.E2E.json (sem secrets.*).
+# - Acoes de terceiros fixadas em SHA de commit (o comentario ao lado diz a tag). SEC-11 segue aberto:
+#   ver docs/specs/conta-jogador/release-notes.md.
+# - SAST: job "codeql" (CodeQL para C# e JavaScript/TypeScript) envia o SARIF ao Code Scanning (repositorio
+#   publico, ADR-0017) e tambem o guarda como artefato; scripts/ci/check_sarif.py falha o job se houver
+#   resultado ativo. Acoes do CodeQL fixadas em SHA como as demais.
+# - Permissoes minimas por job: pull-requests: read so no secret-scan (gitleaks lista os commits do PR, SEC-25);
+#   security-events: write no codeql, so para enviar o SARIF ao Code Scanning (SEC-26, ADR-0017). Um bloco permissions de job substitui o global, por isso repete contents.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  COVERAGE_THRESHOLD: "80"
+  DOTNET_NOLOGO: "1"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+
+jobs:
+  ci-scripts:
+    name: Testes dos scripts de CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.x"
+      - name: Testes dos scripts de CI
+        run: python3 -m unittest discover -s scripts/ci -p "test_*.py" -v
+
+  backend:
+    name: Backend (format, build, testes, cobertura)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: "10.0.x"
+      - name: Restore
+        run: dotnet restore backend/Deckloom.sln
+      - name: Formatacao (dotnet format --verify-no-changes)
+        run: dotnet format backend/Deckloom.sln --verify-no-changes --no-restore
+      - name: Build Release
+        run: dotnet build backend/Deckloom.sln -c Release --no-restore
+      - name: Testes com cobertura (coverlet, excluindo codigo gerado)
+        run: >-
+          dotnet test backend/Deckloom.sln -c Release --no-build
+          --settings backend/coverlet.runsettings
+          --collect:"XPlat Code Coverage"
+          --results-directory backend/TestResults
+      - name: Portao de cobertura de produto (>= COVERAGE_THRESHOLD)
+        run: python3 scripts/ci/check_coverage.py --reports-dir backend/TestResults --threshold "$COVERAGE_THRESHOLD"
+      - name: Enviar relatorios de cobertura
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: backend-coverage
+          path: backend/TestResults/
+          retention-days: 14
+          if-no-files-found: ignore
+
+  frontend:
+    name: Frontend (lint, format, build, testes com cobertura)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Instalar dependencias (npm ci)
+        run: npm --prefix frontend ci
+      - name: Lint
+        run: npm --prefix frontend run lint
+      - name: Formatacao (format:check)
+        run: npm --prefix frontend run format:check
+      - name: Build (tsc + vite)
+        run: npm --prefix frontend run build
+      - name: Testes unitarios com cobertura (limite 80 em vite.config.ts)
+        run: npm --prefix frontend run test -- --run --coverage
+      - name: Enviar relatorio de cobertura
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: frontend-coverage
+          path: frontend/coverage/
+          retention-days: 14
+          if-no-files-found: ignore
+
+  e2e:
+    name: E2E (Playwright, host de teste sem banco)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Instalar dependencias (npm ci)
+        run: npm --prefix frontend ci
+      - name: Instalar Chromium do Playwright
+        run: npm --prefix frontend exec -- playwright install --with-deps chromium
+      - name: E2E (o config sobe o host E2E e o Vite; ambiente E2E, persistencia em memoria)
+        run: npm --prefix frontend run e2e
+      - name: Enviar traces e resultados de falha
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: e2e-test-results
+          path: frontend/test-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  codeql:
+    name: SAST (CodeQL, ${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    # SEC-30: sem isto o CodeQL analisa so as linhas alteradas no PR. Variavel interna da acao no SHA fixado
+    # (feature-flags.ts:572-579): reconferir a cada atualizacao do SHA abaixo.
+    env:
+      CODEQL_ACTION_DIFF_INFORMED_QUERIES: "false"
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: csharp
+            build-mode: manual
+          - language: javascript-typescript
+            build-mode: none
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - name: Inicializar CodeQL (${{ matrix.language }})
+        uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+      - name: Instalar .NET (build para o CodeQL, somente C#)
+        if: matrix.language == 'csharp'
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: "10.0.x"
+      - name: Build para o CodeQL (somente C#, modo manual; so Deckloom.Api e a closure dele, SEC-29)
+        if: matrix.language == 'csharp'
+        run: dotnet build backend/src/Deckloom.Api/Deckloom.Api.csproj -c Release
+      - name: Analisar (CodeQL, ${{ matrix.language }}; envia ao Code Scanning e grava SARIF local)
+        uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          category: "/language:${{ matrix.language }}"
+          upload: always
+          output: ${{ runner.temp }}/sarif/${{ matrix.language }}
+      - name: Guardar SARIF do CodeQL (${{ matrix.language }}; tambem em falha)
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: codeql-sarif-${{ matrix.language }}
+          path: ${{ runner.temp }}/sarif/${{ matrix.language }}
+          retention-days: 14
+          if-no-files-found: error
+      - name: Portao de achados do CodeQL (${{ matrix.language }}; falha com resultado ativo)
+        run: python3 scripts/ci/check_sarif.py "${{ runner.temp }}/sarif/${{ matrix.language }}"
+
+  secret-scan:
+    name: Varredura de segredos (gitleaks)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # pull-requests: read e necessario para o gitleaks-action listar os commits do PR (pulls/N/commits).
+    # O bloco substitui o permissions global, por isso contents: read vai junto.
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2.3.9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dependency-audit:
+    name: Auditoria de dependencias (npm producao e NuGet)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "24"
+      - name: npm audit (somente dependencias de producao)
+        run: npm --prefix frontend audit --omit=dev
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5.4.0
+        with:
+          dotnet-version: "10.0.x"
+      - name: Restore
+        run: dotnet restore backend/Deckloom.sln
+      - name: NuGet vulneraveis (incluindo transitivos; falha em qualquer achado)
+        run: |
+          dotnet list backend/Deckloom.sln package --vulnerable --include-transitive --format json > "$RUNNER_TEMP/nuget-audit.json"
+          python3 scripts/ci/check_nuget_audit.py "$RUNNER_TEMP/nuget-audit.json"

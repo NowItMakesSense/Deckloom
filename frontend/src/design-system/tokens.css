@@ -1,0 +1,125 @@
+/* Achromatic ledger - docs/design-system.md v0.1. Somente tema claro. */
+:root {
+  color-scheme: light;
+
+  /* Cores por papel */
+  --color-ground: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --color-text-muted: #4b5563;
+  --color-border-decor: #d1d5db;
+  --color-border-control: #6b7280;
+  --color-skeleton: #e5e7eb;
+  --color-primary: #1d4ed8;
+  --color-primary-hover: #1e40af;
+  --color-on-primary: #ffffff;
+  --color-primary-subtle: #eff6ff;
+  --color-on-primary-subtle: #1e40af;
+  --color-danger: #b91c1c;
+  --color-danger-subtle: #fef2f2;
+  --color-danger-hover: #991b1b;
+  --color-success: #15803d;
+  --color-success-subtle: #f0fdf4;
+  --color-warning: #92400e;
+  --color-warning-subtle: #fffbeb;
+  --color-info: var(--color-primary);
+  --color-scrim: rgba(17, 24, 39, 0.6);
+
+  /* Raios */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* Sombras: somente AccountMenu e Dialog */
+  --shadow-menu: 0 1px 2px rgba(17, 24, 39, 0.08), 0 8px 24px rgba(17, 24, 39, 0.14);
+  --shadow-dialog: 0 1px 2px rgba(17, 24, 39, 0.08), 0 12px 32px rgba(17, 24, 39, 0.18);
+
+  /* Espacamento (base 4px) */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-press: 120ms;
+  --duration-hover: 150ms;
+  --duration-fade: 160ms;
+  --duration-menu-in: 150ms;
+  --duration-menu-out: 100ms;
+  --duration-dialog-in: 200ms;
+  --duration-dialog-out: 150ms;
+  --duration-spin: 800ms;
+
+  /* Tipografia */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --text-sm: 0.875rem;
+  --text-label: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+
+  /* Alvo de toque minimo (44x44) */
+  --target-min: 44px;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --color-text-muted: var(--color-text);
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-ground);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+/* Titulo de tela: 24/32 (design.md A.8.3); sem regra valia o padrao do navegador (32px, 64px a 200%). */
+h1 {
+  font-size: var(--text-2xl);
+  line-height: 1.333;
+}
+
+button,
+input,
+select,
+textarea {
+  min-height: var(--target-min);
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition:
+    transform var(--duration-press) var(--ease-out),
+    background-color var(--duration-hover) var(--ease-out);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

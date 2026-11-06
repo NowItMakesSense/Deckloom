@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- QA-07: a medicao de cobertura ignora codigo gerado (migrations do EF, *.g.cs, obj/). Nenhum limite muda aqui.
+     Uso: passe este arquivo ao dotnet test pela opcao de configuracoes (settings) junto com o coletor XPlat Code Coverage. -->
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <ExcludeByFile>**/Migrations/**/*.cs,**/*.g.cs,**/obj/**/*</ExcludeByFile>
+          <ExcludeByAttribute>GeneratedCode</ExcludeByAttribute>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

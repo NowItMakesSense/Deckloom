@@ -1,0 +1,40 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.textarea__label {
+  font-size: var(--text-label);
+  color: var(--color-text);
+}
+
+.textarea__hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.textarea__control {
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--text-base);
+  resize: vertical;
+}
+
+.textarea__control[aria-invalid="true"] {
+  border-color: var(--color-danger);
+}
+
+.textarea__counter {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
