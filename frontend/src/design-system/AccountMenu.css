@@ -40,12 +40,20 @@
   max-width: calc(100vw - 2 * var(--space-4));
   margin-top: var(--space-1);
   padding: var(--space-2);
-  border: 1px solid var(--color-border-decor);
+  border: 1px solid var(--glass-edge);
   border-radius: var(--radius-md);
-  background: var(--color-surface);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   color: var(--color-text);
   box-shadow: var(--shadow-menu);
   animation: account-menu-in var(--duration-menu-in) var(--ease-out) both;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .account-menu__panel {
+    background-color: var(--glass-solid-strong);
+  }
 }
 
 .account-menu__full-name {

@@ -83,18 +83,15 @@
     "modified": [
       {
         "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/AccountsDbContext.cs",
-        "sha256_after": "b40ff0a825d4a7b484f24ac07ec5aec498de629c92978dcbe6f75924078eec84",
-        "sha256_before": "n/a (sem operacao Git)"
+        "sha256_after": "b40ff0a825d4a7b484f24ac07ec5aec498de629c92978dcbe6f75924078eec84"
       },
       {
         "path": "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure/Migrations/AccountsDbContextModelSnapshot.cs",
-        "sha256_after": "1efe071a82e88ba1d9b9c72d6965b1cdc5a6766c91a41c5f8fbc53ec8bfda6de",
-        "sha256_before": "n/a (sem operacao Git)"
+        "sha256_after": "1efe071a82e88ba1d9b9c72d6965b1cdc5a6766c91a41c5f8fbc53ec8bfda6de"
       },
       {
         "path": "backend/src/Deckloom.Api/Composition/AccountsModuleExtensions.cs",
-        "sha256_after": "d92eb7d07f578bd374982fe63483b896d8f7b314e1428752b653300367d5c570",
-        "sha256_before": "n/a (sem operacao Git)"
+        "sha256_after": "d92eb7d07f578bd374982fe63483b896d8f7b314e1428752b653300367d5c570"
       }
     ],
     "deleted": []

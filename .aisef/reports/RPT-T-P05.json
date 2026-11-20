@@ -51,20 +51,32 @@
     {
       "summary": "Passo 'Build para o CodeQL (C#)' passa a compilar, alem de Deckloom.Api, os 3 servicos de backend/src/Services (um dotnet build por csproj). Sem projetos de teste e sem a solucao inteira.",
       "reason": "AC-P05c: os servicos nao sao referenciados pela Api (ADR-0018), por isso o CodeQL nao os analisava; mantem SEC-29.",
-      "requirement_ids": ["REQ-P01"],
-      "files": [".github/workflows/ci.yml"]
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        ".github/workflows/ci.yml"
+      ]
     },
     {
       "summary": "PRODUCT_PACKAGES inclui os 3 servicos (MetaIngestionService, NotificationService, SuggestionService) e os 2 pacotes do Catalog (Catalog.Application, Catalog.Infrastructure), medidos pelo mesmo portao de 80%. Catalog classificado por decisao do orquestrador (codigo de producao do nucleo, ADR-0018/APR-015).",
       "reason": "AC-P05a: sem a classificacao o portao reprova os pacotes como sem classificacao.",
-      "requirement_ids": ["REQ-P01"],
-      "files": ["scripts/ci/check_coverage.py"]
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "scripts/ci/check_coverage.py"
+      ]
     },
     {
       "summary": "test_ci_workflow.py: teste do build do CodeQL exige 'Api + cada servico exatamente uma vez' (substitui o antigo 'so Api'); novos testes: job backend compila e testa a sln; sln contem cada servico e seu projeto de teste; job backend usa o portao com COVERAGE_THRESHOLD; cada servico esta em PRODUCT_PACKAGES; todo csproj de backend/src esta em PRODUCT_PACKAGES ou TEST_SUPPORT_PACKAGES.",
       "reason": "AC-P05a e AC-P05c: guarda automatica que falha se um servico ou um projeto de producao sair do build do CodeQL, da solucao ou do portao.",
-      "requirement_ids": ["REQ-P01"],
-      "files": ["scripts/ci/test_ci_workflow.py"]
+      "requirement_ids": [
+        "REQ-P01"
+      ],
+      "files": [
+        "scripts/ci/test_ci_workflow.py"
+      ]
     }
   ],
   "tests": {
@@ -89,7 +101,14 @@
       "mutacao 1: remover servico de PRODUCT_PACKAGES -> 1 falha; revertido -> OK",
       "mutacao 2: remover NotificationService do build do CodeQL em ci.yml -> 1 falha; revertido e comparado ao backup -> OK"
     ],
-    "evidence_ids": ["EV-T-P05-01", "EV-T-P05-02", "EV-T-P05-03", "EV-T-P05-04", "EV-T-P05-05", "EV-T-P05-06"]
+    "evidence_ids": [
+      "EV-T-P05-01",
+      "EV-T-P05-02",
+      "EV-T-P05-03",
+      "EV-T-P05-04",
+      "EV-T-P05-05",
+      "EV-T-P05-06"
+    ]
   },
   "evidence": [
     {
@@ -134,21 +153,31 @@
       "criterion_id": "AC-P05a",
       "required": true,
       "result": "met",
-      "evidence_ids": ["EV-T-P05-02", "EV-T-P05-01", "EV-T-P05-06"],
+      "evidence_ids": [
+        "EV-T-P05-02",
+        "EV-T-P05-01",
+        "EV-T-P05-06"
+      ],
       "notes": "Os 3 servicos sao compilados e testados pelo job backend (a sln os inclui), medidos e aprovados pelo mesmo portao de 80% (100% cada). O portao local passa (exit 0) depois da classificacao do Catalog pelo orquestrador."
     },
     {
       "criterion_id": "AC-P05b",
       "required": true,
       "result": "met",
-      "evidence_ids": ["EV-T-P05-01"],
+      "evidence_ids": [
+        "EV-T-P05-01"
+      ],
       "notes": "python -m unittest discover -s scripts/ci -p \"test_*.py\": 45 testes, OK."
     },
     {
       "criterion_id": "AC-P05c",
       "required": true,
       "result": "met",
-      "evidence_ids": ["EV-T-P05-01", "EV-T-P05-03", "EV-T-P05-04"],
+      "evidence_ids": [
+        "EV-T-P05-01",
+        "EV-T-P05-03",
+        "EV-T-P05-04"
+      ],
       "notes": "Build do CodeQL compila Api e os 3 servicos. Teste vermelho com servico removido do passo verificado (mutacao 2) e revertido."
     }
   ],
@@ -167,8 +196,8 @@
   "scope_discoveries": [
     {
       "description": "Deckloom.Catalog.Application e Deckloom.Catalog.Infrastructure (producao, com testes na sln) estavam fora do check_coverage.py; o portao do job backend reprovava por isso.",
-      "impact": "Job backend vermelho por causa do portao, independentemente dos servicos.",
-      "affected_part_stopped": "Classificacao do Catalog: parada e reportada; resolvida por decisao do orquestrador (classificados como produto) e aplicada nesta segunda execucao."
+      "impact": "Job backend vermelho por causa do portao, independentemente dos servicos. Classificacao do Catalog: parada e reportada; resolvida por decisao do orquestrador (classificados como produto) e aplicada nesta segunda execucao.",
+      "affected_part_stopped": true
     }
   ],
   "operations_log_ref": "aisef_project.py append --type task_started (E1066), --type task_executed (E1093) e --type task_executed (E1102)",

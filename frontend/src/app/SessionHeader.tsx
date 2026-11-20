@@ -4,6 +4,7 @@ import { AppHeader } from "@/design-system/AppHeader";
 import type { AccountMenuAvatar } from "@/design-system/AccountMenu";
 import type { Avatar } from "@/shared/api";
 import { useApiClient, useClearSession, useSession } from "./SessionProvider";
+import { useTheme } from "./theme/useTheme";
 
 const LOGOUT_PATH = "/api/v1/auth/logout";
 const SIGNED_OUT_ROUTE = "/entrar?aviso=saiu";
@@ -18,6 +19,7 @@ export function SessionHeader(): ReactNode {
   const client = useApiClient();
   const clear = useClearSession();
   const navigate = useNavigate();
+  const { theme, toggle } = useTheme();
 
   const signOut = useCallback(async () => {
     try {
@@ -41,6 +43,8 @@ export function SessionHeader(): ReactNode {
     <AppHeader
       player={player}
       loading={session.status === "loading"}
+      theme={theme}
+      onToggleTheme={toggle}
       onSignOut={() => void signOut()}
     />
   );

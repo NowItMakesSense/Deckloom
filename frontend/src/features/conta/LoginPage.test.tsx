@@ -90,7 +90,7 @@ function renderPage(entry = "/entrar", respond?: () => Response | Promise<Respon
       <SessionProvider baseUrl={BASE}>
         <Routes>
           <Route path="/entrar" element={<LoginPage />} />
-          <Route path="/perfil" element={<main>pagina perfil</main>} />
+          <Route path="/inicio" element={<main>pagina perfil</main>} />
           <Route path="/perfil/editar" element={<main>pagina editar</main>} />
           <Route path="/cadastro" element={<main>pagina cadastro</main>} />
           <Route path="/esqueci-senha" element={<main>pagina esqueci</main>} />
@@ -201,7 +201,7 @@ describe("S2 Login - sucesso e retorno seguro (REQ-004, UX-12)", () => {
       rememberMe: false,
     });
     // QA-14: o fluxo (login + refresh da sessao) termina antes do teste, para o GET /auth/session nao contar no seguinte.
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
   });
 
   it("envia rememberMe=true quando o checkbox esta marcado", async () => {
@@ -214,16 +214,16 @@ describe("S2 Login - sucesso e retorno seguro (REQ-004, UX-12)", () => {
     await waitFor(() => expect(bodies).toHaveLength(1));
     expect(bodies[0].rememberMe).toBe(true);
     // QA-14: espera o fim do fluxo (navegacao) antes de terminar.
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
   });
 
-  it("200 sem retorno leva a /perfil, com a sessao atualizada antes da navegacao", async () => {
+  it("200 sem retorno leva a /inicio, com a sessao atualizada antes da navegacao", async () => {
     const { sessionCalls, sessionCallsAtLogin } = renderPage();
     const user = userEvent.setup();
     await fillValid(user);
     await user.click(screen.getByRole("button", { name: "Entrar" }));
 
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
     expect(screen.getByText("pagina perfil")).toBeInTheDocument();
     // 1 leitura inicial antes do login + 1 refresh depois dele, ambos antes de chegar ao destino.
     expect(sessionCallsAtLogin()).toBe(1);
@@ -241,14 +241,14 @@ describe("S2 Login - sucesso e retorno seguro (REQ-004, UX-12)", () => {
   });
 
   it.each([["https://malicioso.example/x"], ["//malicioso.example"], ["/rota-desconhecida"]])(
-    "retorno invalido (%s) e ignorado: vai a /perfil",
+    "retorno invalido (%s) e ignorado: vai a /inicio",
     async (retorno) => {
       renderPage(`/entrar?retorno=${encodeURIComponent(retorno)}`);
       const user = userEvent.setup();
       await fillValid(user);
       await user.click(screen.getByRole("button", { name: "Entrar" }));
 
-      await waitFor(() => expect(screen.getByTestId("location").textContent).toBe("/perfil"));
+      await waitFor(() => expect(screen.getByTestId("location").textContent).toBe("/inicio"));
     },
   );
 
@@ -269,7 +269,7 @@ describe("S2 Login - sucesso e retorno seguro (REQ-004, UX-12)", () => {
     await user.click(button);
     await user.click(button);
     release();
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
     expect(bodies).toHaveLength(1);
   });
 });

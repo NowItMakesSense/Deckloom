@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-G03",
+  "contract_version": 1,
+  "kind": "task",
+  "feature_id": "FEAT-LOGO",
+  "feature_contract_version": 1,
+  "title": "Aplicar o logo aprovado no app, na landing e nos modelos 3D",
+  "objective": "Aplicar o logo aprovado no app, na landing e nos modelos 3D",
+  "assigned_agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-G03",
+        "version": 1
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Aplicar o logo aprovado no app e na landing",
+      "trocar o simbolo do Deckloom nas texturas da deck box e dos demais modelos 3D da landing (design/3d, regerar os glTF) pelo logo novo"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "frontend/src/**",
+      "frontend/public/**",
+      "frontend/index.html",
+      "design/3d/**",
+      "frontend/public/models/**"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-G02"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-LOGO.json",
+        "origin": "feature_contract",
+        "version": "1"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-G03a",
+      "description": "logo novo no cabecalho, favicon e landing, com testes do frontend verdes e axe sem violacoes",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste",
+        "command": "npm --prefix frontend run test -- --run"
+      },
+      "requirement_ids": [
+        "REQ-G03"
+      ]
+    },
+    {
+      "id": "AC-G03b",
+      "description": "Deck box e demais modelos 3D da landing exibem o logo novo no lugar do simbolo antigo (glTF regerados, gltf-validator sem erros, previa aprovada pelo usuario)",
+      "required": true,
+      "verification": {
+        "method": "manual_review",
+        "evidence_expected": "capturas do Blender e da landing"
+      },
+      "requirement_ids": [
+        "REQ-G03"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "complexity": "normal",
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "draft"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-14T17:09:21-03:00"
+  }
+}

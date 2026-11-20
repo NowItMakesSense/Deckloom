@@ -97,7 +97,7 @@ function renderPage() {
       <SessionProvider baseUrl={BASE}>
         <Routes>
           <Route path="/cadastro" element={<CadastroPage />} />
-          <Route path="/perfil" element={<p>pagina perfil</p>} />
+          <Route path="/inicio" element={<p>pagina perfil</p>} />
           <Route path="/entrar" element={<p>pagina entrar</p>} />
         </Routes>
         <LocationProbe />
@@ -239,7 +239,7 @@ describe("S1 Cadastro - versao dos termos desatualizada (REQ-043)", () => {
     await waitFor(() => expect(bodies).toHaveLength(2));
     expect(bodies[0].termsVersion).toBe(OLD_VERSION);
     expect(bodies[1].termsVersion).toBe(NEW_VERSION);
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
   });
 });
 
@@ -282,7 +282,7 @@ describe("S1 Cadastro - falha geral (REQ-002)", () => {
     await user.click(screen.getByLabelText("Senha"));
     await user.paste("senha-segura-1");
     await user.click(screen.getByRole("button", { name: "Criar conta" }));
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
     expect(bodies).toHaveLength(2);
   });
 });
@@ -347,7 +347,7 @@ describe("S1 Cadastro - resposta lenta (WC-12, REQ-041)", () => {
       expect(button).toHaveAttribute("aria-busy", "true");
 
       release.release();
-      await until(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+      await until(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
       expect(bodies).toHaveLength(1);
     },
   );

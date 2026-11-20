@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-045",
+  "request_type": "scope_change_decision",
+  "status": "approved",
+  "title": "FEAT-LANDING v7: landing como cena 3D com camera guiada pelo scroll, fundo ShaderGradient e ganchos em cards no estilo de carta",
+  "summary": "Pedido do usuario em 2026-11-11: modelos 3D melhores de todos os elementos, os quatro ganchos como cards com moldura propria inspirada em carta de Magic e o simbolo do Deckloom, fundo ShaderGradient atras da cena, camera que muda de posicao a cada secao com transicao suave. Construido direto na landing real em React; a previa estatica e aposentada.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-LANDING",
+  "task_id": "T-L02",
+  "created_at": "2026-11-11T22:50:00-03:00",
+  "expires_at": "2026-11-13T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "REQ-L10 v2: a landing inteira e uma jornada 3D (React Three Fiber): fundo ShaderGradient atras, grimorio e cartas como modelos 3D mais detalhados, camera (camera-controls) que vai para uma posicao por secao conforme o scroll, com transicao suave; fallback estatico sem WebGL, com prefers-reduced-motion e em aparelho fraco. REQ-L11 novo: os quatro ganchos sao cards com moldura propria do Deckloom inspirada em carta de Magic (titulo, arte com o simbolo do Deckloom, linha de tipo, caixa de texto), sem copiar a moldura da Wizards. REQ-L12 novo: dependencias @shadergradient/react 2.4.20, @react-three/fiber 9.8.2, three-stdlib 2.36.1 e camera-controls 3.1.2 (todas MIT, versao exata, sem CDN), carregadas sob demanda. Previa estatica aposentada: frontend/preview e removida e os criterios AC-L01d a AC-L01h passam para a landing real (T-L02). T-L01 fica com design system, fontes, tema e arquivos de marca. T-L02 passa a complexa e absorve nav dynamic island, logo, rodape, mana e logos dos jogos. Texto da landing continua em HTML real por cima da cena (acessibilidade e SEO).",
+    "justification": "Regra 4 do AISEF (escopo nao muda sozinho) e pedido direto do usuario; respostas dadas no chat em 2026-11-11 (modelos 3D, quatro ganchos, fundo atras da cena, direto na landing real).",
+    "requirement_ids": [
+      "REQ-L01",
+      "REQ-L03",
+      "REQ-L10"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-LANDING-ANTES",
+      "label": "Aprovar e fazer a landing antes da migracao da conta",
+      "description": "Ordem: T-L01 (fechar), T-L01B (icones), T-L02 (landing 3D), T-L01C (telas da conta), T-L03 (home), T-L04 (E2E). Voce ve a landing nova mais cedo.",
+      "impacts": [
+        "Landing 3D aprovada visualmente antes do resto",
+        "Quatro dependencias novas"
+      ],
+      "risks": [
+        "Peso e desempenho da cena",
+        "Contraste do texto sobre fundo animado"
+      ],
+      "cost": "Alto",
+      "migration": "Remove frontend/preview e seus testes; criterios da previa viram criterios da landing"
+    },
+    {
+      "option_id": "OPT-ORDEM-ATUAL",
+      "label": "Aprovar mantendo a ordem atual",
+      "description": "Mesmo escopo, mas a landing 3D so comeca depois dos icones e da migracao das telas da conta.",
+      "impacts": [
+        "Landing 3D chega mais tarde",
+        "Quatro dependencias novas"
+      ],
+      "risks": [
+        "Peso e desempenho da cena",
+        "Contraste do texto sobre fundo animado"
+      ],
+      "cost": "Alto",
+      "migration": "Remove frontend/preview e seus testes; criterios da previa viram criterios da landing"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-LANDING-ANTES",
+    "rationale": "A landing so depende dos tokens e dos icones; antecipar reduz o risco de retrabalho visual, que foi o que mais mudou nesta feature."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-L01",
+      "T-L02"
+    ],
+    "independent_work_continues": false
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Quatro dependencias novas e compatibilidade de @shadergradient/react com three 0.186.1 e React Three Fiber 9",
+        "severity": "medium",
+        "mitigation": "Versao exata, auditoria de dependencias no CI e prova de compatibilidade como primeiro passo da T-L02; se nao compor na mesma cena, parar e relatar"
+      },
+      {
+        "description": "Peso do bundle e desempenho em celular",
+        "severity": "medium",
+        "mitigation": "Cena carregada sob demanda fora do bundle inicial, limite de pixel ratio, fallback estatico em aparelho fraco"
+      },
+      {
+        "description": "Texto sobre gradiente animado perder contraste AA",
+        "severity": "medium",
+        "mitigation": "Texto em paineis de vidro com fundo de seguranca; teste de contraste no pior fundo e axe nos dois temas"
+      },
+      {
+        "description": "Moldura parecida demais com a carta de Magic (desenho registrado da Wizards)",
+        "severity": "low",
+        "mitigation": "Moldura propria do Deckloom, so a anatomia de carta como referencia; nota de marcas no rodape"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/1806",
+    "decided_event_ref": "events/1808"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-11T22:37:55-03:00",
+    "selected_option_id": "OPT-LANDING-ANTES",
+    "note": "Usuario escolheu 'Aprovar, landing antes' no chat em 2026-11-11"
+  }
+}

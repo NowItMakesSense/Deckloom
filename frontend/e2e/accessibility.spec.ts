@@ -448,6 +448,23 @@ test.describe("axe: sem violacoes WCAG 2.1 AA", () => {
     });
   }
 
+  // T-L01C / AC-L01Cb: a identidade Grimorio arcano tem dois temas; as telas e dialogos da conta passam no axe nos dois.
+  for (const colorScheme of ["light", "dark"] as const) {
+    for (const screen of SCREENS) {
+      test(`${screen.id} sem violacoes axe no tema ${colorScheme}`, async ({ browser }) => {
+        await withScreen(browser, screen, { colorScheme }, async (page) => {
+          await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
+          const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+          expect(
+            results.violations.map(
+              (v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`,
+            ),
+          ).toEqual([]);
+        });
+      });
+    }
+  }
+
   test("S1 em estado de erro (envio vazio) sem violacoes axe", async ({ browser }) => {
     await withScreen(browser, SCREENS[0]!, {}, async (page) => {
       await page.getByRole("button", { name: "Criar conta" }).click();
@@ -971,9 +988,12 @@ test.describe("menu da conta: margens iguais a 320px com texto a 200% (U-14)", (
   });
 });
 
-// T-175 / U-15: quando os links de visitante descem de linha, o texto alinha com o wordmark.
-test.describe("cabecalho de visitante: texto dos links alinhado ao wordmark (U-15)", () => {
-  test("S2 a 320px e 200%: o primeiro link comeca na mesma margem do wordmark", async ({
+// T-175 / U-15 (revisto na T-L01C tentativas 2 e 4): o cabecalho e a pilula da navegacao (REQ-L03 v5). Quando as acoes
+// de visitante descem de linha a 320px com texto a 200%, continuam dentro da pilula, sem sair da largura da tela, e
+// comecam na mesma margem da logo (o alinhamento do U-15 original, agora em relacao a a.app-header__logo).
+// Tentativa 4 (decisao do usuario): no celular o Entrar mora no menu recolhido; a acao medida e o Criar conta.
+test.describe("cabecalho de visitante: acoes dentro da pilula quando descem de linha (U-15)", () => {
+  test("S2 a 320px e 200%: as acoes descem da logo, alinham com ela e ficam dentro da pilula", async ({
     browser,
   }) => {
     const s2 = SCREENS.find((s) => s.id === "S2")!;
@@ -981,24 +1001,176 @@ test.describe("cabecalho de visitante: texto dos links alinhado ao wordmark (U-1
       await page.setViewportSize({ width: 320, height: 800 });
       await page.addStyleTag({ content: TEXT_SPACING_CSS });
       const m = await page.evaluate(() => {
-        const mark = document.querySelector(".app-header__wordmark")!.getBoundingClientRect();
-        const link = document.querySelector(".app-header__actions .app-header__link")!;
-        const range = document.createRange();
-        range.selectNodeContents(link);
+        const pill = document.querySelector(".app-header")!.getBoundingClientRect();
+        const logo = document.querySelector("a.app-header__logo")!.getBoundingClientRect();
+        const actions = document.querySelector(".app-header__actions")!.getBoundingClientRect();
+        const link = document.querySelector(".app-header__actions .app-header__cta")!;
+        const box = link.getBoundingClientRect();
         return {
-          markLeft: mark.left,
-          markBottom: mark.bottom,
-          textLeft: range.getBoundingClientRect().left,
-          linkTop: link.getBoundingClientRect().top,
+          pillLeft: pill.left,
+          pillRight: pill.right,
+          logoLeft: logo.left,
+          logoBottom: logo.bottom,
+          actionsLeft: actions.left,
+          linkTop: box.top,
+          linkLeft: box.left,
+          linkRight: box.right,
+          screenWidth: document.documentElement.clientWidth,
         };
       });
-      expect(m.linkTop, "os links descem de linha").toBeGreaterThanOrEqual(m.markBottom - 1);
+      expect(m.linkTop, "as acoes descem de linha").toBeGreaterThanOrEqual(m.logoBottom - 1);
       expect(
-        Math.abs(m.textLeft - m.markLeft),
-        `texto em ${m.textLeft}, wordmark em ${m.markLeft}`,
+        Math.abs(m.actionsLeft - m.logoLeft),
+        `acoes em ${m.actionsLeft}, logo em ${m.logoLeft}`,
       ).toBeLessThanOrEqual(1);
+      expect(m.linkLeft, "acao dentro da pilula (esquerda)").toBeGreaterThanOrEqual(m.pillLeft);
+      expect(m.linkRight, "acao dentro da pilula (direita)").toBeLessThanOrEqual(m.pillRight + 0.5);
+      expect(m.pillRight, "pilula dentro da tela").toBeLessThanOrEqual(m.screenWidth);
     });
   });
+});
+
+// T-L01C tentativa 4 (decisao do usuario): no celular o cabecalho da conta fica numa linha so, como a pilula da landing;
+// o visitante guarda o Entrar num menu (aria-expanded) que fecha com Esc e ao tocar fora. A pilula fica fixa no topo ao
+// rolar e um campo focado nunca fica sob ela, inclusive com texto a 200%.
+async function pillMetrics(page: Page, selector: string) {
+  return page.locator(selector).evaluate((pill) => {
+    const r = pill.getBoundingClientRect();
+    const centers = [...pill.querySelectorAll("a, button")]
+      .filter((el) => el.checkVisibility({ checkVisibilityCSS: true }))
+      .filter((el) => !el.closest("[data-account-menu-panel]"))
+      .map((el) => {
+        const box = el.getBoundingClientRect();
+        return Math.round(box.top + box.height / 2);
+      });
+    return { top: r.top, bottom: r.bottom, height: r.height, centers };
+  });
+}
+
+test.describe("cabecalho da conta numa linha no celular, como a landing (T-L01C tentativa 4)", () => {
+  for (const id of ["S2", "S8"] as const) {
+    for (const width of [320, 375]) {
+      test(`${id} a ${width}px: a pilula ocupa uma linha, com a altura da pilula da landing`, async ({
+        browser,
+      }) => {
+        const screen = SCREENS.find((s) => s.id === id)!;
+        await withScreen(browser, screen, { viewport: { width, height: 800 } }, async (page) => {
+          const account = await pillMetrics(page, "header.app-header");
+          expect(account.centers.length, "controles visiveis na pilula").toBeGreaterThanOrEqual(3);
+          const spread = Math.max(...account.centers) - Math.min(...account.centers);
+          expect(
+            spread,
+            `centros dos controles: ${account.centers.join(", ")}`,
+          ).toBeLessThanOrEqual(2);
+          await page.goto("/");
+          const landing = await pillMetrics(page, ".landing-nav__island");
+          // Uma linha: no maximo a altura da pilula da landing (+4px). O jogador (avatar e tema) fica um pouco mais
+          // baixo que o visitante, cujo Criar conta tem a mesma altura do da landing.
+          expect(
+            account.height,
+            `pilula da conta ${account.height}px, da landing ${landing.height}px`,
+          ).toBeLessThanOrEqual(landing.height + 4);
+          if (!screen.player) {
+            expect(
+              Math.abs(account.height - landing.height),
+              "visitante: mesma altura",
+            ).toBeLessThanOrEqual(4);
+          }
+        });
+      });
+    }
+  }
+
+  test("S2 a 375px: o Entrar fica no menu, que abre, fecha com Esc (foco volta) e ao tocar fora", async ({
+    browser,
+  }) => {
+    const s2 = SCREENS.find((s) => s.id === "S2")!;
+    await withScreen(browser, s2, { viewport: { width: 375, height: 800 } }, async (page) => {
+      const header = page.locator("header.app-header");
+      const toggle = header.getByRole("button", { name: "Menu" });
+      const enter = header.getByRole("link", { name: "Entrar" });
+      await expect(header.getByRole("link", { name: "Criar conta" })).toBeVisible();
+      await expect(enter).toBeHidden();
+      await expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+      await toggle.click();
+      await expect(toggle).toHaveAttribute("aria-expanded", "true");
+      await expect(enter).toBeInViewport({ ratio: 1 });
+      await page.keyboard.press("Escape");
+      await expect(enter).toBeHidden();
+      await expect(toggle).toBeFocused();
+
+      await toggle.click();
+      await expect(enter).toBeVisible();
+      // Toque fora da pilula e do menu (no fundo da pagina).
+      await page.mouse.click(187, 760);
+      await expect(enter).toBeHidden();
+      await expect(toggle).toHaveAttribute("aria-expanded", "false");
+    });
+  });
+
+  test("S2 a 1366px: o Entrar segue a vista e nao ha botao de menu", async ({ browser }) => {
+    const s2 = SCREENS.find((s) => s.id === "S2")!;
+    await withScreen(browser, s2, { viewport: { width: 1366, height: 800 } }, async (page) => {
+      const header = page.locator("header.app-header");
+      await expect(header.getByRole("link", { name: "Entrar" })).toBeVisible();
+      await expect(header.getByRole("link", { name: "Criar conta" })).toBeVisible();
+      await expect(header.getByRole("button", { name: "Menu" })).toBeHidden();
+    });
+  });
+
+  for (const bigText of [false, true]) {
+    test(`S1 a 375px${bigText ? " com texto a 200%" : ""}: a pilula fica fixa ao rolar e o campo focado nao fica sob ela`, async ({
+      browser,
+    }) => {
+      const s1 = SCREENS.find((s) => s.id === "S1")!;
+      await withScreen(browser, s1, { viewport: { width: 375, height: 600 } }, async (page) => {
+        if (bigText) await page.addStyleTag({ content: TEXT_SPACING_CSS });
+        // A landing liga scroll-behavior: smooth no html; aqui a rolagem e instantanea para medir sem esperar.
+        const toBottom = () =>
+          page.evaluate(() =>
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }),
+          );
+        await toBottom();
+        await expect
+          .poll(() => page.evaluate(() => window.scrollY), { message: "a pagina rolou" })
+          .toBeGreaterThan(0);
+        const pill = await pillMetrics(page, "header.app-header");
+        expect(pill.top, "pilula no topo ao rolar").toBeGreaterThanOrEqual(0);
+        expect(pill.top, "pilula no topo ao rolar").toBeLessThanOrEqual(16);
+
+        // Dois pontos de partida: a pagina rolada ate o fim (campo acima da janela) e o campo meio escondido sob a
+        // pilula (topo 10px acima da base dela, ainda dentro da janela: sem scroll-padding o navegador nao rola).
+        const underPill = async (label: string) => {
+          const header = await pillMetrics(page, "header.app-header");
+          await page.getByLabel(label).evaluate((el, bottom) => {
+            const top = el.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({ top: top - (bottom - 10), behavior: "instant" });
+          }, header.bottom);
+        };
+        for (const label of ["Email", "Nome de exibição"]) {
+          for (const start of [toBottom, () => underPill(label)]) {
+            await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+            await start();
+            const field = page.getByLabel(label);
+            await field.focus();
+            await expect(field).toBeFocused();
+            // A rolagem do foco pode ser suave: espera ela assentar e mede o campo contra a base da pilula.
+            await expect
+              .poll(
+                async () => {
+                  const box = (await field.boundingBox())!;
+                  const header = await pillMetrics(page, "header.app-header");
+                  return box.y - header.bottom;
+                },
+                { message: `${label}: distancia do topo do campo a base da pilula` },
+              )
+              .toBeGreaterThanOrEqual(0);
+          }
+        }
+      });
+    });
+  }
 });
 
 // T-175 / U-17: a 320px com texto a 200% o nome no perfil ganha a largura do painel, sem quebrar em 6 letras.

@@ -1,4 +1,6 @@
-// Regras de direcao de arte e acessibilidade aplicadas ao CSS (T-095, design.md A.8 / A.8.7).
+// Regras de direcao de arte e acessibilidade aplicadas ao CSS (T-095, design.md A.8 / A.8.7), na v1.0 do
+// Grimorio arcano (docs/design-system.md 1.2, 1.6 e 5): vidro com sólido de reserva, gradiente so na textura de
+// fantasia, sem caixa alta forcada, e nenhuma cor ou fonte literal fora dos tokens (findLiteralViolations).
 import { normalize, parseCss, selectorBase, selectorParts, type CssRule } from "./cssScan";
 
 export interface Violation {
@@ -28,6 +30,10 @@ const HOVER_PROPERTIES = new Set([
 ]);
 const EASINGS =
   /^(ease|linear|ease-out|ease-in-out|var\(--ease-(out|in-out)\)|cubic-bezier\([^)]*\))$/;
+// Vidro (1.6.1): a unica forma permitida de backdrop-filter, sempre pelos tokens, com sólido de reserva.
+const GLASS_FILTER = /^blur\(var\(--glass-blur\)\) saturate\(var\(--glass-saturate\)\)$/;
+// Textura de fantasia (1.6.4): gradiente radial so no fundo da pagina ou em elemento de textura (classe *backdrop*).
+const TEXTURE_SELECTOR = /^(html|body|:root|\.[\w-]*backdrop[\w-]*)$/;
 const TIME = /^\d*\.?\d+m?s$/;
 const CONTROL_SELECTOR =
   /(^|[^\w-])(button|input|select|textarea)\b|\.[\w-]*(button|btn|field|control|input|select)[\w-]*/i;
@@ -152,9 +158,23 @@ export function findCssViolations(css: string, file = "<css>"): Violation[] {
       const isCustom = property.startsWith("--");
 
       // ART-01
-      if (/gradient\(/.test(v)) add("ART-01", rule, `gradiente em ${property}`);
+      if (/gradient\(/.test(v)) {
+        const radialOnly = /radial-gradient\(/.test(v) && !/(linear|conic)-gradient\(/.test(v);
+        const onTexture =
+          /^background(-image)?$/.test(property) &&
+          parts.every((part) => TEXTURE_SELECTOR.test(selectorBase(part)));
+        if (!(radialOnly && onTexture)) {
+          add(
+            "ART-01",
+            rule,
+            `gradiente fora da textura de fantasia (radial no fundo): ${property}`,
+          );
+        }
+      }
       if (property === "backdrop-filter" || property === "-webkit-backdrop-filter") {
-        add("ART-01", rule, "backdrop-filter");
+        if (!GLASS_FILTER.test(v)) {
+          add("ART-01", rule, `backdrop-filter fora da receita do vidro: ${value}`);
+        }
       }
       if (property === "text-shadow") add("ART-01", rule, "text-shadow (brilho)");
       if (/^(-webkit-)?filter$/.test(property) && /(blur|drop-shadow|brightness)\(/.test(v)) {
@@ -213,7 +233,7 @@ export function findCssViolations(css: string, file = "<css>"): Violation[] {
 
       // ART-04
       if (property === "text-transform" && v === "uppercase") {
-        add("ART-04", rule, "maiusculas (text-transform: uppercase)");
+        add("ART-04", rule, "caixa alta forcada (text-transform; 1.2: versaletes ja vem da fonte)");
       }
       if (property === "letter-spacing" && !/^(0|0px|0em|normal)$/.test(v)) {
         add("ART-04", rule, `letter-spacing diferente de 0: ${value}`);
@@ -257,6 +277,21 @@ export function findCssViolations(css: string, file = "<css>"): Violation[] {
           add("ART-08", rule, `controle com ${property} ${value} (< 44px)`);
         }
       }
+    }
+  }
+
+  // Vidro (1.6.3): todo arquivo com backdrop-filter traz o sólido opaco de reserva em @supports not.
+  if (rules.some((r) => r.declarations.some((d) => /backdrop-filter$/.test(d.property)))) {
+    const fallback = rules.filter((r) =>
+      r.media.some((m) => /@supports\s+not\s*\(+\s*(-webkit-)?backdrop-filter/.test(m)),
+    );
+    const solid = fallback.some((r) => JSON.stringify(r.declarations).includes("--glass-solid"));
+    if (!solid) {
+      violations.push({
+        id: "ART-01",
+        where: file,
+        message: "backdrop-filter sem fundo solido de reserva (@supports not + --glass-solid)",
+      });
     }
   }
 
@@ -321,6 +356,91 @@ export function findCssViolations(css: string, file = "<css>"): Violation[] {
   }
 
   return violations;
+}
+
+const NAMED_COLORS = new Set(
+  (
+    "black white red green blue yellow orange purple violet gold gray grey silver brown pink cyan magenta " +
+    "lime navy teal maroon olive aqua fuchsia indigo crimson coral salmon khaki tan beige ivory lavender " +
+    "plum orchid turquoise tomato azure snow linen"
+  ).split(" "),
+);
+const FONT_VALUE_OK = /^(inherit|initial|unset|revert|var\(--font-(display|sans)\))$/;
+
+/**
+ * Cor e fonte literais (v1.0): fora de tokens.css e fonts.css, cor so por `var(--...)`, `transparent` ou `currentcolor`
+ * e fonte so por `var(--font-display)`, `var(--font-sans)` ou `inherit`. Tokens e @font-face ficam de fora da varredura.
+ */
+export function findLiteralViolations(css: string, file = "<css>"): Violation[] {
+  const { rules } = parseCss(css);
+  const violations: Violation[] = [];
+  for (const rule of rules) {
+    for (const { property, value } of rule.declarations) {
+      const v = normalize(value);
+      const add = (message: string) =>
+        violations.push({ id: "TOKEN", where: `${file}: ${rule.selector}`, message });
+      if (/#[0-9a-f]{3,8}\b/.test(v)) add(`cor hexadecimal em ${property}: ${value}`);
+      if (/(^|[^\w-])(rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch)\(/.test(v)) {
+        add(`cor por funcao em ${property}: ${value}`);
+      }
+      const withoutVars = v.replace(/var\([^)]*\)/g, " ");
+      if (
+        withoutVars.split(/[\s,/()]+/).some((word) => NAMED_COLORS.has(word)) &&
+        !/^(font|grid|animation|content)/.test(property)
+      ) {
+        add(`cor nomeada em ${property}: ${value}`);
+      }
+      if (property === "font-family" && !splitList(v).every((part) => FONT_VALUE_OK.test(part))) {
+        add(`font-family fora dos tokens: ${value}`);
+      }
+      if (property === "font" && !/^inherit$/.test(v)) add(`atalho font literal: ${value}`);
+    }
+  }
+  return violations;
+}
+
+const COLOR_ATTRIBUTES = "fill|stroke|color|stopColor|floodColor|lightingColor";
+const STRING_LITERAL = String.raw`"([^"]*)"|'([^']*)'|` + "`([^`]*)`";
+
+function kebab(name: string): string {
+  return name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+}
+
+/**
+ * Cor e fonte literais no TSX (v1.0): cor hexadecimal ou por funcao em qualquer lugar do arquivo; atributos de cor
+ * (`fill="red"`) e objetos `style={{ ... }}` passam pelas mesmas regras do CSS (cor nomeada, `fontFamily` fora dos
+ * tokens, atalhos de fonte). Texto corrido nao entra: so atributos de cor e `style` inline sao lidos como CSS.
+ */
+export function findTsxLiteralViolations(source: string, file = "<tsx>"): Violation[] {
+  const violations: Violation[] = [];
+  const add = (message: string) => violations.push({ id: "TOKEN", where: file, message });
+
+  const hex = /#[0-9a-fA-F]{3,8}\b/.exec(source);
+  if (hex) add(`cor hexadecimal: ${hex[0]}`);
+  const fn = /(^|[^\w-])(rgba?|hsla?|hwb|lab|lch|oklab|oklch)\(/.exec(source);
+  if (fn) add(`cor por funcao: ${fn[0].trim()}`);
+
+  const declarations: string[] = [];
+  const attribute = new RegExp(String.raw`\b(${COLOR_ATTRIBUTES})=(?:${STRING_LITERAL})`, "g");
+  for (const match of source.matchAll(attribute)) {
+    declarations.push(`${kebab(match[1])}: ${match[2] ?? match[3] ?? match[4]}`);
+  }
+  for (const block of source.matchAll(/style=\{\{([\s\S]*?)\}\}/g)) {
+    const pair = new RegExp(String.raw`(\w+)\s*:\s*(?:${STRING_LITERAL})`, "g");
+    for (const match of block[1].matchAll(pair)) {
+      declarations.push(`${kebab(match[1])}: ${match[2] ?? match[3] ?? match[4]}`);
+    }
+  }
+  if (declarations.length > 0) {
+    for (const violation of findLiteralViolations(`.x { ${declarations.join("; ")}; }`, file)) {
+      add(violation.message);
+    }
+  }
+  return violations;
+}
+
+function splitList(value: string): string[] {
+  return value.split(",").map((part) => part.trim());
 }
 
 const EMOJI = /\p{Extended_Pictographic}/u;

@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "kind": "reinforced",
+  "approval_id": "RA-006",
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-PLATAFORMA",
+  "task_id": "T-P05",
+  "requested_by_agent": "orchestrator",
+  "environment": "dev",
+  "resource_class": "git",
+  "operation": "git branch -D feat/plataforma",
+  "destructive": true,
+  "presented": {
+    "plan_or_diff_ref": "PR merged; branch contida na main (03d79c7)",
+    "impact": "Apaga a branch local feat/plataforma. O conteudo ja esta na main (03d79c7).",
+    "rollback_plan": "Recriar a branch a partir do commit: git branch feat/plataforma 03d79c7",
+    "justification": "Regra permanente do usuario (2026-11-06): apos merge bem-sucedido, apagar sempre a branch local e a remota.",
+    "requirement_ids": [
+      "REQ-MAINT"
+    ]
+  },
+  "single_use": true,
+  "scope_authorization_reused": false,
+  "validity_minutes": 30,
+  "issued_at": "2026-11-06T18:58:10-03:00",
+  "expires_at": "2026-11-06T19:28:10-03:00",
+  "status": "used",
+  "consumed": { "at": "2026-11-06T18:58:25-03:00", "operation_event_ref": "E1168" },
+  "policy_version": "0.1.0",
+  "decided_by": "user",
+  "decided_at": "2026-11-06T18:58:10-03:00"
+}

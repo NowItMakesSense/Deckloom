@@ -1,0 +1,312 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-L02",
+  "contract_version": 11,
+  "kind": "task",
+  "feature_id": "FEAT-LANDING",
+  "feature_contract_version": 14,
+  "title": "Landing em / como palco WebGL: floresta a noite, deck box, ganchos, mesa dos jogos e mural dos planos (previa v5)",
+  "objective": "Landing publica em / como palco WebGL unico: floresta elfica a noite, deck box, deck, quatro ganchos, mesa dos cinco jogos, epilogo e mural dos planos (previa d7379bb8 v5)",
+  "assigned_agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-L01",
+        "version": 6
+      },
+      {
+        "id": "REQ-L02",
+        "version": 1
+      },
+      {
+        "id": "REQ-L03",
+        "version": 5
+      },
+      {
+        "id": "REQ-L06",
+        "version": 1
+      },
+      {
+        "id": "REQ-L10",
+        "version": 6
+      },
+      {
+        "id": "REQ-L11",
+        "version": 1
+      },
+      {
+        "id": "REQ-L12",
+        "version": 5
+      },
+      {
+        "id": "REQ-L13",
+        "version": 3
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Landing publica em / implementando a previa d7379bb8 v5 (fonte em scratchpad/landing/template.html) em React + three, com funcoes puras testaveis para camera, cartas, tokens e fases",
+      "remover @shadergradient/react, @react-three/fiber, three-stdlib e camera-controls e a cena R3F nao commitada; manter three e @types/three; animejs nos planos",
+      "nav em ilha nova; titulo principal em HTML oculto na versao animada",
+      "fallback estatico (imagem da clareira em SVG, ganchos em lista, jogos em grade) com prefers-reduced-motion ou sem WebGL",
+      "planos depois da mesa: no palco, no mural de avisos ao fim do epilogo (botoes em HTML, lista dos planos em HTML para leitor de tela); no fallback, section; CTAs para /cadastro",
+      "noite: ceu, nevoa e silhuetas escurecidas, velas em pequenos grupos em volta do circulo de runas e tochas em suportes de ferro com chama procedural, como na previa v5",
+      "auditoria de continuidade e smoke test no Playwright; documentar em docs/design-system.md"
+    ],
+    "excluded": [
+      "modelos 3D e artes finais das cartas (T-L05)",
+      "cobranca ou checkout",
+      "biblioteca de fisica"
+    ],
+    "paths_allowed": [
+      ".taste-skill/**",
+      "docs/design-system.md",
+      "frontend/THIRD_PARTY_NOTICES.md",
+      "frontend/index.html",
+      "frontend/package-lock.json",
+      "frontend/package.json",
+      "frontend/public/brand/**",
+      "frontend/src/app/**",
+      "frontend/src/cssRules.test.ts",
+      "frontend/src/design-system/**",
+      "frontend/src/features/landing/**",
+      "frontend/vite.config.ts",
+      "frontend/e2e/**"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-L01B"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-LANDING.json",
+        "origin": "feature_contract",
+        "version": "8"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-L02a",
+      "description": "Teste automatizado: visitante em / ve a mensagem de montar decks com as cartas que ja tem, os 5 TCGs nominalmente, CTA para /cadastro e link para /entrar",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L02",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L02b",
+      "description": "Teste automatizado: colecao, decks, sugestoes com IA, meta e lojas aparecem com o selo 'em breve' e nenhum deles e link para rota inexistente",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L02",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L02c",
+      "description": "axe sem violacoes na landing e layout sem rolagem horizontal em 375px (E2E)",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L02",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L02d",
+      "description": "Teste automatizado: a landing nao importa @react-three/fiber, @shadergradient/react, three-stdlib nem camera-controls; three so e carregado pelo palco, sob demanda e fora do bundle inicial, e so com WebGL e sem prefers-reduced-motion; nos outros casos aparecem a imagem estatica da clareira, os ganchos em lista e os jogos em grade; o palco libera geometrias, materiais, texturas e renderer ao desmontar",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L06",
+        "REQ-L12"
+      ]
+    },
+    {
+      "id": "AC-L02e",
+      "description": "Teste automatizado de funcoes puras do baralho: com o progresso do scroll, a posicao das cartas dentro da caixa, a subida ate o deck, as quatro cartas dos ganchos (sair, aproximar, virar 180 graus, revelar, ir para a pilha) e a camera de cada segmento, com continuidade nos limites e uma carta por vez",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L01"
+      ]
+    },
+    {
+      "id": "AC-L02f",
+      "description": "Teste automatizado: os quatro ganchos, na ordem do REQ-L01, sao cards com faixa de titulo, janela de arte com o simbolo do Deckloom, linha de tipo e caixa de texto, com o selo 'em breve' onde couber; o conteudo e HTML real (legivel sem a cena) e os numeros do mock do deck fecham (tem + faltam = total, antes e depois do 'Tenho +1')",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L11",
+        "REQ-L01",
+        "REQ-L02"
+      ]
+    },
+    {
+      "id": "AC-L02g",
+      "description": "Teste automatizado: nav em vidro no formato dynamic island (pilula centralizada, colapsa no celular, aria-expanded, fecha com Esc) com Criar conta (/cadastro, botao primario com icone) e Entrar (/entrar); logo do Deckloom na nav, no rodape e no favicon; hero sem cartao de criar conta; sem faixa final de CTA e sem bloco de previa do app; exemplos de Magic com simbolos de mana locais; secao de jogos com os logos oficiais locais; nota de marcas no rodape; um unico controle de tema; nenhuma URL externa",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L03",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L02h",
+      "description": "Teste automatizado: three e animejs no package.json com versao exata, @types/three em devDependencies, os quatro pacotes removidos ausentes e a auditoria de dependencias passando; as cores do palco vem de uma paleta unica em codigo, sem tonemapping que altere as silhuetas; docs/design-system.md documenta o palco, a floresta, a deck box, o altar, as runas, os ganchos, a mesa, o epilogo, os planos e os fallbacks",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L12",
+        "REQ-L10",
+        "REQ-L03"
+      ]
+    },
+    {
+      "id": "AC-L02i",
+      "description": "Landing real conferida no navegador em 1440x900, 768x1024 e 390x844 nos temas claro e escuro, com a cena viva e com o fallback: nada cortado no primeiro viewport, texto AA sobre o pior ponto do fundo animado, sem rolagem horizontal; inspect.mjs da skill design-taste-frontend sem FAIL (--allow so para glass, violeta e textura; no palco animado tambem no-title e late-title, porque o titulo principal fica oculto visualmente pelo REQ-L01 - excecao do APR-051 -, com o h1 visivel no fallback coberto por teste automatizado) e screenshots no relatorio",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L11",
+        "REQ-L06",
+        "REQ-L03"
+      ]
+    },
+    {
+      "id": "AC-L02j",
+      "description": "Teste automatizado: depois dos cinco jogos (que continuam com os logos oficiais) a landing mostra os dois planos: Gratis (ate 5 decks) e Arcano com 'R$ 19,90' por mes listando sugestoes com IA, decks ilimitados, alertas de preco e sem anuncios; no palco no mural de avisos (botoes e lista em HTML), no fallback numa section; todo botao dos planos aponta para /cadastro; os planos tem nome acessivel e passam no axe nos dois temas",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L13",
+        "REQ-L01",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L02k",
+      "description": "Teste automatizado de funcoes puras da mesa: explosao com trajetorias, rotacoes e velocidades proprias, cartas que vao ao fundo saindo por cima do quadro; tokens (cinco medalhoes com o logo do jogo e fichas de mana) entrando em instantes e origens distintos (os de tras por cima do muro de ruinas), pouso com quicar, girar, deslizar e tombar, colisoes entre si e com a deck box, nenhum par interpenetrado no repouso e velocidade decrescente ate zero; deterministico",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste e capturas no Chrome"
+      },
+      "requirement_ids": [
+        "REQ-L10"
+      ]
+    },
+    {
+      "id": "AC-L02l",
+      "description": "Teste automatizado (Playwright) de continuidade: com a camera amostrada em 4000 passos do progresso, nenhum salto (deslocamento <= 0,6 e giro <= 4 graus por passo) e nenhuma carta ou token aparecendo ou sumindo dentro do quadro sem estar oculto pelo cenario, a 1366x768 e a 375x812",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste e capturas"
+      },
+      "requirement_ids": [
+        "REQ-L10"
+      ]
+    },
+    {
+      "id": "AC-L02m",
+      "description": "Teste automatizado das fases da floresta e da caixa como funcoes puras do progresso: runas do portal acendendo uma a uma conforme a camera passa e rastro do caminho a frente, despertar das runas da caixa, fecho e travas antes da tampa, tampa abrindo pela dobradica, altar acendendo com o anel de luz e cartas subindo da caixa ate o deck; mais capturas no Chrome a 1366 e 375 px registradas no relatorio; velas e tochas acesas com chama animada e o pan final ate o mural de avisos sem salto de camera",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste e capturas"
+      },
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L01"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "complexity": "complex",
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "completed"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T19:05:34-03:00"
+  }
+}

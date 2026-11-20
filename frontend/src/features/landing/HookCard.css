@@ -1,0 +1,127 @@
+/*
+ * Card de gancho (docs/design-system.md 1.14): moldura propria do Deckloom inspirada na anatomia de uma carta de
+ * Magic (faixa de titulo, janela de arte, linha de tipo, caixa de texto), sem copiar a moldura da Wizards. A moldura
+ * externa e o metal (dourado); as faixas internas sao opacas, entao o texto nunca depende do fundo animado.
+ */
+.hook-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(100%, 26rem);
+  padding: var(--space-3);
+  border: 3px solid var(--color-gold);
+  border-radius: var(--radius-lg);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hook-card {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+/* Faixa de titulo: o nome do gancho a esquerda e, onde a mana ficaria numa carta, o selo "Em breve". */
+.hook-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-on-primary-subtle);
+}
+
+.hook-card__heading {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--display-weight);
+  line-height: 1.2;
+  overflow-wrap: break-word;
+}
+
+/* Janela de arte: o simbolo do Deckloom dentro de um anel de runas, em campo violeta. */
+.hook-card__art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 8rem;
+  overflow: hidden;
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+}
+
+.hook-card__ornament {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hook-card__ring,
+.hook-card__rune,
+.hook-card__accent {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.hook-card__ring--inner {
+  stroke-width: 0.75;
+}
+
+.hook-card__accent {
+  stroke-width: 2;
+}
+
+.hook-card__symbol {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+/* Linha de tipo: faixa de metal com o recurso que o gancho apresenta. */
+.hook-card__type {
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-gold-subtle);
+  color: var(--color-on-gold-subtle);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+/* Caixa de texto: papel opaco (--color-surface), texto em tinta cheia. */
+.hook-card__text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.hook-card__rules {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: var(--text-leading);
+}
+
+@media (max-width: 1099.98px) {
+  .hook-card__art {
+    height: 4.5rem;
+  }
+}

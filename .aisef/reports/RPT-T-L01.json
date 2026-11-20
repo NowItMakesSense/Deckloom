@@ -1,0 +1,494 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-L01",
+  "task_id": "T-L01",
+  "contract_version": 7,
+  "feature_id": "FEAT-LANDING",
+  "agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "high",
+    "level": 4,
+    "attempt": 1,
+    "routed_by": "orchestrator",
+    "reasons": [
+      "instrucao do orquestrador: model=sonnet effort=high level=4 attempt=1 (contrato v7: aposentar a previa estatica, APR-045)",
+      "rodada de correcao 1 pedida pelo orquestrador apos rejeicao do validador independente (fix_attempts_used = 1)"
+    ]
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-11T22:40:00-03:00",
+    "finished_at": "2026-11-12T00:00:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 1,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "frontend/src/features/landing/mock/deck-mock.js",
+        "sha256_after": "5fd0fe29050edeea9e0176ac258d83e17f66e19f12b15018226c705e1d27a2ef"
+      },
+      {
+        "path": "frontend/src/features/landing/mock/deck-mock.test.js",
+        "sha256_after": "79042ce24f2e59dfb30e9f85ccf5d6ae26e54eee98dfe0d8d771a4af2c1cc3bd"
+      },
+      {
+        "path": "frontend/public/fonts/cinzel-decorative/CinzelDecorative-700-latin.woff2",
+        "sha256_after": "0826d61da654ac987a9f0046cdc6bcb95eba7f8d2d20f93531d51d008fedea14"
+      },
+      {
+        "path": "frontend/public/fonts/cinzel-decorative/CinzelDecorative-900-latin.woff2",
+        "sha256_after": "30318b42fd7fdb8436bdf2e4a10c90e8064f911e303a481196c1772a381c53e0"
+      },
+      {
+        "path": "frontend/public/fonts/cinzel-decorative/OFL.txt",
+        "sha256_after": "1e5d6660366ddcfca4f2fc10e2acfba9fa4d97d40aec80d7dbfd41d730a420ae"
+      },
+      {
+        "path": "frontend/public/fonts/albert-sans/AlbertSans-var-latin.woff2",
+        "sha256_after": "c2fb6fda415c7bf5926c15aa98f759da45cdc5ac4ac6925a72a84db4eb3862a3"
+      },
+      {
+        "path": "frontend/public/fonts/albert-sans/OFL.txt",
+        "sha256_after": "5c856c086e8743b84932aae46ced424729a703932b601e9eb8aaeac15a617ec6"
+      },
+      {
+        "path": "frontend/public/favicon.svg",
+        "sha256_after": "f6414e4d1147b8f2d8a71f2a6253fabb99eda722a1e753b57390d606b63998c6"
+      },
+      {
+        "path": "frontend/public/brand/deckloom/deckloom-logo.svg",
+        "sha256_after": "9084d35e845d491e48cdcf094bb168f4ca837c4302c06625338d639e0bf68dd8"
+      },
+      {
+        "path": "frontend/public/brand/deckloom/deckloom-logo-on-dark.svg",
+        "sha256_after": "adc68df088b3858445e00452515ab654cffda13292c566ed17f6ee07913e3f9c"
+      },
+      {
+        "path": "frontend/public/brand/deckloom/deckloom-symbol.svg",
+        "sha256_after": "08d9430e216dce9f3dd0e43d96a7384dc7b5816176a5535a1b2003c05d6c3ce6"
+      },
+      {
+        "path": "frontend/public/brand/games/magic-the-gathering.svg",
+        "sha256_after": "8b8238ce5f6327f39a5ca4bb1835473645573e215548a046872a0d6f26656493"
+      },
+      {
+        "path": "frontend/public/brand/games/pokemon-tcg.svg",
+        "sha256_after": "50b8019cb67cc791bd14624d39ab6149443142516aad19338f247a500e89599a"
+      },
+      {
+        "path": "frontend/public/brand/games/yu-gi-oh.png",
+        "sha256_after": "195a6e2553ac2a97fb1093a6ec581627c9bce621bc22629b44d9061fce0296fd"
+      },
+      {
+        "path": "frontend/public/brand/games/one-piece-card-game.webp",
+        "sha256_after": "4088f78de2ed04a37b79b286f5f2d4c98dedf000f3b57e8a23f522a67083f165"
+      },
+      {
+        "path": "frontend/public/brand/games/disney-lorcana.png",
+        "sha256_after": "92dc27824e78b80f4d8d299f47c1f6f70b93a1e824f6ae158f488a78cba5d3bc"
+      },
+      {
+        "path": "frontend/public/brand/games/SOURCES.md",
+        "sha256_after": "cc404073d9d0065b9ca7dd319a894a51d9ae966d90b75b04cf35259ad6cb0f31"
+      },
+      {
+        "path": "frontend/public/brand/mana/mana.woff2",
+        "sha256_after": "40b95cc8d3ffd0c27c86f0230fb73bc14852c3d8543535c71d9d42bbaff57b3c"
+      },
+      {
+        "path": "frontend/public/brand/mana/mana.css",
+        "sha256_after": "eae09a036887aee1ca49ae69f9f94b3c1e0b62db0bc33ee0ad3f49854aae6562"
+      },
+      {
+        "path": "frontend/public/brand/mana/OFL.txt",
+        "sha256_after": "52435477dc45418c583d40d748a0fa85ddd22bd694abe9e2152d6445e1ae229c"
+      },
+      {
+        "path": "frontend/public/brand/mana/LICENSE-MIT.txt",
+        "sha256_after": "4d003f47913849d67bf65b55709f7466c76b7a009b744dd4621d58d16498b2c4"
+      },
+      {
+        "path": "frontend/public/brand/mana/SOURCES.md",
+        "sha256_after": "c58ace349d4e56a9b94b14f48bcb7f2d1fce7ccb4a19d306ab83349336d08e13"
+      },
+      {
+        "path": "frontend/src/design-system/fonts.css",
+        "sha256_after": "630e47d5f6b5b5d0c3d54676c4a0cba136b3b40ab0cb905267e130982295ee6f"
+      },
+      {
+        "path": "frontend/src/design-system/designSystemDoc.test.ts",
+        "sha256_after": "2ac6e1a405720cd9fe88c53ec3f02fa6f34e1e415caae7d6df7d41b4a7eae77f"
+      },
+      {
+        "path": "frontend/src/app/theme/theme.ts",
+        "sha256_after": "cb2996b5ec6a86973ed694484c75eac6533ccd5817f4ad7342192f5f44061ae9"
+      },
+      {
+        "path": "frontend/src/app/theme/theme.test.ts",
+        "sha256_after": "5ccc697f5ac93c2ac4224d8eaf8c0d944f505a80afaea8b034dcda46ff5563cf"
+      },
+      {
+        "path": "frontend/src/app/theme/useTheme.ts",
+        "sha256_after": "685f7201bde8decd91f504d88aebb04798aabf0e7cca41eb38bd1e9caff6599c"
+      },
+      {
+        "path": "frontend/src/app/theme/useTheme.test.tsx",
+        "sha256_after": "38ee0da5c62d6cb31326ae88918973f79f41237555ea7ac63344ae911ebb673d"
+      }
+    ],
+    "modified": [
+      {
+        "path": "docs/design-system.md",
+        "sha256_after": "d2a31b713bbb3c2ffad4607eaaaf39831e0eb4c66601aec993abd91a4292d482"
+      },
+      {
+        "path": "frontend/.prettierignore",
+        "sha256_after": "856b0d53dc53f39d526646672b2e4432169f6c3a7aa3f5ca043d55c543a87643"
+      },
+      {
+        "path": "frontend/eslint.config.js",
+        "sha256_after": "977addf89723f06f0731922ce724d418d8dddb2ded070d32a6a05ee2329c94b6"
+      },
+      {
+        "path": "frontend/index.html",
+        "sha256_after": "3b9c57bd1b6b4eb375cfe6cb3d6f9d6e7971a21caa6d8421b3f60107d5b23bef"
+      },
+      {
+        "path": "frontend/package.json",
+        "sha256_after": "e9d3b6694eefe317f6d03b317681d5a2ee47063c1ac8b4f493fcd60797e1f4c1"
+      },
+      {
+        "path": "frontend/package-lock.json",
+        "sha256_after": "a55510620d011f3b4c0aefb6667527772ca302e913036ddb419ef1fa04792154"
+      },
+      {
+        "path": "frontend/src/cssRules.test.ts",
+        "sha256_after": "c494ad5597675e6823e4800cf5094a77cc213a9bdb7265199b65ee8ffbb450b7"
+      },
+      {
+        "path": "frontend/src/design-system/tokens.css",
+        "sha256_after": "e2f67b1d14b2b6218ad039b93697adac2a91baa73f0f0f9870dbcc5574c64f35"
+      },
+      {
+        "path": "frontend/src/main.tsx",
+        "sha256_after": "1530f238fb30f5409e68e6118eb63d35d83f008c386f0a73f57246933d712d2c"
+      },
+      {
+        "path": "frontend/src/tokens.test.ts",
+        "sha256_after": "3ac5f8c7147f2368dc66674daa91127a79e2d1bee1217532635890dd8c5240c4"
+      }
+    ],
+    "deleted": [
+      {
+        "path": "frontend/preview/index.html"
+      },
+      {
+        "path": "frontend/preview/preview.css"
+      },
+      {
+        "path": "frontend/preview/app.js"
+      },
+      {
+        "path": "frontend/preview/scene.js"
+      },
+      {
+        "path": "frontend/preview/scene-gate.js"
+      },
+      {
+        "path": "frontend/preview/scene-gate.test.js"
+      },
+      {
+        "path": "frontend/preview/preview-content.test.js"
+      },
+      {
+        "path": "frontend/preview/app-screen.test.js"
+      },
+      {
+        "path": "frontend/preview/brand.test.js"
+      },
+      {
+        "path": "frontend/preview/mana.test.js"
+      },
+      {
+        "path": "frontend/preview/deck-mock.js"
+      },
+      {
+        "path": "frontend/preview/deck-mock.test.js"
+      },
+      {
+        "path": "frontend/preview/vendor/anime.umd.min.js"
+      },
+      {
+        "path": "frontend/preview/vendor/animejs-LICENSE.md"
+      },
+      {
+        "path": "frontend/preview/vendor/three/three.module.js"
+      },
+      {
+        "path": "frontend/preview/vendor/three/three.core.js"
+      },
+      {
+        "path": "frontend/preview/vendor/three/LICENSE.txt"
+      },
+      {
+        "path": "frontend/public/fonts/imbue/Imbue-var-latin.woff2"
+      },
+      {
+        "path": "frontend/public/fonts/imbue/OFL.txt"
+      }
+    ]
+  },
+  "changes": [
+    {
+      "summary": "Previa estatica aposentada (APR-045): frontend/preview removido inteiro (incluindo vendor/ e os testes vermelhos brand.test.js, mana.test.js e preview-content.test.js); ignores de preview/vendor tirados de eslint.config.js e .prettierignore; testes da previa e do vendor tirados de cssRules.test.ts (ficam versao exata de animejs e three, o ignore de public/brand e o guarda de URL externa em CSS do app)",
+      "reason": "AC-L01i; pedido do usuario aprovado em APR-045 (a landing sera construida direto em React na T-L02)",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L01"
+      ],
+      "files": [
+        "frontend/preview/**",
+        "frontend/eslint.config.js",
+        "frontend/.prettierignore",
+        "frontend/src/cssRules.test.ts"
+      ]
+    },
+    {
+      "summary": "Teste novo (escrito antes, visto falhar: 4 vermelhos): frontend/preview nao existe, nenhum arquivo de configuracao do frontend nem docs/design-system.md nem os SOURCES.md de public/brand o referenciam, e o mock mora em src/features/landing/mock",
+      "reason": "TDD do AC-L01i",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L01"
+      ],
+      "files": [
+        "frontend/src/cssRules.test.ts"
+      ]
+    },
+    {
+      "summary": "deck-mock.js e deck-mock.test.js movidos para frontend/src/features/landing/mock em JavaScript, sem mudar a logica nem os casos de teste de numeros (9 casos). Retirado so o describe 'o HTML estatico (sem script) mostra os mesmos numeros do modulo' (4 casos), que lia o index.html da previa, e os imports/globais que so ele usava. Dois comentarios do .js atualizados (citavam a previa e o index.html)",
+      "reason": "AC-L01i",
+      "requirement_ids": [
+        "REQ-L01"
+      ],
+      "files": [
+        "frontend/src/features/landing/mock/deck-mock.js",
+        "frontend/src/features/landing/mock/deck-mock.test.js"
+      ]
+    },
+    {
+      "summary": "docs/design-system.md: secao 6 Previa removida; mencoes a frontend/preview, preview/vendor e scene-gate.js retiradas; secao 1.12 reescrita como direcao da cena 3D da landing (three 0.186.1, desempenho, fallback estatico, texto AA) sem prometer a previa, deixando modelos, camera e cards para a T-L02; designSystemDoc.test.ts sem o caso que citava o bloco 'previa da tela do app'",
+      "reason": "AC-L01i",
+      "requirement_ids": [
+        "REQ-L03"
+      ],
+      "files": [
+        "docs/design-system.md",
+        "frontend/src/design-system/designSystemDoc.test.ts"
+      ]
+    },
+    {
+      "summary": "docs/design-system.md ganhou a secao 1.13 (marca, navegacao dynamic island, rodape, logos oficiais dos jogos, simbolos de mana, risco RISK-FEAT-LANDING-6 e revisao juridica) e os textos 'sem arte/logotipos dos jogos' foram ajustados ao REQ-L03 v5. Os 13 casos do bloco 'revisao v5 do usuario' de designSystemDoc.test.ts ja estavam vermelhos antes desta rodada (doc sem esse conteudo, restos da execucao interrompida); ficaram verdes com este texto",
+      "reason": "suite inteira verde (exigencia da tarefa) e REQ-L03 v5 pede o registro em docs/design-system.md",
+      "requirement_ids": [
+        "REQ-L03"
+      ],
+      "files": [
+        "docs/design-system.md"
+      ]
+    },
+    {
+      "summary": "frontend/public/brand/games/SOURCES.md: retirada a frase que citava frontend/preview/brand.test.js como verificacao da sanitizacao dos SVGs",
+      "reason": "AC-L01i exige que nenhum documento referencie a previa; o teste citado foi removido junto com ela",
+      "requirement_ids": [
+        "REQ-L03"
+      ],
+      "files": [
+        "frontend/public/brand/games/SOURCES.md"
+      ]
+    },
+    {
+      "summary": "Correcao 1 (docs/design-system.md): navegacao em pilula coerente em 1.5 (shell) e 1.6.2, sem 'sem forma de pilula' nem 'barra superior de 56px'; violeta sem 'faixa de chamada final'; tabelas que engoliam paragrafos corrigidas (linhas 87, 204, 209, 215 e tabela do fallback); secao 1.13 sem 15px/24px/32px, respiro e tamanho minimo da logo 'pendente de decisao do usuario', nota de marcas 'provisorio e sujeito a revisao juridica'",
+      "reason": "bloqueantes 1, 2, 4 e 5 do validador; regra do projeto: perguntar, nao supor",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L01"
+      ],
+      "files": [
+        "docs/design-system.md",
+        "frontend/src/design-system/designSystemDoc.test.ts"
+      ]
+    },
+    {
+      "summary": "Correcao 1 (cssRules.test.ts): varredura de URL externa cobre tambem todo CSS de frontend/public (leitura com fs, sem tocar cssScan.ts) com caso de regressao sobre CSS de exemplo; regex inclui image-set; teste de aposentadoria varre css/md/txt de public/brand; comentario de mana.css sem a previa",
+      "reason": "bloqueante 3 e itens 6 e 7",
+      "requirement_ids": [
+        "REQ-L03"
+      ],
+      "files": [
+        "frontend/src/cssRules.test.ts",
+        "frontend/public/brand/mana/mana.css"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 1249,
+    "passed": 1249,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "cssRules.test.ts > previa estatica aposentada (APR-045, AC-L01i): 5 casos (frontend/preview nao existe; configs do frontend sem 'preview'; docs/design-system.md sem referencias; SOURCES.md de public/brand sem 'preview'; mock em src/features/landing/mock)",
+      "cssRules.test.ts > anime.js e three: versao exata no package.json (2 casos, antes dentro de blocos da previa) e ignore de public/brand em eslint e prettier",
+      "designSystemDoc.test.ts: sem 'faixa de chamada final' e 'sem forma de pilula'; shell sem 'barra superior de 56px'; respiro e tamanho minimo 'pendente de decisao do usuario' sem 15/24/32px; nota de marcas provisoria; todas as linhas de tabela com o mesmo numero de celulas do cabecalho",
+      "cssRules.test.ts: varredura de URL externa em todo CSS de public/ (inclui brand/mana/mana.css); caso de regressao com url(https), image-set(https) e image-set(//) sobre CSS de exemplo; detector reconhece image-set; aposentadoria olha css/md/txt de public/brand"
+    ],
+    "regression_run": true,
+    "commands": [
+      "vermelho (correcao 1, antes de editar doc e mana.css): npx vitest run src/cssRules.test.ts src/design-system/designSystemDoc.test.ts -> 6 testes falhando (nota provisoria; sem faixa/pilula; shell; respiro/tamanho pendente; tabelas com linhas 87, 204, 209 e 215; mana.css cita a previa)",
+      "vermelho do image-set: com o detector sem image-set (regex anterior), cssRules.test.ts -> 2 falhas (regressao de public/ e detector); restaurado e verde",
+      "verde: npx vitest run src/cssRules.test.ts src/design-system/designSystemDoc.test.ts -> 104 testes verdes",
+      "npm --prefix frontend run test -- --run --coverage: 46 arquivos, 1249 testes verdes; statements 97,98%, branches 91,56%, functions 98,88%, lines 98,93% (minimo 80)",
+      "npm --prefix frontend run lint: exit 0",
+      "npm --prefix frontend run format:check: All matched files use Prettier code style",
+      "npm --prefix frontend run build: tsc --noEmit e vite build ok",
+      "grep -rIl preview frontend (sem node_modules, dist, coverage, test-results): so src/cssRules.test.ts e package-lock.json (peer @vitest/browser-preview); docs/design-system.md: 1 ocorrencia de 'previas' (pre-visualizacao de texto longo, padrao 3.7), sem relacao"
+    ],
+    "evidence_ids": [
+      "EV-T-L01-01",
+      "EV-T-L01-02",
+      "EV-T-L01-03"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-L01-01",
+      "type": "test_output",
+      "ref": "vitest: vermelho 4 testes (aposentadoria) e, na correcao 1, 6 testes (doc e mana.css) antes do GREEN; verde final 46 arquivos, 1249 testes, cobertura 97,98/91,56/98,88/98,93 (minimo 80)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01-02",
+      "type": "command_output",
+      "ref": "lint exit 0; format:check ok; build (tsc --noEmit + vite build) ok",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01-03",
+      "type": "command_output",
+      "ref": "grep de 'preview' em frontend e docs/design-system.md: so o teste de aposentadoria e o peer @vitest/browser-preview no package-lock.json; frontend/preview inexistente",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01-04",
+      "type": "file_hash",
+      "ref": "frontend/src/features/landing/mock/deck-mock.js",
+      "sha256": "5fd0fe29050edeea9e0176ac258d83e17f66e19f12b15018226c705e1d27a2ef",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01-05",
+      "type": "report",
+      "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/e5f93772-6fca-4f25-87b1-75969c9c7001/scratchpad/RPT-T-L01-relatorio-tecnico-v7.txt",
+      "sha256": "b1d1c57a2c8616d0dd4e19ae5c3da4cf19d2e873e96e464aa2e717c61e5787b5",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01-06",
+      "type": "test_output",
+      "ref": "correcao 1: vermelho antes (6 testes de doc/mana.css e 2 do detector image-set), verde depois (104 testes nos 2 arquivos; suite 1249)",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-L01a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01-01",
+        "EV-T-L01-06"
+      ],
+      "notes": "designSystemDoc.test.ts verde: doc v1.0 coerente com REQ-L03 v5 (pilula, sem faixa final, 1.13 com respiro e tamanho minimo pendentes, nota de marcas provisoria), tabelas sem paragrafos engolidos"
+    },
+    {
+      "criterion_id": "AC-L01b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01-01",
+        "EV-T-L01-02",
+        "EV-T-L01-06"
+      ],
+      "notes": "cssRules.test.ts verde: fontes em public/fonts com OFL.txt; nenhuma URL externa (url, @import, src, image-set) em CSS de src/ nem de public/ (inclui brand/mana/mana.css), com caso de regressao"
+    },
+    {
+      "criterion_id": "AC-L01c",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01-01"
+      ],
+      "notes": "tokens.test.ts, theme.test.ts e useTheme.test.tsx verdes; tokens e tema nao foram tocados nesta rodada"
+    },
+    {
+      "criterion_id": "AC-L01i",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01-01",
+        "EV-T-L01-02",
+        "EV-T-L01-03",
+        "EV-T-L01-04",
+        "EV-T-L01-06"
+      ],
+      "notes": "frontend/preview nao existe; configs, testes e docs sem referencia (teste automatizado guarda isso); deck-mock.js e deck-mock.test.js em src/features/landing/mock com logica e 9 casos de numeros preservados; suite, lint, format:check e build passam. Ressalva: o hash do deck-mock.js (5fd0fe29...) difere do v5 (4b74e058...) porque a execucao interrompida ja o tinha alterado antes desta rodada (sem mudar logica nesta); so dois comentarios foram mudados agora"
+    }
+  ],
+  "problems": [
+    {
+      "description": "13 casos do bloco 'revisao v5 do usuario' em designSystemDoc.test.ts estavam vermelhos antes desta rodada: a execucao interrompida escreveu os testes mas nao o conteudo no docs/design-system.md (dynamic island, logos, mana, risco, revisao juridica)",
+      "severity": "medium",
+      "mitigation": "Secao 1.13 escrita na rodada inicial; na correcao 1 os valores sem origem em requisito (15/24/32px) foram removidos (respiro e tamanho minimo pendentes de decisao do usuario) e a nota de marcas ficou marcada como provisoria, sujeita a revisao juridica"
+    },
+    {
+      "description": "A verificacao de sanitizacao dos SVGs de public/brand/games (sem script, on*=, href externo, foreignObject) e a de URL externa em public/brand/mana/mana.css viviam em frontend/preview/brand.test.js e mana.test.js, que saem com a previa; hoje nenhum teste do app cobre isso",
+      "severity": "low",
+      "mitigation": "Registrado como pendencia: recriar o teste em src (por exemplo na T-L01C ou T-L02); a frase de SOURCES.md que afirmava a verificacao por teste foi retirada"
+    }
+  ],
+  "risks": [
+    {
+      "description": "deck-mock continua em .js: um modulo TypeScript da landing (T-L02) que o importe tera erro de tipo implicito (sem allowJs e sem declaracoes)",
+      "severity": "low",
+      "mitigation": "Converter para .ts na T-L02 quando for consumido (logica e casos de teste identicos), ou adicionar declaracao; nao foi necessario para lint, tsc ou vitest agora"
+    }
+  ],
+  "pending": [
+    "Recriar em src o teste de sanitizacao dos SVGs de public/brand/games e de URL externa em public/brand/mana (antes em preview/brand.test.js e mana.test.js)",
+    "Converter deck-mock.js para .ts quando a T-L02 o importar de modulo TypeScript",
+    "T-L02: detalhar no design system a cena 3D (ShaderGradient, camera-controls, modelos) e os cards de gancho (AC-L02h)",
+    "Decisao do usuario: area de respiro e tamanho minimo da logo (secao 1.13, marcados como pendentes); texto final da nota de marcas depende da revisao juridica"
+  ],
+  "limitations": [
+    "E2E nao executado (fora do escopo desta rodada)",
+    "Sem verificacao visual no navegador: a tarefa nao toca na UI do app",
+    "Cobertura do frontend so conta src/**/*.ts(x); o deck-mock.js (JavaScript) fica fora da conta de cobertura, embora seus testes rodem"
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/e5f93772-6fca-4f25-87b1-75969c9c7001/scratchpad/RPT-T-L01-relatorio-tecnico-v7.txt",
+    "sha256": "b1d1c57a2c8616d0dd4e19ae5c3da4cf19d2e873e96e464aa2e717c61e5787b5"
+  },
+  "integrity": {
+    "created_at": "2026-11-12T00:00:00-03:00"
+  }
+}

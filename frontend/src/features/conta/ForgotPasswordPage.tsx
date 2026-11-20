@@ -4,6 +4,7 @@ import type { FormEvent, ReactNode } from "react";
 import { useApiClient } from "@/app/SessionProvider";
 import { Alert } from "@/design-system/Alert";
 import { Button } from "@/design-system/Button";
+import { ArrowRightIcon } from "@/design-system/icons";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
 import { Link } from "@/design-system/Link";
 import { TextField } from "@/design-system/TextField";
@@ -87,7 +88,7 @@ export function ForgotPasswordPage(): ReactNode {
           autoComplete="username"
           error={error}
         />
-        <Button type="submit" loading={sending}>
+        <Button type="submit" loading={sending} icon={<ArrowRightIcon size={18} />}>
           Enviar instruções
         </Button>
       </form>

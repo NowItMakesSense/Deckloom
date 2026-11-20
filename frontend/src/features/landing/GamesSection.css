@@ -1,0 +1,87 @@
+/* Os cinco jogos (fallback estatico): painel de vidro forte, em grade. No palco a mesma lista vai na legenda. */
+.games-section {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: var(--space-12) var(--landing-gutter);
+}
+
+.games-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-6);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-lg);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .games-panel {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+.games-panel__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--display-weight);
+  line-height: 1.2;
+}
+
+.games-panel__lead {
+  margin: 0;
+  max-width: 46rem;
+  font-size: var(--step-body);
+}
+
+.games-panel__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Logos de contorno escuro ficam sobre uma placa clara nos dois temas, sem alterar as cores oficiais. */
+.games-panel__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6.5rem;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+}
+
+.games-panel__item[data-plate="clear"] {
+  background-color: var(--color-moon);
+}
+
+.games-panel__logo {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 1099.98px) {
+  .games-section {
+    padding-block-end: var(--space-8);
+  }
+
+  .games-panel {
+    padding: var(--space-4);
+  }
+
+  .games-panel__heading {
+    font-size: var(--text-xl);
+  }
+}

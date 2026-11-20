@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useHeadingFocusOnTransition } from "@/shared/hooks/useHeadingFocusOnTransition";
 import type { FormEvent, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { DEFAULT_RETURN_TO } from "@/app/routes";
 import { useApiClient, useRefreshSession } from "@/app/SessionProvider";
 import { Button } from "@/design-system/Button";
+import { UserPlusIcon } from "@/design-system/icons";
 import { Checkbox } from "@/design-system/Checkbox";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
 import { FocusedAlert } from "@/design-system/FocusedAlert";
@@ -189,7 +191,7 @@ export function CadastroPage(): ReactNode {
       // Resposta tardia depois do estouro de 20 s: a falha geral ja foi mostrada.
       if (signal.aborted) return;
       await refreshSession();
-      navigate("/perfil", { replace: true, state: { message: SUCCESS_MESSAGE } });
+      navigate(DEFAULT_RETURN_TO, { replace: true, state: { message: SUCCESS_MESSAGE } });
     },
     [client, navigate, refreshSession, rereadTerms, showErrors, terms],
   );
@@ -296,7 +298,7 @@ export function CadastroPage(): ReactNode {
         {messageOf("adultDeclaration") ? (
           <FormError>{messageOf("adultDeclaration")}</FormError>
         ) : null}
-        <Button type="submit" loading={sending} stableWidth>
+        <Button type="submit" loading={sending} stableWidth icon={<UserPlusIcon size={18} />}>
           Criar conta
         </Button>
         <RateLimitNotice sending={sending} />

@@ -1,0 +1,54 @@
+/*
+ * Pagina da landing (docs/design-system.md 1.12 e 1.13): no modo animado, um palco WebGL unico (stage/Stage.css)
+ * seguido dos planos; no fallback estatico, a clareira como imagem, os ganchos em lista e os jogos em grade.
+ */
+.landing {
+  --landing-gutter: clamp(16px, 4vw, 56px);
+
+  position: relative;
+  min-height: 100svh;
+  background-color: var(--color-ground);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.landing__main {
+  position: relative;
+}
+
+/* Texto so para leitor de tela: o titulo principal da versao animada (nao ha painel de titulo sobre a floresta). */
+.landing-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
+}
+
+/* Fallback: os ganchos em lista, um card por secao, centralizados. */
+.hooks-list {
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--landing-gutter);
+}
+
+.hook-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hook-section .hook-card {
+  width: min(100%, 26rem);
+}

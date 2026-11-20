@@ -19,3 +19,10 @@ TestResults/
 Thumbs.db
 __pycache__/
 *.tsbuildinfo
+
+# Grafo gerado pelo Graphify (artefato local)
+graphify-out/
+.taste-skill/
+
+# previa navegavel do mundo 3D (build local para o artefato, fora do app)
+frontend/.navegar/

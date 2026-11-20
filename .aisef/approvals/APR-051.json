@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-051",
+  "request_type": "scope_change_decision",
+  "status": "approved",
+  "title": "FEAT-LANDING v13: excecao no-title/late-title do inspect.mjs no palco animado (AC-L02i)",
+  "summary": "O AC-L02i exige inspect.mjs sem FAIL, mas o REQ-L01 v6 manda o titulo principal ficar oculto visualmente na versao animada; as regras no-title e late-title falham por construcao. Proposta: aceitar essas duas regras como excecao documentada no palco animado, com o titulo visivel no fallback e testado.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-LANDING",
+  "task_id": "T-L02",
+  "created_at": "2026-11-13T17:30:00-03:00",
+  "expires_at": "2026-11-20T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "AC-L02i passa a permitir --allow no-title,late-title somente no palco animado (alem de glass, violeta e textura); no fallback o h1 e visivel e coberto por teste; a pagina nao muda. FEAT-LANDING v13, T-L02 v10.",
+    "justification": "Conflito de requisito relatado no RPT-T-L02 (intervention requirement_conflict). Usuario escolheu no chat em 2026-11-13 a opcao 'Excecao documentada (Recomendado)'.",
+    "requirement_ids": [
+      "REQ-L01",
+      "REQ-L03"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-EXCECAO",
+      "label": "Excecao documentada",
+      "description": "AC-L02i aceita no-title e late-title no palco animado; h1 visivel no fallback.",
+      "impacts": [
+        "Nenhuma mudanca na pagina"
+      ],
+      "risks": [
+        "Titulo so para leitor de tela na versao animada"
+      ],
+      "cost": "Baixo",
+      "migration": "Nenhuma"
+    },
+    {
+      "option_id": "OPT-TITULO",
+      "label": "Mostrar o titulo",
+      "description": "Titulo visivel sobre a abertura; muda REQ-L01.",
+      "impacts": [
+        "Volta parte do hero-copy removido"
+      ],
+      "risks": [
+        "Contraria pedido do usuario"
+      ],
+      "cost": "Medio",
+      "migration": "Ajuste no Hero"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-EXCECAO",
+    "rationale": "Mantem a decisao do usuario de remover o hero-copy; acessibilidade preservada pelo h1 em HTML e pelo fallback."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-L02"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "low",
+    "items": [
+      {
+        "description": "Titulo nao visivel na versao animada",
+        "severity": "low",
+        "mitigation": "h1 em HTML para leitores de tela e visivel no fallback, com teste"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/2862",
+    "decided_event_ref": "events/2864"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-13T17:06:11-03:00",
+    "selected_option_id": "OPT-EXCECAO",
+    "note": "Usuario escolheu no chat em 2026-11-13: Excecao documentada (Recomendado)"
+  }
+}

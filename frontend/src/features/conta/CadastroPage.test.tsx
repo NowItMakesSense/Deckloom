@@ -100,7 +100,7 @@ function renderPage() {
       <SessionProvider baseUrl={BASE}>
         <Routes>
           <Route path="/cadastro" element={<CadastroPage />} />
-          <Route path="/perfil" element={<PerfilStub />} />
+          <Route path="/inicio" element={<PerfilStub />} />
           <Route path="/entrar" element={<p>pagina entrar</p>} />
         </Routes>
         <LocationProbe />
@@ -335,18 +335,18 @@ describe("S1 Cadastro - envio e sucesso (REQ-001, REQ-033, REQ-034, REQ-044)", (
     await user.click(button);
     await user.click(button);
     release();
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
     expect(bodies).toHaveLength(1);
   });
 
-  it("sucesso leva a /perfil com 'Conta criada. Bem-vindo(a) ao Deckloom!' em role=status", async () => {
+  it("sucesso leva a /inicio com 'Conta criada. Bem-vindo(a) ao Deckloom!' em role=status", async () => {
     captureRegister();
     renderPage();
     const user = userEvent.setup();
     await fillValid(user);
     await user.click(screen.getByRole("button", { name: "Criar conta" }));
 
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
     const status = await screen.findByRole("status");
     expect(status).toHaveTextContent("Conta criada. Bem-vindo(a) ao Deckloom!");
   });
@@ -358,7 +358,7 @@ describe("S1 Cadastro - envio e sucesso (REQ-001, REQ-033, REQ-034, REQ-044)", (
     await fillValid(user);
     await user.click(screen.getByRole("button", { name: "Criar conta" }));
 
-    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/perfil"));
+    await waitFor(() => expect(screen.getByTestId("location")).toHaveTextContent("/inicio"));
     expect(document.body.textContent).not.toContain("vazou@exemplo.com");
     expect(document.body.textContent).not.toContain("HASH-NAO-EXIBIR");
     expect(document.body.textContent).not.toContain("senha-segura-1");

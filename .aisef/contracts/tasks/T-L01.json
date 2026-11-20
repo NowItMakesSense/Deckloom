@@ -1,0 +1,160 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-L01",
+  "contract_version": 7,
+  "kind": "task",
+  "feature_id": "FEAT-LANDING",
+  "feature_contract_version": 8,
+  "title": "Design system v1.0 Grimorio arcano para o app inteiro (tokens claro e escuro, fontes, glass, troca de tema)",
+  "objective": "Design system v1.0 Grimorio arcano para o app inteiro (tokens claro e escuro, fontes, glass, troca de tema)",
+  "assigned_agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-L03",
+        "version": 5
+      },
+      {
+        "id": "REQ-L06",
+        "version": 1
+      },
+      {
+        "id": "REQ-L01",
+        "version": 3
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "Design system v1.0 Grimorio arcano para o app inteiro (tokens claro e escuro, fontes, glass, troca de tema)",
+      "arquivos de marca (logo do Deckloom, favicon, logos dos jogos, simbolos de mana) empacotados no projeto",
+      "aposentar a previa estatica (APR-045): remover frontend/preview e suas referencias em testes, doc e configuracao; mover o mock do deck e seu teste para frontend/src/features/landing/mock sem mudar a logica"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      ".taste-skill/**",
+      "docs/design-system.md",
+      "frontend/.prettierignore",
+      "frontend/eslint.config.js",
+      "frontend/index.html",
+      "frontend/package-lock.json",
+      "frontend/package.json",
+      "frontend/preview/**",
+      "frontend/public/brand/**",
+      "frontend/public/favicon.svg",
+      "frontend/public/fonts/**",
+      "frontend/src/app/theme/**",
+      "frontend/src/cssRules.test.ts",
+      "frontend/src/design-system/**",
+      "frontend/src/features/landing/mock/**",
+      "frontend/src/main.tsx",
+      "frontend/src/tokens.test.ts",
+      "frontend/vite.config.ts"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-LANDING.json",
+        "origin": "feature_contract",
+        "version": "8"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-L01a",
+      "description": "docs/design-system.md v1.0 documenta o Grimorio arcano para o app inteiro (tokens claro e escuro, Cinzel Decorative e Albert Sans com licencas, ornamentos, regras de glass, movimento com anime.js e troca de tema), substituindo a 'ficha de colecao' e o azul da v0.1",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "id": "AC-L01b",
+      "description": "Os arquivos de fonte estao no repositorio com a licenca, sao servidos pelo app e um teste automatizado falha se algum CSS do frontend referenciar URL de fonte ou estilo externa",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "id": "AC-L01c",
+      "description": "Teste automatizado: todos os pares de texto declarados passam 4,5:1 nos dois temas, inclusive texto sobre vidro no pior fundo e no fallback sem backdrop-filter; o tema segue o sistema e a escolha do usuario persiste",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L01i",
+      "description": "A previa estatica foi aposentada: frontend/preview nao existe, nenhum teste, documento, lint ou configuracao a referencia; o mock do deck (deck-mock) e seu teste foram movidos sem mudar a logica para frontend/src/features/landing/mock; suite, lint, format:check e build do frontend passam",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L01"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "complexity": "complex",
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "completed"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T19:05:34-03:00"
+  }
+}

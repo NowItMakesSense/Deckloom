@@ -10,6 +10,7 @@ import { useApiClient, useRefreshSession } from "@/app/SessionProvider";
 import { Alert } from "@/design-system/Alert";
 import type { AlertVariant } from "@/design-system/Alert";
 import { Button } from "@/design-system/Button";
+import { LogInIcon } from "@/design-system/icons";
 import { Checkbox } from "@/design-system/Checkbox";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
 import { FocusedAlert } from "@/design-system/FocusedAlert";
@@ -189,7 +190,7 @@ export function LoginPage(): ReactNode {
           error={fieldErrors.password}
         />
         <Checkbox name="rememberMe" label="Lembrar-me neste dispositivo por 30 dias" />
-        <Button type="submit" loading={sending}>
+        <Button type="submit" loading={sending} icon={<LogInIcon size={18} />}>
           Entrar
         </Button>
       </form>

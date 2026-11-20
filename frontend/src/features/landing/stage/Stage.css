@@ -1,0 +1,358 @@
+/*
+ * Palco WebGL (docs/design-system.md 1.12): uma secao alta cujo scroll guia a camera e, dentro dela, um quadro preso
+ * (sticky) com o canvas e, por cima, o texto em HTML. As legendas dos ganchos, a dica, a abertura do baralho e os
+ * jogos aparecem pelo progresso do scroll (stage/overlays.ts escreve opacity e translate); aqui so o layout.
+ * Texto sempre sobre vidro forte: o contraste nunca depende do fundo animado.
+ */
+.stage {
+  position: relative;
+  /* o scroll vai de 0 a END (1,1): o ultimo trecho e o pan ate o mural de avisos dos planos */
+  height: 3080svh;
+  background-color: var(--color-night);
+}
+
+.stage__frame {
+  position: sticky;
+  inset-block-start: 0;
+  height: 100svh;
+  overflow: clip;
+  background-color: var(--color-night);
+  color: var(--color-text);
+}
+
+/* O cartaz (SVG da clareira) cobre o quadro ate o palco ficar pronto; o canvas entra por cima dele. */
+.stage__poster,
+.stage__frame canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stage__frame canvas {
+  display: block;
+}
+
+/* Pronto o palco, o cartao cede o lugar ao canvas (que fica antes dele no documento). */
+.stage__frame[data-ready="true"] .stage__poster {
+  visibility: hidden;
+}
+
+/* A dica de rolar e uma pilula de vidro: o texto nunca depende do fundo da floresta. */
+.stage__hint {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  width: fit-content;
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-full);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  pointer-events: none;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .stage__hint {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+.stage__panel {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-4);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-lg);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .stage__panel {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+.stage__panel h3,
+.stage__panel p {
+  margin: 0;
+}
+
+.stage__panel h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+}
+
+.stage__lead-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--display-weight);
+  line-height: 1.2;
+}
+
+.stage__intro {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc(var(--space-12) + env(safe-area-inset-bottom, 0px));
+  width: min(28.75rem, calc(100% - 2 * var(--space-4)));
+  margin-inline: auto;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* A legenda de cada gancho: o card do Deckloom do lado oposto ao do deck na tela. */
+.stage__cap {
+  position: absolute;
+  inset-inline-end: max(var(--space-6), 6vw);
+  inset-block-start: 50%;
+  width: min(26rem, 34vw);
+  max-height: calc(100svh - 7rem);
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage__cap:not([inert]) {
+  pointer-events: auto;
+}
+
+.stage__cap .hook-card {
+  width: 100%;
+}
+
+.stage__progress {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage__progress i {
+  position: relative;
+  width: 26px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-border-control);
+}
+
+.stage__progress b {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-moon);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.stage__games-title {
+  position: absolute;
+  inset-inline-start: max(var(--space-4), env(safe-area-inset-left, 0px));
+  inset-block-start: calc(5.75rem + env(safe-area-inset-top, 0px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage__games-title h2 {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-lg);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .stage__games-title h2 {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+.stage__games {
+  position: absolute;
+  inset-inline-end: max(var(--space-4), env(safe-area-inset-right, 0px));
+  inset-block-end: calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
+  width: min(26rem, calc(100% - 2 * var(--space-4)));
+  opacity: 0;
+}
+
+.stage__games:not([inert]) {
+  pointer-events: auto;
+}
+
+.stage__games .games-panel__list {
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: var(--space-2);
+}
+
+.stage__games .games-panel__item {
+  height: 3.25rem;
+  padding: var(--space-1) var(--space-2);
+}
+
+/* Os botoes dos planos sob o mural de avisos, no fim do pan: o texto fica em vidro forte, nunca sobre o fundo. */
+.stage__board-cta {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  width: min(35rem, calc(100% - 2 * var(--space-4)));
+  margin-inline: auto;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.stage__board-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.stage__board-cta .landing-cta,
+.stage__board-alt {
+  min-height: var(--target-min);
+  font-weight: 700;
+}
+
+.stage__board-alt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-full);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+  font-size: var(--text-base);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+.stage__board-alt:active {
+  transform: scale(0.97);
+}
+
+.stage__board-cta p {
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .stage__board-alt,
+  .stage__board-cta p {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+/* Alvo do link "Planos": a ultima tela do palco (o mural). Leva a lista dos planos para leitor de tela. */
+.stage__plans {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 100svh;
+  pointer-events: none;
+  scroll-margin-block-start: 0;
+}
+
+/* Janela baixa (notebook 1366x768): a legenda precisa caber na altura, entao a janela de arte encolhe e o
+   exemplo mostra so as tres primeiras linhas. */
+@media (min-width: 760px) and (max-height: 860px) and (orientation: landscape) {
+  .stage__cap .hook-card {
+    gap: var(--space-1);
+  }
+
+  .stage__cap .hook-card__art {
+    height: 3rem;
+  }
+
+  .stage__cap .deck-example__row:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+/* No celular e no tablet em pe as legendas ocupam a parte de baixo: o deck, no alto, continua visivel. */
+@media (max-width: 759.98px), (max-width: 1099.98px) and (orientation: portrait) {
+  .stage__cap {
+    inset-inline: var(--space-3);
+    inset-block: auto calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-height: 56svh;
+    overflow: hidden;
+    transform: none;
+  }
+
+  .stage__cap .hook-card__art {
+    height: 3rem;
+  }
+
+  /* O exemplo de interface fica so no fallback e em telas maiores: aqui a legenda e o texto da carta. */
+  .stage__cap .hook-card__text > :not(.hook-card__rules) {
+    display: none;
+  }
+
+  .stage__games {
+    inset-inline: var(--space-3);
+    width: auto;
+  }
+
+  .stage__panel {
+    padding: var(--space-3) var(--space-3);
+  }
+
+  /* celular: os dois botoes na mesma linha, compactos */
+  .stage__board-cta {
+    gap: var(--space-1);
+  }
+
+  .stage__board-actions {
+    flex-wrap: nowrap;
+    gap: var(--space-2);
+  }
+
+  .stage__board-cta .landing-cta,
+  .stage__board-alt {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .stage__board-cta p {
+    font-size: var(--text-sm);
+    line-height: 1.3;
+  }
+}

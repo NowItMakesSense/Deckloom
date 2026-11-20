@@ -1,0 +1,1112 @@
+{
+  "schema_version": "0.1.0",
+  "feature_id": "FEAT-LANDING",
+  "contract_version": 14,
+  "cycle": {
+    "number": 1
+  },
+  "title": "Landing page e estrutura do app logado",
+  "objective": "Dar ao Deckloom uma porta de entrada publica para jogadores e uma home logada com navegacao, para o produto ter front visivel alem do login",
+  "problem": "Hoje so existem as telas de conta (login, cadastro, perfil); nao ha pagina inicial publica nem home depois do login, e a rota / nao existe",
+  "business_priority": {
+    "level": "high",
+    "set_by": "user"
+  },
+  "requirements": [
+    {
+      "id": "REQ-L01",
+      "version": 6,
+      "kind": "functional",
+      "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP juntos (Magic: The Gathering, Pokémon TCG, Yu-Gi-Oh!, One Piece, Lorcana), organizada nos ganchos, nesta ordem: (1) quanto do deck voce ja tem, (2) o meta dos torneios contra a sua colecao, (3) compre so o que falta nas lojas parceiras comparando preco, (4) IA que explica o porque de cada carta, pedido em linguagem natural e alerta de queda de preco; depois os 5 jogos com os logos oficiais; depois os planos de assinante (REQ-L13). O baralho tem so as quatro cartas dos ganchos (nenhuma carta repete a section dos jogos). A navegacao e uma ilha com Como funciona, Planos, Entrar (/entrar) e Criar conta (/cadastro); nao ha painel de titulo sobre a abertura animada, e o titulo principal existe em HTML (oculto visualmente na versao animada, visivel no fallback); o hero nao tem cartao de criar conta, a landing nao tem faixa final de CTA nem bloco de previa do app. Os exemplos de cartas de Magic mostram os simbolos de mana. Exemplos com numeros coerentes; sem prova inventada, sem dizer que um jogo vem antes dos outros",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP (Magic: The Gathering, Pokemon TCG, Yu-Gi-Oh!, One Piece, Lorcana), com chamada para criar conta (/cadastro) e link para entrar (/entrar)",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T19:05:34-03:00"
+        },
+        {
+          "version": 2,
+          "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP juntos (Magic: The Gathering, Pokémon TCG, Yu-Gi-Oh!, One Piece, Lorcana), organizada nos ganchos, nesta ordem: (1) quanto do deck voce ja tem (colecao x deck, ex.: 'ja tem 47 de 60; faltam 13'), (2) o meta dos torneios contra a sua colecao, (3) compre so o que falta nas lojas parceiras comparando preco, (4) IA que explica o porque de cada carta, pedido em linguagem natural e alerta de queda de preco; depois os 5 jogos e a faixa final, com chamada para criar conta (/cadastro) e link para entrar (/entrar). Exemplos com numeros coerentes; sem preco nem 'gratis', sem prova inventada (depoimentos, numeros de usuarios, logos), sem dizer que um jogo vem antes dos outros",
+          "author": "user",
+          "justification": "Usuario em 2026-11-06: 'o conteudo esta bugado e algumas informacoes sao irrelevantes'; escolheu os quatro ganchos e definiu que o jogador tera plano pago sem preco anunciado",
+          "changed_at": "2026-11-06T23:20:00-03:00"
+        },
+        {
+          "version": 3,
+          "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP juntos (Magic: The Gathering, Pokémon TCG, Yu-Gi-Oh!, One Piece, Lorcana), organizada nos ganchos, nesta ordem: (1) quanto do deck voce ja tem, (2) o meta dos torneios contra a sua colecao, (3) compre so o que falta nas lojas parceiras comparando preco, (4) IA que explica o porque de cada carta, pedido em linguagem natural e alerta de queda de preco; depois os 5 jogos com os logos oficiais. Criar conta (/cadastro) e entrar (/entrar) ficam na navegacao; o hero nao tem cartao de criar conta, a landing nao tem faixa final de CTA nem bloco de previa do app. Os exemplos de cartas de Magic mostram os simbolos de mana. Exemplos com numeros coerentes; sem preco nem 'gratis', sem prova inventada, sem dizer que um jogo vem antes dos outros",
+          "author": "user",
+          "justification": "Usuario em 2026-11-07 ao revisar a previa v5: nav como dynamic island, botao Criar conta com icone, remover o cartao de criar conta do hero, hero sem corte, icones de mana nos exemplos, logos dos jogos, remover a faixa de CTA e o bloco de previa do app, logo propria do Deckloom e footer refeito; escolheu usar mana e logos oficiais",
+          "changed_at": "2026-11-07T00:30:00-03:00"
+        },
+        {
+          "version": 4,
+          "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP juntos (Magic: The Gathering, Pokémon TCG, Yu-Gi-Oh!, One Piece, Lorcana), organizada nos ganchos, nesta ordem: (1) quanto do deck voce ja tem, (2) o meta dos torneios contra a sua colecao, (3) compre so o que falta nas lojas parceiras comparando preco, (4) IA que explica o porque de cada carta, pedido em linguagem natural e alerta de queda de preco; depois os planos de assinante (REQ-L13). A landing nao tem section com os logos dos jogos. Criar conta (/cadastro) e entrar (/entrar) ficam na navegacao; o hero nao tem cartao de criar conta, a landing nao tem faixa final de CTA nem bloco de previa do app. Os exemplos de cartas de Magic mostram os simbolos de mana. Exemplos com numeros coerentes; sem prova inventada, sem dizer que um jogo vem antes dos outros",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: remover 'Os cinco jogos' e mostrar os planos com preco (Gratis ate 5 decks, Pago R$ 19,90/mes com IA, decks ilimitados, alertas de preco e sem anuncios, CTAs para /cadastro); APR-047 aprovado em 2026-11-13",
+          "changed_at": "2026-11-13T08:40:00-03:00"
+        },
+        {
+          "version": 5,
+          "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP juntos (Magic: The Gathering, Pokémon TCG, Yu-Gi-Oh!, One Piece, Lorcana), organizada nos ganchos, nesta ordem: (1) quanto do deck voce ja tem, (2) o meta dos torneios contra a sua colecao, (3) compre so o que falta nas lojas parceiras comparando preco, (4) IA que explica o porque de cada carta, pedido em linguagem natural e alerta de queda de preco; depois os 5 jogos com os logos oficiais; depois os planos de assinante (REQ-L13). O baralho tem so as quatro cartas dos ganchos (nenhuma carta repete a section dos jogos). Criar conta (/cadastro) e entrar (/entrar) ficam na navegacao; o hero nao tem cartao de criar conta, a landing nao tem faixa final de CTA nem bloco de previa do app. Os exemplos de cartas de Magic mostram os simbolos de mana. Exemplos com numeros coerentes; sem prova inventada, sem dizer que um jogo vem antes dos outros",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: manter a section dos cinco jogos, tirar a 5a carta do baralho (duplicava os jogos), sequencia cinematografica de explosao do deck e tokens dos jogos lancados na mesa; tokens = logos oficiais em medalhoes; WebGL so nesta cena; planos depois dos jogos; APR-048",
+          "changed_at": "2026-11-13T09:10:00-03:00"
+        },
+        {
+          "version": 6,
+          "statement": "Visitante em / ve uma landing publica voltada a jogadores cuja mensagem principal e montar decks com as cartas que ja tem, nos 5 TCGs do MVP juntos (Magic: The Gathering, Pokémon TCG, Yu-Gi-Oh!, One Piece, Lorcana), organizada nos ganchos, nesta ordem: (1) quanto do deck voce ja tem, (2) o meta dos torneios contra a sua colecao, (3) compre so o que falta nas lojas parceiras comparando preco, (4) IA que explica o porque de cada carta, pedido em linguagem natural e alerta de queda de preco; depois os 5 jogos com os logos oficiais; depois os planos de assinante (REQ-L13). O baralho tem so as quatro cartas dos ganchos (nenhuma carta repete a section dos jogos). A navegacao e uma ilha com Como funciona, Planos, Entrar (/entrar) e Criar conta (/cadastro); nao ha painel de titulo sobre a abertura animada, e o titulo principal existe em HTML (oculto visualmente na versao animada, visivel no fallback); o hero nao tem cartao de criar conta, a landing nao tem faixa final de CTA nem bloco de previa do app. Os exemplos de cartas de Magic mostram os simbolos de mana. Exemplos com numeros coerentes; sem prova inventada, sem dizer que um jogo vem antes dos outros",
+          "author": "user",
+          "justification": "Previa 'Deckloom de Ponta a Ponta' v3 (artefato d7379bb8) construida a pedido do usuario em 2026-11-13; APR-050 aprovado pelo usuario em 2026-11-13",
+          "changed_at": "2026-11-13T13:10:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L02",
+      "version": 1,
+      "kind": "functional",
+      "statement": "Recursos ainda nao disponiveis (colecao, decks, sugestoes com IA, meta, lojas) aparecem na landing com o selo 'em breve'",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Recursos ainda nao disponiveis (colecao, decks, sugestoes com IA, meta, lojas) aparecem na landing com o selo 'em breve'",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T19:05:34-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L03",
+      "version": 5,
+      "kind": "functional",
+      "statement": "O app inteiro (landing e todas as telas) adota a identidade 'Grimorio arcano' aprovada pelo usuario: fantasia ilustrada com ornamentos, molduras e simbolos arcanos desenhados para o Deckloom, violeta como cor de marca (#5b2fc4 claro, #9a77ff escuro) com dourado, titulos em Cinzel Decorative e texto em Albert Sans (fontes OFL empacotadas no projeto, sem CDN), temas claro e escuro (segue o sistema, com troca pelo usuario), glassmorphism bem presente (navegacao, paineis, menus, dialogos, cards, listas, formularios e faixas), animacao rica com anime.js, contraste WCAG 2.1 AA; sem arte dos jogos, mas com os logos oficiais dos 5 jogos e os simbolos de mana (arquivos empacotados no projeto, sem CDN, com nota de marcas registradas no rodape; uso comercial exige revisao juridica antes de publicar); logo propria do Deckloom (simbolo + nome) na navegacao, no rodape e no favicon; navegacao em vidro no formato 'dynamic island' (pilula flutuante centralizada); botoes de acao com icone; registrada no docs/design-system.md",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "A landing tem identidade visual propria (editorial), mantem o azul da marca, e registrada no docs/design-system.md e usa fontes empacotadas no proprio projeto, sem CDN nem requisicao a terceiros (LGPD)",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T19:05:34-03:00"
+        },
+        {
+          "version": 2,
+          "statement": "O app inteiro (landing e todas as telas) adota a identidade 'Grimorio arcano' escolhida pelo usuario: fantasia ilustrada, violeta como cor de marca com dourado, titulos em Cinzel e texto em Spectral (fontes OFL empacotadas no projeto, sem CDN), temas claro e escuro (segue o sistema, com troca pelo usuario), glassmorphism presente em navegacao, paineis, menus, dialogos, cards e formularios, contraste WCAG 2.1 AA, sem arte nem marcas dos jogos; registrada no docs/design-system.md",
+          "author": "user",
+          "justification": "Usuario em 2026-11-06: visual decidido com ele (app inteiro, fantasia ilustrada, direcao A Grimorio arcano, claro e escuro, nova cor de marca, glass mais presente)",
+          "changed_at": "2026-11-06T23:30:00-03:00"
+        },
+        {
+          "version": 3,
+          "statement": "O app inteiro (landing e todas as telas) adota a identidade 'Grimorio arcano' aprovada pelo usuario: fantasia ilustrada, violeta como cor de marca com dourado, tipografia definida com a skill design-taste-frontend (Imbue nos titulos e Albert Sans no texto, fontes OFL empacotadas no projeto, sem CDN), temas claro e escuro (segue o sistema, com troca pelo usuario), glassmorphism bem presente (navegacao, paineis, menus, dialogos, cards e formularios), contraste WCAG 2.1 AA, sem arte nem marcas dos jogos; registrada no docs/design-system.md",
+          "author": "user",
+          "justification": "Usuario em 2026-11-06: 'use sempre a taste-skill para arrumar as fontes'; a previa anterior 'deixa muito a desejar'",
+          "changed_at": "2026-11-06T23:55:00-03:00"
+        },
+        {
+          "version": 4,
+          "statement": "O app inteiro (landing e todas as telas) adota a identidade 'Grimorio arcano' aprovada pelo usuario: fantasia ilustrada com ornamentos, molduras e simbolos arcanos desenhados para o Deckloom, violeta como cor de marca (#5b2fc4 claro, #9a77ff escuro) com dourado, titulos em Cinzel Decorative e texto em Albert Sans (fontes OFL empacotadas no projeto, sem CDN), temas claro e escuro (segue o sistema, com troca pelo usuario), glassmorphism bem presente (navegacao, paineis, menus, dialogos, cards, listas, formularios e faixas), animacao rica com anime.js, contraste WCAG 2.1 AA, sem arte nem marcas dos jogos; registrada no docs/design-system.md",
+          "author": "user",
+          "justification": "Usuario em 2026-11-07 aprovou a previa com ajustes: mais fantasia, mais vidro, mais animacao, titulos em Cinzel Decorative, violeta escuro #9a77ff",
+          "changed_at": "2026-11-07T00:40:00-03:00"
+        },
+        {
+          "version": 5,
+          "statement": "O app inteiro (landing e todas as telas) adota a identidade 'Grimorio arcano' aprovada pelo usuario: fantasia ilustrada com ornamentos, molduras e simbolos arcanos desenhados para o Deckloom, violeta como cor de marca (#5b2fc4 claro, #9a77ff escuro) com dourado, titulos em Cinzel Decorative e texto em Albert Sans (fontes OFL empacotadas no projeto, sem CDN), temas claro e escuro (segue o sistema, com troca pelo usuario), glassmorphism bem presente (navegacao, paineis, menus, dialogos, cards, listas, formularios e faixas), animacao rica com anime.js, contraste WCAG 2.1 AA; sem arte dos jogos, mas com os logos oficiais dos 5 jogos e os simbolos de mana (arquivos empacotados no projeto, sem CDN, com nota de marcas registradas no rodape; uso comercial exige revisao juridica antes de publicar); logo propria do Deckloom (simbolo + nome) na navegacao, no rodape e no favicon; navegacao em vidro no formato 'dynamic island' (pilula flutuante centralizada); botoes de acao com icone; registrada no docs/design-system.md",
+          "author": "user",
+          "justification": "Usuario em 2026-11-07 ao revisar a previa v5: nav como dynamic island, botao Criar conta com icone, remover o cartao de criar conta do hero, hero sem corte, icones de mana nos exemplos, logos dos jogos, remover a faixa de CTA e o bloco de previa do app, logo propria do Deckloom e footer refeito; escolheu usar mana e logos oficiais",
+          "changed_at": "2026-11-07T00:30:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L04",
+      "version": 1,
+      "kind": "functional",
+      "statement": "Depois do login, o jogador tem uma home com menu das areas Decks, Colecao, Meta e Lojas marcadas 'em breve' e atalho para o perfil",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Depois do login, o jogador tem uma home com menu das areas Decks, Colecao, Meta e Lojas marcadas 'em breve' e atalho para o perfil",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T19:05:34-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L05",
+      "version": 1,
+      "kind": "functional",
+      "statement": "Login e cadastro levam o jogador para a home em vez do perfil, e jogador logado que abre / vai para a home",
+      "origin": "decision",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Login e cadastro levam o jogador para a home em vez do perfil, e jogador logado que abre / vai para a home",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T19:05:34-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L06",
+      "version": 1,
+      "kind": "non_functional",
+      "statement": "Landing e home cumprem WCAG 2.1 AA e funcionam na largura de celular",
+      "origin": "investigated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Landing e home cumprem WCAG 2.1 AA e funcionam na largura de celular",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T19:05:34-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L07",
+      "version": 1,
+      "kind": "functional",
+      "statement": "Os icones do app vem do lucide-animated (MIT), copiados para o projeto, sem requisicao a terceiros, e respeitam prefers-reduced-motion",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Os icones do app vem do lucide-animated (MIT), copiados para o projeto, sem requisicao a terceiros, e respeitam prefers-reduced-motion",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T23:30:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L08",
+      "version": 1,
+      "kind": "functional",
+      "statement": "As telas existentes da conta-jogador (cadastro, entrar, senha, Google, perfil, edicao, dialogos e cabecalho) passam para a nova identidade sem mudar comportamento",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "As telas existentes da conta-jogador (cadastro, entrar, senha, Google, perfil, edicao, dialogos e cabecalho) passam para a nova identidade sem mudar comportamento",
+          "author": "user",
+          "justification": "criacao (alcance 'app inteiro')",
+          "changed_at": "2026-11-06T23:30:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L09",
+      "version": 1,
+      "kind": "functional",
+      "statement": "As animacoes do app usam a biblioteca anime.js (https://animejs.com), com fallback para prefers-reduced-motion",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "As animacoes do app usam a biblioteca anime.js (https://animejs.com), com fallback para prefers-reduced-motion",
+          "author": "user",
+          "justification": "criacao",
+          "changed_at": "2026-11-06T23:55:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L10",
+      "version": 6,
+      "kind": "functional",
+      "statement": "A landing e um palco WebGL unico (three), do topo da pagina ate o mural dos planos, guiado pelo scroll, sem cortes nem fades genericos: (1) floresta elfica a noite em camadas de silhueta com perspectiva atmosferica (tecnica do parallax do Firewatch, arte propria): sobrevoo das copas revelando a cidade antiga, descida entre as arvores, travessia de um portal de pedra cujas runas acendem e caminho de pedra com runas acendendo ate a clareira, com nevoa, raios de luz, poeira, folhas, samambaias e vaga-lumes em movimento ambiente, iluminada por velas em volta do circulo de runas e tochas em suportes de ferro (chamas ao vento e luz quente nas pedras); (2) deck box de madeira entalhada num pedestal: as runas acendem, os vaga-lumes convergem, fecho e travas soltam, a tampa abre pela dobradica com luz dourada e verde e o altar de pedra com circulo entalhado desperta; (3) as cartas sobem da caixa e formam o deck em destaque, com a camera orbitando e flutuacao ambiente; (4) os quatro ganchos: cada carta sai do deck, vira 180 graus e revela o gancho, com legenda em HTML; (5) a camera mergulha, o deck explode e os tokens dos cinco jogos (medalhoes com os logos oficiais e fichas de mana) caem no altar com fisica simulada e deterministica, enquanto a floresta reage (anel de luz, folhas, nevoa); (6) epilogo: a camera volta pelo caminho, emoldura a clareira pelo portal e desliza para a esquerda ate o mural de avisos com os planos (REQ-L13). Uma unica funcao de camera continua; nenhum objeto aparece ou some dentro do quadro. Sem WebGL ou com prefers-reduced-motion: imagem estatica da clareira, os ganchos em lista, os jogos em grade e os planos em section. Texto em HTML com contraste AA, sem atrasar o carregamento inicial",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "O hero da landing tem uma cena 3D em WebGL (Three.js, dependencia com versao exata, sem CDN): um grimorio e cartas do Deckloom flutuando com particulas arcanas, reagindo ao mouse e ao scroll, desenhados para o Deckloom (sem arte nem marcas dos jogos); com fallback estatico quando nao houver WebGL, com prefers-reduced-motion e em aparelho fraco, sem prejudicar o texto do hero (AA) nem o carregamento inicial",
+          "author": "user",
+          "justification": "Usuario em 2026-11-06: 'quero mais 3d nessas paginas, esta faltando modernidade e algo que chame mais atencao'; escolheu cena WebGL no hero",
+          "changed_at": "2026-11-06T23:20:00-03:00"
+        },
+        {
+          "version": 2,
+          "statement": "A landing inteira e uma jornada 3D em WebGL (React Three Fiber sobre Three.js, dependencias com versao exata, sem CDN): ao fundo um gradiente animado ShaderGradient (@shadergradient/react) nas cores do Grimorio arcano e, na frente, modelos 3D detalhados desenhados para o Deckloom (grimorio, cartas do Deckloom, particulas arcanas; sem arte nem marcas dos jogos). A camera (camera-controls) ocupa uma posicao por secao da pagina (hero, cada um dos quatro ganchos, jogos) e passa de uma para a outra conforme o scroll, com transicao suave e sem salto, revelando elementos novos a cada secao. Com fallback estatico quando nao houver WebGL, com prefers-reduced-motion e em aparelho fraco, sem prejudicar o texto (AA) nem o carregamento inicial",
+          "author": "user",
+          "justification": "Usuario em 2026-11-11: fundo com ShaderGradient, modelos melhores, camera mudando de posicao e mostrando mais elementos com transicao suave; APR-045 aprovado pelo usuario em 2026-11-11 (OPT-LANDING-ANTES)",
+          "changed_at": "2026-11-11T23:00:00-03:00"
+        },
+        {
+          "version": 3,
+          "statement": "A landing tem duas partes animadas, sem WebGL: (1) o hero e uma paisagem em camadas com parallax em CSS nativo (transform ligado ao scroll), nas cores do Grimorio arcano; (2) uma section de baralho controlada pelo scroll (Anime.js 4 + CSS 3D): comeca com a camera afastada mostrando o baralho de costas, faz dolly-in ao rolar e, uma carta por vez, a carta sai da pilha (deslocamento em X, Y e Z com leve rotacao em X e Z), aproxima-se da camera, vira 180 graus no eixo Y e revela um dos quatro ganchos (titulo, arte propria do Deckloom, linha de tipo e texto aparecendo com opacity, translateY e stagger), com sombra que acompanha a profundidade; a camera estabiliza na revelacao e recua antes da proxima, e as cartas reveladas vao para uma segunda pilha. Animacoes so com transform e opacity. Com prefers-reduced-motion nao ha parallax nem voo: as cartas aparecem ja viradas, em sequencia legivel. O texto mantem contraste AA e a animacao nao atrasa o carregamento inicial",
+          "author": "user",
+          "justification": "Usuario em 2026-11-12 (previa fc92722f): hero com parallax em CSS nativo e baralho controlado pelo scroll com Anime.js 4 + CSS 3D no lugar da jornada 3D; APR-047 aprovado pelo usuario em 2026-11-13",
+          "changed_at": "2026-11-13T08:40:00-03:00"
+        },
+        {
+          "version": 4,
+          "statement": "A landing e uma sequencia continua controlada pelo scroll, sem cortes nem fades genericos: (1) hero em camadas com parallax em CSS nativo; (2) baralho com as quatro cartas dos ganchos (Anime.js 4 + CSS 3D): camera afastada com o baralho de costas, dolly-in, uma carta por vez sai da pilha, aproxima-se, vira 180 graus no eixo Y revelando o gancho, e as reveladas vao para uma segunda pilha; (3) section dos cinco jogos como cena WebGL: a camera avanca para o centro do deck e as cartas explodem de forma controlada em direcoes, profundidades, velocidades e rotacoes independentes (algumas passam rente a lente, outras somem no fundo ou cruzam a tela) ate o deck sair do campo de visao; enquanto as cartas somem, tokens dos cinco jogos (medalhoes fisicos com espessura, cada um com o logo oficial do jogo, e fichas de mana de Magic) sao arremessados de laterais, fundo e em direcao a camera, em momentos diferentes, e caem numa mesa com comportamento fisico distinto (quicar, girar, deslizar, tombar), pequenas colisoes e desaceleracao ate repousar numa composicao organica; a camera acompanha com movimentos sutis (aproximar, afastar, panoramica, inclinar), parallax por profundidade e profundidade de campo alternando foco, e termina com uma aproximacao que revela a composicao. Os logos e simbolos aparecem integros (forma, cores e proporcoes originais, sem recriar). Trajetorias deterministicas (simulacao calculada uma vez, sem biblioteca de fisica), animacao so por scroll. Sem WebGL, com prefers-reduced-motion ou em aparelho fraco: a section mostra os cinco jogos estaticos e o baralho aparece com as cartas ja viradas. Texto com contraste AA e sem atrasar o carregamento inicial",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: manter a section dos cinco jogos, tirar a 5a carta do baralho (duplicava os jogos), sequencia cinematografica de explosao do deck e tokens dos jogos lancados na mesa; tokens = logos oficiais em medalhoes; WebGL so nesta cena; planos depois dos jogos; APR-048",
+          "changed_at": "2026-11-13T09:10:00-03:00"
+        },
+        {
+          "version": 5,
+          "statement": "A landing e um palco WebGL unico (three), do topo da pagina ate a mesa dos jogos, guiado pelo scroll, sem cortes nem fades genericos: (1) floresta elfica em camadas de silhueta com perspectiva atmosferica (tecnica do parallax do Firewatch, arte propria): sobrevoo das copas revelando a cidade antiga, descida entre as arvores, travessia de um portal de pedra cujas runas acendem e caminho de pedra com runas acendendo ate a clareira, com nevoa, raios de luz, poeira, folhas, samambaias e vaga-lumes em movimento ambiente; (2) deck box de madeira entalhada num pedestal: as runas acendem, os vaga-lumes convergem, fecho e travas soltam, a tampa abre pela dobradica com luz dourada e verde e o altar de pedra com circulo entalhado desperta; (3) as cartas sobem da caixa e formam o deck em destaque, com a camera orbitando e flutuacao ambiente; (4) os quatro ganchos: cada carta sai do deck, vira 180 graus e revela o gancho, com legenda em HTML; (5) a camera mergulha, o deck explode e os tokens dos cinco jogos (medalhoes com os logos oficiais e fichas de mana) caem no altar com fisica simulada e deterministica, enquanto a floresta reage (anel de luz, folhas, nevoa); (6) epilogo: a camera volta pelo caminho e emoldura a clareira pelo portal. Uma unica funcao de camera continua; nenhum objeto aparece ou some dentro do quadro. Sem WebGL ou com prefers-reduced-motion: imagem estatica da clareira, os ganchos em lista e os jogos em grade. Texto em HTML com contraste AA, sem atrasar o carregamento inicial",
+          "author": "user",
+          "justification": "Previa 'Deckloom de Ponta a Ponta' v3 (artefato d7379bb8) construida a pedido do usuario em 2026-11-13; APR-050 aprovado pelo usuario em 2026-11-13",
+          "changed_at": "2026-11-13T13:10:00-03:00"
+        },
+        {
+          "version": 6,
+          "statement": "A landing e um palco WebGL unico (three), do topo da pagina ate o mural dos planos, guiado pelo scroll, sem cortes nem fades genericos: (1) floresta elfica a noite em camadas de silhueta com perspectiva atmosferica (tecnica do parallax do Firewatch, arte propria): sobrevoo das copas revelando a cidade antiga, descida entre as arvores, travessia de um portal de pedra cujas runas acendem e caminho de pedra com runas acendendo ate a clareira, com nevoa, raios de luz, poeira, folhas, samambaias e vaga-lumes em movimento ambiente, iluminada por velas em volta do circulo de runas e tochas em suportes de ferro (chamas ao vento e luz quente nas pedras); (2) deck box de madeira entalhada num pedestal: as runas acendem, os vaga-lumes convergem, fecho e travas soltam, a tampa abre pela dobradica com luz dourada e verde e o altar de pedra com circulo entalhado desperta; (3) as cartas sobem da caixa e formam o deck em destaque, com a camera orbitando e flutuacao ambiente; (4) os quatro ganchos: cada carta sai do deck, vira 180 graus e revela o gancho, com legenda em HTML; (5) a camera mergulha, o deck explode e os tokens dos cinco jogos (medalhoes com os logos oficiais e fichas de mana) caem no altar com fisica simulada e deterministica, enquanto a floresta reage (anel de luz, folhas, nevoa); (6) epilogo: a camera volta pelo caminho, emoldura a clareira pelo portal e desliza para a esquerda ate o mural de avisos com os planos (REQ-L13). Uma unica funcao de camera continua; nenhum objeto aparece ou some dentro do quadro. Sem WebGL ou com prefers-reduced-motion: imagem estatica da clareira, os ganchos em lista, os jogos em grade e os planos em section. Texto em HTML com contraste AA, sem atrasar o carregamento inicial",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13 aprovou no chat a previa d7379bb8 v5 (deckloom-ponta-a-ponta.html): noite com velas e tochas, mural de avisos com os planos no fim do palco",
+          "changed_at": "2026-11-13T19:00:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L11",
+      "version": 1,
+      "kind": "functional",
+      "statement": "Os quatro ganchos da landing sao apresentados como cards com moldura propria do Deckloom inspirada na anatomia de uma carta de Magic (faixa de titulo, janela de arte com o simbolo/logo do Deckloom, linha de tipo, caixa de texto), sem copiar a moldura da Wizards of the Coast; o conteudo dos cards e HTML real, acessivel e legivel sem a cena 3D",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Os quatro ganchos da landing sao apresentados como cards com moldura propria do Deckloom inspirada na anatomia de uma carta de Magic (faixa de titulo, janela de arte com o simbolo/logo do Deckloom, linha de tipo, caixa de texto), sem copiar a moldura da Wizards of the Coast; o conteudo dos cards e HTML real, acessivel e legivel sem a cena 3D",
+          "author": "user",
+          "justification": "Usuario em 2026-11-11: 'faca cards com os logos criados para o deckloom, utilize o modelo de cartas de magic como design'; escolheu os quatro ganchos; APR-045 aprovado pelo usuario em 2026-11-11 (OPT-LANDING-ANTES)",
+          "changed_at": "2026-11-11T23:00:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L12",
+      "version": 5,
+      "kind": "functional",
+      "statement": "A landing usa three (versao exata, sem CDN), carregado sob demanda fora do bundle inicial, para todo o palco, e animejs (versao exata) para a animacao dos planos; @react-three/fiber, @shadergradient/react, three-stdlib e camera-controls saem do package.json; @types/three fica como dependencia de desenvolvimento",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "A landing usa as bibliotecas @shadergradient/react 2.4.20, @react-three/fiber 9.8.2, three-stdlib 2.36.1 e camera-controls 3.1.2 (MIT), com versao exata no package.json, empacotadas pelo app (sem CDN) e carregadas sob demanda, fora do bundle inicial",
+          "author": "user",
+          "justification": "Usuario em 2026-11-11 indicou as bibliotecas; APR-045 aprovado pelo usuario em 2026-11-11 (OPT-LANDING-ANTES)",
+          "changed_at": "2026-11-11T23:00:00-03:00"
+        },
+        {
+          "version": 2,
+          "statement": "A landing usa as bibliotecas @shadergradient/react 2.4.20, @react-three/fiber 9.8.2, three-stdlib 2.36.1 e camera-controls 3.1.2 (MIT), com versao exata no package.json, empacotadas pelo app (sem CDN) e carregadas sob demanda, fora do bundle inicial; @types/three 0.186.0 entra como dependencia de desenvolvimento (so tipos, versao exata)",
+          "author": "user",
+          "justification": "APR-046 aprovado em 2026-11-12: aceite de @types/three, sem o qual o tsc nao compila",
+          "changed_at": "2026-11-12T09:30:00-03:00"
+        },
+        {
+          "version": 3,
+          "statement": "A landing nao usa bibliotecas 3D nem WebGL: @shadergradient/react, @react-three/fiber, three, three-stdlib, camera-controls e @types/three saem do package.json; as animacoes usam o animejs ja adotado (REQ-L09), com versao exata e sem CDN",
+          "author": "user",
+          "justification": "Usuario em 2026-11-12 (previa fc92722f): hero com parallax em CSS nativo e baralho controlado pelo scroll com Anime.js 4 + CSS 3D no lugar da jornada 3D; APR-047 aprovado pelo usuario em 2026-11-13",
+          "changed_at": "2026-11-13T08:40:00-03:00"
+        },
+        {
+          "version": 4,
+          "statement": "A landing usa three (versao exata ja instalada, sem CDN) so na cena da section dos jogos, carregada sob demanda fora do bundle inicial, e animejs para o hero e o baralho; @types/three fica como dependencia de desenvolvimento. Saem do package.json @shadergradient/react, @react-three/fiber, three-stdlib e camera-controls",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: manter a section dos cinco jogos, tirar a 5a carta do baralho (duplicava os jogos), sequencia cinematografica de explosao do deck e tokens dos jogos lancados na mesa; tokens = logos oficiais em medalhoes; WebGL so nesta cena; planos depois dos jogos; APR-048",
+          "changed_at": "2026-11-13T09:10:00-03:00"
+        },
+        {
+          "version": 5,
+          "statement": "A landing usa three (versao exata, sem CDN), carregado sob demanda fora do bundle inicial, para todo o palco, e animejs (versao exata) para a animacao dos planos; @react-three/fiber, @shadergradient/react, three-stdlib e camera-controls saem do package.json; @types/three fica como dependencia de desenvolvimento",
+          "author": "user",
+          "justification": "Previa 'Deckloom de Ponta a Ponta' v3 (artefato d7379bb8) construida a pedido do usuario em 2026-11-13; APR-050 aprovado pelo usuario em 2026-11-13",
+          "changed_at": "2026-11-13T13:10:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L13",
+      "version": 3,
+      "kind": "functional",
+      "statement": "A landing mostra, depois dos cinco jogos, os planos de assinante do jogador: Gratis (salva ate 5 decks) e Arcano a R$ 19,90/mes (sugestoes com IA, decks ilimitados, alertas de preco e sem anuncios). No palco animado os planos ficam no mural de avisos da clareira, com os botoes em HTML e a lista dos planos em HTML para leitor de tela; no fallback ficam numa section. Todo botao dos planos leva a /cadastro, pois ainda nao ha pagamento do jogador; a landing nao cobra nem coleta dado de pagamento",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "A landing mostra, no lugar dos cinco jogos, os planos de assinante do jogador: Gratis (salva ate 5 decks) e Pago a R$ 19,90/mes (sugestoes com IA, decks ilimitados, alertas de preco e sem anuncios). Todo botao da section leva a /cadastro, pois ainda nao ha pagamento do jogador; a landing nao cobra nem coleta dado de pagamento",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: remover 'Os cinco jogos' e mostrar os planos com preco (Gratis ate 5 decks, Pago R$ 19,90/mes com IA, decks ilimitados, alertas de preco e sem anuncios, CTAs para /cadastro); APR-047 aprovado em 2026-11-13",
+          "changed_at": "2026-11-13T08:40:00-03:00"
+        },
+        {
+          "version": 2,
+          "statement": "A landing mostra, depois da section dos cinco jogos, os planos de assinante do jogador: Gratis (salva ate 5 decks) e Pago a R$ 19,90/mes (sugestoes com IA, decks ilimitados, alertas de preco e sem anuncios). Todo botao da section leva a /cadastro, pois ainda nao ha pagamento do jogador; a landing nao cobra nem coleta dado de pagamento",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: manter a section dos cinco jogos, tirar a 5a carta do baralho (duplicava os jogos), sequencia cinematografica de explosao do deck e tokens dos jogos lancados na mesa; tokens = logos oficiais em medalhoes; WebGL so nesta cena; planos depois dos jogos; APR-048",
+          "changed_at": "2026-11-13T09:10:00-03:00"
+        },
+        {
+          "version": 3,
+          "statement": "A landing mostra, depois dos cinco jogos, os planos de assinante do jogador: Gratis (salva ate 5 decks) e Arcano a R$ 19,90/mes (sugestoes com IA, decks ilimitados, alertas de preco e sem anuncios). No palco animado os planos ficam no mural de avisos da clareira, com os botoes em HTML e a lista dos planos em HTML para leitor de tela; no fallback ficam numa section. Todo botao dos planos leva a /cadastro, pois ainda nao ha pagamento do jogador; a landing nao cobra nem coleta dado de pagamento",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13 aprovou no chat a previa d7379bb8 v5 (deckloom-ponta-a-ponta.html): noite com velas e tochas, mural de avisos com os planos no fim do palco; nome do plano pago 'Arcano' na previa aprovada",
+          "changed_at": "2026-11-13T19:00:00-03:00"
+        }
+      ]
+    },
+    {
+      "id": "REQ-L14",
+      "version": 1,
+      "kind": "non_functional",
+      "statement": "Os objetos 3D e as cartas da landing usam modelos e artes proprios do Deckloom ou de licenca comercial livre (CC0 ou MIT), em glTF otimizado com orcamento para celular (total comprimido <= 2,5 MB, cena <= 120 mil triangulos), carregados sob demanda, sem mudar a sequencia aprovada da previa; a fonte e a licenca de cada asset ficam em frontend/public/models/SOURCES.md",
+      "origin": "user_stated",
+      "status": "active",
+      "history": [
+        {
+          "version": 1,
+          "statement": "Os objetos 3D e as cartas da landing usam modelos e artes proprios do Deckloom ou de licenca comercial livre (CC0 ou MIT), em glTF otimizado com orcamento para celular (total comprimido <= 2,5 MB, cena <= 120 mil triangulos), carregados sob demanda, sem mudar a sequencia aprovada da previa; a fonte e a licenca de cada asset ficam em frontend/public/models/SOURCES.md",
+          "author": "user",
+          "justification": "Usuario em 2026-11-13: tarefa nova para melhorar os modelos 3D e as cartas da landing, feita pelo Claude via MCP, gratis e sem PC potente; APR-049 aprovado pelo usuario em 2026-11-13",
+          "changed_at": "2026-11-13T12:30:00-03:00"
+        }
+      ]
+    }
+  ],
+  "business_rules": [],
+  "scope": {
+    "included": [
+      "landing publica em /",
+      "home logada com navegacao e areas 'em breve'",
+      "redirecionamentos de login, cadastro e / para a home",
+      "E2E e acessibilidade das telas novas",
+      "design system v1.0 'Grimorio arcano' para o app inteiro (tokens claro e escuro, fontes, glass, troca de tema)",
+      "icones do lucide-animated com a dependencia motion",
+      "migracao visual das telas da conta-jogador sem mudar comportamento",
+      "landing num palco WebGL unico (three): floresta elfica, deck box, deck, ganchos, explosao, tokens no altar e epilogo, guiado pelo scroll",
+      "quatro ganchos em cards com moldura propria inspirada em carta",
+      "previa estatica aposentada: criterios visuais passam para a landing real",
+      "section de planos de assinante depois dos jogos (Gratis e Pago R$ 19,90/mes) com CTAs para /cadastro",
+      "modelagem 3D e cartas da landing (T-L05): glTF proprio ou CC0/MIT, feito via MCP for Blender, Poly Haven e TRELLIS.2"
+    ],
+    "excluded": [
+      "funcionalidades de decks, colecao, IA, meta e lojas (features proprias)",
+      "lista de espera ou captura de e-mail",
+      "conteudo para lojas parceiras",
+      "endpoints novos de backend",
+      "mudancas nas regras da conta-jogador alem do destino apos login",
+      "cobranca, checkout ou assinatura real do plano pago"
+    ]
+  },
+  "architectural_decisions": [],
+  "dependencies": {},
+  "constraints": [],
+  "risks": [
+    {
+      "id": "RISK-FEAT-LANDING-1",
+      "description": "Fonte de terceiro quebrar a regra LGPD do design system (sem requisicao externa)",
+      "severity": "medium",
+      "mitigation": "Fontes com licenca livre (OFL) copiadas para o projeto e servidas pelo proprio app; teste que proibe URL externa no CSS"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-2",
+      "description": "Mudar o destino apos login quebrar testes e E2E da conta-jogador",
+      "severity": "medium",
+      "mitigation": "TDD nos guards e safeReturnTo; suite E2E completa"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-3",
+      "description": "Promessa de recurso inexistente confundir o jogador",
+      "severity": "low",
+      "mitigation": "Selo 'em breve' obrigatorio e sem link para tela inexistente"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-4",
+      "description": "Glass com pouco contraste sobre fundos variados (acessibilidade) e custo de desempenho do backdrop-filter",
+      "severity": "medium",
+      "mitigation": "Tokens de vidro com opacidade minima e teste de contraste no pior fundo; fallback solido sem backdrop-filter; axe nos dois temas"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-5",
+      "description": "Migracao visual quebrar comportamento ou testes da conta-jogador",
+      "severity": "medium",
+      "mitigation": "So CSS e marcacao de apresentacao; suite unitaria e E2E completas verdes"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-6",
+      "description": "Uso comercial dos logos oficiais dos jogos (agora como tokens 3D em destaque) e dos simbolos de mana (marcas de Wizards of the Coast, The Pokemon Company, Konami, Bandai, Disney/Ravensburger) sem licenca",
+      "severity": "high",
+      "mitigation": "Decisao do usuario em 2026-11-07; arquivos isolados em frontend/public/brand/games, nota de marcas no rodape; revisao juridica obrigatoria antes de publicar em producao; troca simples por wordmarks proprios se necessario"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-8",
+      "description": "Texto sobre gradiente animado perder contraste AA; moldura dos cards parecer copia da carta de Magic",
+      "severity": "medium",
+      "mitigation": "Texto em paineis de vidro com fundo de seguranca e teste no pior fundo; moldura propria do Deckloom e nota de marcas"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-7",
+      "description": "Cena WebGL dos jogos pesada no celular; passagem do baralho em CSS 3D para a explosao em WebGL com salto visivel",
+      "severity": "medium",
+      "mitigation": "three sob demanda so nessa section, limite de pixel ratio, fallback estatico em aparelho fraco; a cena WebGL desenha as mesmas cartas na mesma pose do ultimo quadro do baralho antes de assumir; verificacao no Chrome em 1366px e 375px"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-9",
+      "description": "Landing anuncia preco (R$ 19,90/mes) e recursos pagos que ainda nao existem",
+      "severity": "medium",
+      "mitigation": "Botoes levam ao cadastro gratis sem cobranca; texto dos planos revisado com o usuario antes do aceite"
+    },
+    {
+      "id": "RISK-FEAT-LANDING-10",
+      "description": "PC de desenvolvimento no limite do Blender (8 GB de RAM, Intel UHD 620, pouca memoria livre) e asset com licenca incompativel",
+      "severity": "medium",
+      "mitigation": "Geracao pesada na nuvem (TRELLIS.2), Blender sem render, texturas 1K, um objeto por arquivo, fechar apps pesados; so CC0/MIT com fonte registrada; plano B em geometria por codigo"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-L01a",
+      "description": "docs/design-system.md v1.0 documenta o Grimorio arcano para o app inteiro (tokens claro e escuro, Cinzel Decorative e Albert Sans com licencas, ornamentos, regras de glass, movimento com anime.js e troca de tema), substituindo a 'ficha de colecao' e o azul da v0.1",
+      "requirement_ids": [
+        "REQ-L03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01b",
+      "description": "Os arquivos de fonte estao no repositorio com a licenca, sao servidos pelo app e um teste automatizado falha se algum CSS do frontend referenciar URL de fonte ou estilo externa",
+      "requirement_ids": [
+        "REQ-L03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01c",
+      "description": "Teste automatizado: todos os pares de texto declarados passam 4,5:1 nos dois temas, inclusive texto sobre vidro no pior fundo e no fallback sem backdrop-filter; o tema segue o sistema e a escolha do usuario persiste",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01Ba",
+      "description": "Os icones usados vem do lucide-animated, copiados em frontend/src/design-system/icons com o aviso MIT; as dependencias motion e animejs estao no package.json com versao fixa e a auditoria de dependencias passa",
+      "requirement_ids": [
+        "REQ-L07",
+        "REQ-L09"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01Bb",
+      "description": "Teste automatizado: cada icone renderiza com nome acessivel ou aria-hidden, nao anima com prefers-reduced-motion e nenhum icone vem de outra fonte",
+      "requirement_ids": [
+        "REQ-L07"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01Ca",
+      "description": "Todas as telas e dialogos da conta-jogador usam os tokens v1.0 (nenhuma cor ou fonte literal fora dos tokens, teste automatizado) e a suite unitaria do frontend continua verde sem mudar asserts de comportamento",
+      "requirement_ids": [
+        "REQ-L08",
+        "REQ-L03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01Cb",
+      "description": "E2E completo verde e axe sem violacoes nas telas da conta nos temas claro e escuro",
+      "requirement_ids": [
+        "REQ-L08",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02a",
+      "description": "Teste automatizado: visitante em / ve a mensagem de montar decks com as cartas que ja tem, os 5 TCGs nominalmente, CTA para /cadastro e link para /entrar",
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L02",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02b",
+      "description": "Teste automatizado: colecao, decks, sugestoes com IA, meta e lojas aparecem com o selo 'em breve' e nenhum deles e link para rota inexistente",
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L02",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02c",
+      "description": "axe sem violacoes na landing e layout sem rolagem horizontal em 375px (E2E)",
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L02",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L03a",
+      "description": "Teste automatizado: em /inicio o jogador logado ve o menu com Decks, Colecao, Meta e Lojas marcados 'em breve' e o atalho para o perfil; visitante em /inicio vai para /entrar",
+      "requirement_ids": [
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L03b",
+      "description": "Teste automatizado: login e cadastro sem returnTo levam a /inicio; jogador logado em / vai para /inicio; returnTo valido continua respeitado",
+      "requirement_ids": [
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L03c",
+      "description": "Suite do frontend e E2E completos verdes, axe sem violacoes em /inicio",
+      "requirement_ids": [
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L04a",
+      "description": "E2E Playwright cobre: visitante abre /, segue o CTA ate /cadastro, cria conta e cai em /inicio; jogador logado em / vai para /inicio",
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L04b",
+      "description": "npm --prefix frontend run e2e passa por completo e o build de producao do frontend passa",
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L04c",
+      "description": "axe sem violacoes em /, /inicio e nas telas da conta nos temas claro e escuro (E2E)",
+      "requirement_ids": [
+        "REQ-L06",
+        "REQ-L03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01Bc",
+      "description": "Teste automatizado: o helper de animacao usa anime.js e, com prefers-reduced-motion, nao desloca nem escala elementos (conteudo fica visivel)",
+      "requirement_ids": [
+        "REQ-L09"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02d",
+      "description": "Teste automatizado: a landing nao importa @react-three/fiber, @shadergradient/react, three-stdlib nem camera-controls; three so e carregado pelo palco, sob demanda e fora do bundle inicial, e so com WebGL e sem prefers-reduced-motion; nos outros casos aparecem a imagem estatica da clareira, os ganchos em lista e os jogos em grade; o palco libera geometrias, materiais, texturas e renderer ao desmontar",
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L06",
+        "REQ-L12"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02e",
+      "description": "Teste automatizado de funcoes puras do baralho: com o progresso do scroll, a posicao das cartas dentro da caixa, a subida ate o deck, as quatro cartas dos ganchos (sair, aproximar, virar 180 graus, revelar, ir para a pilha) e a camera de cada segmento, com continuidade nos limites e uma carta por vez",
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02f",
+      "description": "Teste automatizado: os quatro ganchos, na ordem do REQ-L01, sao cards com faixa de titulo, janela de arte com o simbolo do Deckloom, linha de tipo e caixa de texto, com o selo 'em breve' onde couber; o conteudo e HTML real (legivel sem a cena) e os numeros do mock do deck fecham (tem + faltam = total, antes e depois do 'Tenho +1')",
+      "requirement_ids": [
+        "REQ-L11",
+        "REQ-L01",
+        "REQ-L02"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02g",
+      "description": "Teste automatizado: nav em vidro no formato dynamic island (pilula centralizada, colapsa no celular, aria-expanded, fecha com Esc) com Criar conta (/cadastro, botao primario com icone) e Entrar (/entrar); logo do Deckloom na nav, no rodape e no favicon; hero sem cartao de criar conta; sem faixa final de CTA e sem bloco de previa do app; exemplos de Magic com simbolos de mana locais; secao de jogos com os logos oficiais locais; nota de marcas no rodape; um unico controle de tema; nenhuma URL externa",
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L03",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02h",
+      "description": "Teste automatizado: three e animejs no package.json com versao exata, @types/three em devDependencies, os quatro pacotes removidos ausentes e a auditoria de dependencias passando; as cores do palco vem de uma paleta unica em codigo, sem tonemapping que altere as silhuetas; docs/design-system.md documenta o palco, a floresta, a deck box, o altar, as runas, os ganchos, a mesa, o epilogo, os planos e os fallbacks",
+      "requirement_ids": [
+        "REQ-L12",
+        "REQ-L10",
+        "REQ-L03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02i",
+      "description": "Landing real conferida no navegador em 1440x900, 768x1024 e 390x844 nos temas claro e escuro, com a cena viva e com o fallback: nada cortado no primeiro viewport, texto AA sobre o pior ponto do fundo animado, sem rolagem horizontal; inspect.mjs da skill design-taste-frontend sem FAIL (--allow so para glass, violeta e textura; no palco animado tambem no-title e late-title, porque o titulo principal fica oculto visualmente pelo REQ-L01 - excecao do APR-051 -, com o h1 visivel no fallback coberto por teste automatizado) e screenshots no relatorio",
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L11",
+        "REQ-L06",
+        "REQ-L03"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L01i",
+      "description": "A previa estatica foi aposentada: frontend/preview nao existe, nenhum teste, documento, lint ou configuracao a referencia; o mock do deck (deck-mock) e seu teste foram movidos sem mudar a logica para frontend/src/features/landing/mock; suite, lint, format:check e build do frontend passam",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L01"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02j",
+      "description": "Teste automatizado: depois da section dos cinco jogos (que continua com os logos oficiais) a landing mostra a section de planos com dois planos: Gratis (ate 5 decks) e Pago com 'R$ 19,90' por mes listando sugestoes com IA, decks ilimitados, alertas de preco e sem anuncios; todo botao da section aponta para /cadastro; os planos tem nome acessivel e passam no axe nos dois temas",
+      "requirement_ids": [
+        "REQ-L13",
+        "REQ-L01",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02k",
+      "description": "Teste automatizado de funcoes puras da mesa: explosao com trajetorias, rotacoes e velocidades proprias, cartas que vao ao fundo saindo por cima do quadro; tokens (cinco medalhoes com o logo do jogo e fichas de mana) entrando em instantes e origens distintos (os de tras por cima do muro de ruinas), pouso com quicar, girar, deslizar e tombar, colisoes entre si e com a deck box, nenhum par interpenetrado no repouso e velocidade decrescente ate zero; deterministico",
+      "requirement_ids": [
+        "REQ-L10"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L05a",
+      "description": "Deck box em glTF com a tampa em no separado e pivo na dobradica, fecho e travas como nos articulaveis, entalhes em relevo e runas em mapa emissivo proprio; a landing anima tampa, fecho e travas pelos nos (teste automatizado sobre a hierarquia do glTF carregado)",
+      "requirement_ids": [
+        "REQ-L14",
+        "REQ-L10"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L05b",
+      "description": "Pedestal com musgo e raizes, altar de pedra com o circulo entalhado (emissivo), base cunhada do medalhao e da ficha de mana (logos e simbolos de mana continuam como textura, sem alteracao), portal de pedra e troncos do primeiro plano com volume, todos em glTF; o fundo continua em silhueta",
+      "requirement_ids": [
+        "REQ-L14",
+        "REQ-L10"
+      ],
+      "verification": "manual_review"
+    },
+    {
+      "id": "AC-L05c",
+      "description": "Carta com malha de cantos arredondados e borda chanfrada, verso novo e quatro frentes com arte propria por gancho, e brilho de foil na revelacao; artes feitas para o Deckloom, sem arte ou marca de terceiros",
+      "requirement_ids": [
+        "REQ-L14",
+        "REQ-L11"
+      ],
+      "verification": "manual_review"
+    },
+    {
+      "id": "AC-L05d",
+      "description": "Teste automatizado: gltf-validator sem erros em cada arquivo de frontend/public/models; soma comprimida <= 2,5 MB; cena completa <= 120 mil triangulos; modelos carregados sob demanda, fora do bundle inicial",
+      "requirement_ids": [
+        "REQ-L14",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L05e",
+      "description": "Teste automatizado: frontend/public/models/SOURCES.md lista cada asset com origem, autor e licenca, e toda licenca e CC0, MIT ou arte propria do Deckloom; frontend/THIRD_PARTY_NOTICES.md atualizado",
+      "requirement_ids": [
+        "REQ-L14"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L05f",
+      "description": "Auditoria de continuidade da landing sem salto de camera e sem objeto surgindo ou sumindo dentro do quadro, e smoke test no Playwright a 1366x768 e 375x812 sem erros de console, com os modelos novos; capturas registradas no relatorio",
+      "requirement_ids": [
+        "REQ-L14",
+        "REQ-L10",
+        "REQ-L06"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L05g",
+      "description": "Aprovacao visual do usuario por previa de cada objeto (captura do viewport do Blender e da landing), registrada no relatorio",
+      "requirement_ids": [
+        "REQ-L14",
+        "REQ-L03"
+      ],
+      "verification": "manual_review"
+    },
+    {
+      "id": "AC-L02l",
+      "description": "Teste automatizado (Playwright) de continuidade: com a camera amostrada em 4000 passos do progresso, nenhum salto (deslocamento <= 0,6 e giro <= 4 graus por passo) e nenhuma carta ou token aparecendo ou sumindo dentro do quadro sem estar oculto pelo cenario, a 1366x768 e a 375x812",
+      "requirement_ids": [
+        "REQ-L10"
+      ],
+      "verification": "automated_test"
+    },
+    {
+      "id": "AC-L02m",
+      "description": "Teste automatizado das fases da floresta e da caixa como funcoes puras do progresso: runas do portal acendendo uma a uma conforme a camera passa e rastro do caminho a frente, despertar das runas da caixa, fecho e travas antes da tampa, tampa abrindo pela dobradica, altar acendendo com o anel de luz e cartas subindo da caixa ate o deck; mais capturas no Chrome a 1366 e 375 px registradas no relatorio",
+      "requirement_ids": [
+        "REQ-L10",
+        "REQ-L01"
+      ],
+      "verification": "automated_test"
+    }
+  ],
+  "task_plan": [
+    {
+      "task_id": "T-L01",
+      "contract_version": 7,
+      "role": "frontend"
+    },
+    {
+      "task_id": "T-L01B",
+      "contract_version": 4,
+      "role": "frontend",
+      "depends_on": [
+        "T-L01"
+      ]
+    },
+    {
+      "task_id": "T-L02",
+      "contract_version": 11,
+      "role": "frontend",
+      "depends_on": [
+        "T-L01B"
+      ]
+    },
+    {
+      "task_id": "T-L01C",
+      "contract_version": 4,
+      "role": "frontend",
+      "depends_on": [
+        "T-L02"
+      ]
+    },
+    {
+      "task_id": "T-L03",
+      "contract_version": 4,
+      "role": "frontend",
+      "depends_on": [
+        "T-L01C"
+      ]
+    },
+    {
+      "task_id": "T-L04",
+      "contract_version": 5,
+      "role": "qa",
+      "depends_on": [
+        "T-L03"
+      ]
+    },
+    {
+      "task_id": "T-L05",
+      "contract_version": 1,
+      "role": "frontend",
+      "depends_on": [
+        "T-L02"
+      ]
+    }
+  ],
+  "tests": {
+    "integration_required": true,
+    "regression_required": true
+  },
+  "rtm": [
+    {
+      "requirement_id": "REQ-L01",
+      "requirement_version": 6,
+      "task_ids": [
+        "T-L01",
+        "T-L02",
+        "T-L04"
+      ],
+      "criterion_ids": [
+        "AC-L02a",
+        "AC-L02b",
+        "AC-L02c",
+        "AC-L04a",
+        "AC-L04b",
+        "AC-L02f",
+        "AC-L02g",
+        "AC-L01i",
+        "AC-L02j",
+        "AC-L02m"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L02",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L02"
+      ],
+      "criterion_ids": [
+        "AC-L02a",
+        "AC-L02b",
+        "AC-L02c",
+        "AC-L02f"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L03",
+      "requirement_version": 5,
+      "task_ids": [
+        "T-L01",
+        "T-L02",
+        "T-L01C",
+        "T-L04",
+        "T-L05"
+      ],
+      "criterion_ids": [
+        "AC-L01a",
+        "AC-L01b",
+        "AC-L01c",
+        "AC-L01Ca",
+        "AC-L04c",
+        "AC-L02g",
+        "AC-L02h",
+        "AC-L02i",
+        "AC-L01i",
+        "AC-L05g"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L04",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L03",
+        "T-L04"
+      ],
+      "criterion_ids": [
+        "AC-L03a",
+        "AC-L03b",
+        "AC-L03c",
+        "AC-L04a",
+        "AC-L04b"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L05",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L03",
+        "T-L04"
+      ],
+      "criterion_ids": [
+        "AC-L03a",
+        "AC-L03b",
+        "AC-L03c",
+        "AC-L04a",
+        "AC-L04b"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L06",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L01",
+        "T-L02",
+        "T-L01C",
+        "T-L03",
+        "T-L04",
+        "T-L05"
+      ],
+      "criterion_ids": [
+        "AC-L01c",
+        "AC-L01Cb",
+        "AC-L02a",
+        "AC-L02b",
+        "AC-L02c",
+        "AC-L03a",
+        "AC-L03b",
+        "AC-L03c",
+        "AC-L04a",
+        "AC-L04b",
+        "AC-L04c",
+        "AC-L02d",
+        "AC-L02g",
+        "AC-L02i",
+        "AC-L02j",
+        "AC-L05d",
+        "AC-L05f"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L07",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L01B"
+      ],
+      "criterion_ids": [
+        "AC-L01Ba",
+        "AC-L01Bb"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L08",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L01C"
+      ],
+      "criterion_ids": [
+        "AC-L01Ca",
+        "AC-L01Cb"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L09",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L01B"
+      ],
+      "criterion_ids": [
+        "AC-L01Ba",
+        "AC-L01Bc"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L10",
+      "requirement_version": 6,
+      "task_ids": [
+        "T-L02",
+        "T-L04",
+        "T-L05"
+      ],
+      "criterion_ids": [
+        "AC-L02d",
+        "AC-L02e",
+        "AC-L02h",
+        "AC-L02i",
+        "AC-L02k",
+        "AC-L05a",
+        "AC-L05b",
+        "AC-L05f",
+        "AC-L02l",
+        "AC-L02m"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L11",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L02",
+        "T-L05"
+      ],
+      "criterion_ids": [
+        "AC-L02f",
+        "AC-L02i",
+        "AC-L05c"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L12",
+      "requirement_version": 5,
+      "task_ids": [
+        "T-L02"
+      ],
+      "criterion_ids": [
+        "AC-L02d",
+        "AC-L02h"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L13",
+      "requirement_version": 3,
+      "task_ids": [
+        "T-L02",
+        "T-L04"
+      ],
+      "criterion_ids": [
+        "AC-L02j"
+      ]
+    },
+    {
+      "requirement_id": "REQ-L14",
+      "requirement_version": 1,
+      "task_ids": [
+        "T-L05"
+      ],
+      "criterion_ids": [
+        "AC-L05a",
+        "AC-L05b",
+        "AC-L05c",
+        "AC-L05d",
+        "AC-L05e",
+        "AC-L05f",
+        "AC-L05g"
+      ]
+    }
+  ],
+  "approval": {
+    "plan": {
+      "status": "approved",
+      "granularity": "feature",
+      "approved_by": "user",
+      "approved_at": "2026-11-06T19:06:03-03:00"
+    }
+  },
+  "state": {
+    "status": "approved_for_execution"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T19:05:34-03:00"
+  }
+}

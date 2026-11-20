@@ -1,0 +1,69 @@
+/* Abertura do fallback estatico (docs/design-system.md 1.12): a clareira como imagem e o titulo em vidro forte. */
+.landing-hero {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  min-height: 100svh;
+  padding: 6rem var(--landing-gutter) var(--space-12);
+  overflow: clip;
+  background-color: var(--color-night);
+}
+
+.landing-hero__art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-hero__panel {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: min(100%, 46rem);
+  margin-inline: auto;
+  padding: var(--space-6);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-lg);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  color: var(--color-text);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .landing-hero__panel {
+    background-color: var(--glass-solid-strong);
+  }
+}
+
+.landing-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 0.8rem + 2.7vw, 3rem);
+  font-weight: var(--display-weight-strong);
+  line-height: var(--display-leading);
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.landing-hero__lead {
+  margin: 0;
+  max-width: 38rem;
+  font-size: var(--step-body);
+  line-height: var(--text-leading);
+}
+
+@media (max-width: 719.98px) {
+  /* No celular a manchete precisa caber em poucas linhas: a fonte de titulo e larga. */
+  .landing-hero__title {
+    font-size: clamp(1.1rem, 5.2vw, 1.75rem);
+  }
+
+  .landing-hero__panel {
+    padding: var(--space-4);
+  }
+}

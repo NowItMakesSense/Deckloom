@@ -172,7 +172,70 @@ describe("titulo unico por rota, um <h1> e niveis sem saltos (A11Y-20)", () => {
     expect(document.title.trim()).not.toBe("");
   });
 
-  it("de /entrar para /perfil o <title> passa a ser o da tela de perfil (U-07)", async () => {
+  it.each(SCREEN_ROUTES)(
+    "ao navegar para %s (transicao) o foco vai ao <h1> com tabindex=-1",
+    async (route) => {
+      const user = userEvent.setup();
+      renderApp(route === "/entrar" ? "/cadastro" : "/entrar");
+      await screen.findByRole("heading", { level: 1 });
+      await user.click(screen.getByRole("link", { name: `ir para ${route}` }));
+      await waitFor(() => expect(currentLocation().path).toBe(route.split("?")[0]));
+      await expectH1Focused();
+    },
+  );
+
+  it.each(SCREEN_ROUTES)("na carga de %s o foco NAO vai ao <h1> (QA-03)", async (route) => {
+    renderApp(route);
+    const h1 = await screen.findByRole("heading", { level: 1 });
+    await act(async () => {});
+    expect(h1).not.toHaveFocus();
+  });
+
+  it("ao navegar entre rotas o foco volta ao <h1> da nova tela", async () => {
+    const user = userEvent.setup();
+    renderApp("/cadastro");
+    await expectH1Present();
+    const first = screen.getByRole("heading", { level: 1 }).textContent;
+
+    await user.click(screen.getByRole("link", { name: "ir para /esqueci-senha" }));
+    await waitFor(() => expect(currentLocation().path).toBe("/esqueci-senha"));
+    await expectH1Focused();
+    expect(screen.getByRole("heading", { level: 1 }).textContent).not.toBe(first);
+
+    await user.click(screen.getByRole("link", { name: "ir para /entrar" }));
+    await waitFor(() => expect(currentLocation().path).toBe("/entrar"));
+    await expectH1Focused();
+  });
+});
+
+describe("titulo unico por rota, um <h1> e niveis sem saltos (A11Y-20)", () => {
+  it("cada tela tem <title> nao vazio e distinto das demais", async () => {
+    const titles: string[] = [];
+    for (const route of SCREEN_ROUTES) {
+      document.title = "";
+      const { unmount } = renderApp(route);
+      await expectH1Present();
+      await waitFor(() => expect(document.title.trim()).not.toBe(""));
+      titles.push(document.title);
+      unmount();
+    }
+    expect(new Set(titles).size).toBe(SCREEN_ROUTES.length);
+  });
+
+  it("o <title> muda a cada transicao de rota", async () => {
+    const user = userEvent.setup();
+    renderApp("/cadastro");
+    await expectH1Present();
+    await waitFor(() => expect(document.title.trim()).not.toBe(""));
+    const before = document.title;
+
+    await user.click(screen.getByRole("link", { name: "ir para /entrar" }));
+    await waitFor(() => expect(currentLocation().path).toBe("/entrar"));
+    await waitFor(() => expect(document.title).not.toBe(before));
+    expect(document.title.trim()).not.toBe("");
+  });
+
+  it("de /entrar para /inicio (destino padrao) o <title> passa a ser o da home (U-07)", async () => {
     server.use(
       http.get(SESSION_URL, () =>
         HttpResponse.json({
@@ -185,9 +248,9 @@ describe("titulo unico por rota, um <h1> e niveis sem saltos (A11Y-20)", () => {
     );
     document.title = "Entrar - Deckloom";
     renderApp("/entrar");
-    await waitFor(() => expect(currentLocation().path).toBe("/perfil"));
-    await screen.findByRole("heading", { level: 1, name: "Meu perfil" });
-    await waitFor(() => expect(document.title).toBe("Meu perfil - Deckloom"));
+    await waitFor(() => expect(currentLocation().path).toBe("/inicio"));
+    await screen.findByRole("heading", { level: 1, name: /Olá/ });
+    await waitFor(() => expect(document.title).toBe("Início - Deckloom"));
   });
 
   it.each(SCREEN_ROUTES)(

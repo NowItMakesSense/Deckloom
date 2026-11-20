@@ -83,18 +83,15 @@
     "modified": [
       {
         "path": "backend/Deckloom.sln",
-        "sha256_after": "0b5529933b41037f3e597eb25783305ab5bff507ee998f977b684d8c8e2f2958",
-        "sha256_before": "n/a (sem operacao Git)"
+        "sha256_after": "0b5529933b41037f3e597eb25783305ab5bff507ee998f977b684d8c8e2f2958"
       },
       {
         "path": "backend/tests/Deckloom.ArchitectureTests/SolutionLayout.cs",
-        "sha256_after": "031126130212043251f3144c1d3df02cbb21f1249b668fb429956c005b43872c",
-        "sha256_before": "n/a (sem operacao Git)"
+        "sha256_after": "031126130212043251f3144c1d3df02cbb21f1249b668fb429956c005b43872c"
       },
       {
         "path": "backend/tests/Deckloom.ArchitectureTests/SastScopeTests.cs",
-        "sha256_after": "a4c6bec7493952c87943be08824030e9b43207a4d1382f6cefad811e6c982236",
-        "sha256_before": "n/a (sem operacao Git)"
+        "sha256_after": "a4c6bec7493952c87943be08824030e9b43207a4d1382f6cefad811e6c982236"
       }
     ],
     "deleted": []

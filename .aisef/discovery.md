@@ -92,3 +92,8 @@ Lista montada só com o que foi confirmado. Nenhuma tem requisito detalhado aind
 
 ## Fontes
 Respostas do usuário em 2026-11-06 nesta sessão; `docs/specs/discovery.md` (decisões antigas); `docs/specs/conta-jogador/*`; `docs/adr/0001..0017`; `backend/src/` (incluindo as migrations).
+
+## Respostas da 3ª rodada (2026-11-07, confirmadas pelo usuário)
+- [C] **Jogador terá plano pago** (conta grátis com recursos extras pagos, ex.: IA). ~~Preço ainda não definido e não anunciado na landing.~~ Revisto em 2026-11-13 (APR-047): dois planos anunciados na landing com preço, **Grátis** (salva até 5 decks) e **Pago a R$ 19,90/mês** (sugestões com IA, decks ilimitados, alertas de preço, sem anúncios); os botões levam a /cadastro até existir pagamento do jogador.
+- [C] Ganchos da landing, em ordem: (1) quanto do deck você já tem com a sua coleção; (2) decks do meta comparados à sua coleção; (3) comprar só o que falta nas lojas parceiras, comparando preço; (4) IA que explica as sugestões, pedido em linguagem natural e alerta de preço.
+- [C] Os 5 TCGs entram juntos no MVP; nenhum texto deve dizer que Magic vem primeiro.

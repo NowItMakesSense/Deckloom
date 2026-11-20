@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useApiClient } from "@/app/SessionProvider";
 import { Alert } from "@/design-system/Alert";
 import { Button } from "@/design-system/Button";
+import { CheckIcon } from "@/design-system/icons";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
 import { Link } from "@/design-system/Link";
 import { APP_NAME } from "@/app/routeTitles";
@@ -147,7 +148,7 @@ export function ResetPasswordPage(): ReactNode {
           hint="Dica: de 8 a 128 caracteres."
           error={error}
         />
-        <Button type="submit" loading={sending}>
+        <Button type="submit" loading={sending} icon={<CheckIcon size={18} />}>
           Salvar nova senha
         </Button>
       </form>

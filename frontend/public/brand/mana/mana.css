@@ -1,0 +1,58 @@
+/*
+ * Simbolos de mana do Deckloom: recorte minimo do Mana CSS (mana-font 1.18.0, Andrew Gioia, MIT; ver
+ * LICENSE-MIT.txt) com a fonte Mana (OFL 1.1; ver OFL.txt). Os desenhos dos simbolos sao de Wizards of the Coast.
+ * Arquivo local, sem CDN. So as classes usadas: base, custo com sombra, cinco cores e genericos de 0 a 5.
+ */
+@font-face {
+  font-family: "Mana";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./mana.woff2") format("woff2");
+}
+
+.ms {
+  display: inline-block;
+  font: normal normal normal 14px Mana;
+  font-size: inherit;
+  line-height: 1em;
+  text-rendering: auto;
+  text-transform: none;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ms-w::before { content: "\e600"; }
+.ms-u::before { content: "\e601"; }
+.ms-b::before { content: "\e602"; }
+.ms-r::before { content: "\e603"; }
+.ms-g::before { content: "\e604"; }
+.ms-0::before { content: "\e605"; }
+.ms-1::before { content: "\e606"; }
+.ms-2::before { content: "\e607"; }
+.ms-3::before { content: "\e608"; }
+.ms-4::before { content: "\e609"; }
+.ms-5::before { content: "\e60a"; }
+.ms-c::before { content: "\e904"; }
+
+.ms-cost {
+  background-color: #beb9b2;
+  border-radius: 1em;
+  color: #111;
+  font-size: 0.95em;
+  width: 1.3em;
+  height: 1.3em;
+  line-height: 1.35em;
+  text-align: center;
+}
+
+.ms-cost.ms-w { background-color: #f0f2c0; }
+.ms-cost.ms-u { background-color: #b5cde3; }
+.ms-cost.ms-b { background-color: #aca29a; }
+.ms-cost.ms-r { background-color: #db8664; }
+.ms-cost.ms-g { background-color: #93b483; }
+
+.ms-cost.ms-shadow {
+  box-shadow: -0.06em 0.07em 0 #111, 0 0.06em 0 #111;
+}

@@ -1,0 +1,237 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-L01B",
+  "task_id": "T-L01B",
+  "contract_version": 4,
+  "feature_id": "FEAT-LANDING",
+  "agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "low",
+    "level": 2,
+    "attempt": 1,
+    "routed_by": "orchestrator",
+    "reasons": [
+      "instrucao do orquestrador: model=sonnet effort=low level=2 attempt=1"
+    ]
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-11T23:15:00-03:00",
+    "finished_at": "2026-11-11T23:45:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0
+  },
+  "files": {
+    "created": [
+      {
+        "path": "frontend/THIRD_PARTY_NOTICES.md",
+        "sha256_after": "b434567f7e9b9ffd872a1ef796a52c0e858fefc5bcb1729969063e4dbfc13d50"
+      },
+      {
+        "path": "frontend/src/design-system/icons/AnimatedIcon.tsx",
+        "sha256_after": "557bc50d0325dcb1bcfce3fc491b2efc981fbf8923291c69cab9fdc813c7791c"
+      },
+      {
+        "path": "frontend/src/design-system/icons/arrow-right.tsx",
+        "sha256_after": "2ce074f49028ee1ec1ae3d6a410fa8be7e7309b4c119c986b87e02d050dd5517"
+      },
+      {
+        "path": "frontend/src/design-system/icons/bell.tsx",
+        "sha256_after": "c83c9cefdd08bb368878036dccd0b1c994c487c4f7b19ff99582db4b63fcaa30"
+      },
+      {
+        "path": "frontend/src/design-system/icons/book-text.tsx",
+        "sha256_after": "6f44d40f6427b3487c37e00489a154bbd2554756c875aa914e49fe8b72202859"
+      },
+      {
+        "path": "frontend/src/design-system/icons/cart.tsx",
+        "sha256_after": "62884d264c9fb74b86d27cd73ce35646149f583914b3ccf67531752301e97453"
+      },
+      {
+        "path": "frontend/src/design-system/icons/chart-line.tsx",
+        "sha256_after": "7a1c226945d316ae5d73a248c3035aafbb4be29cb05dd4649d85303947d31a33"
+      },
+      {
+        "path": "frontend/src/design-system/icons/check.tsx",
+        "sha256_after": "2f3fce0f7a9ac03b59a526aa8a3b60d33d62f843f5efff1e18d36d3b480a0b25"
+      },
+      {
+        "path": "frontend/src/design-system/icons/chevron-right.tsx",
+        "sha256_after": "f028678d2fc82beab211278e5d1d213967c8e1b657504c592dde5ba7a9a6592c"
+      },
+      {
+        "path": "frontend/src/design-system/icons/icons.test.tsx",
+        "sha256_after": "77849972ffe9b0ae979830c00d4a2768b3437ec16962792cccd1e93b82af698c"
+      },
+      {
+        "path": "frontend/src/design-system/icons/index.ts",
+        "sha256_after": "fffd379d357fdc5dc36dc86abf712e52c4f33f3cdad811335266abc471a684c7"
+      },
+      {
+        "path": "frontend/src/design-system/icons/layers.tsx",
+        "sha256_after": "e6a50103a16b85d9486e3e5e71e6081f98c449cfd3775a2b645aed55846ff887"
+      },
+      {
+        "path": "frontend/src/design-system/icons/log-in.tsx",
+        "sha256_after": "68a8bdbbccaa06b44b8d6d0d05967d8a4c590a223943576fb5e5f024da208e52"
+      },
+      {
+        "path": "frontend/src/design-system/icons/menu.tsx",
+        "sha256_after": "cb4a62309e2d40c796ee90634f2b465359774fe32a5c775d5447d046dcb212cd"
+      },
+      {
+        "path": "frontend/src/design-system/icons/moon.tsx",
+        "sha256_after": "dc9a8f1b39234d701f57c2aab71e3cf1073f320ae1fe97dea11b5bac29353b95"
+      },
+      {
+        "path": "frontend/src/design-system/icons/sources.ts",
+        "sha256_after": "0de4cb15d7b539aad1381663fde7ebea6f9b29b84120b26f532dba38eb463f1b"
+      },
+      {
+        "path": "frontend/src/design-system/icons/sparkles.tsx",
+        "sha256_after": "79b9360c6c2b1fb33344ab1438469734d4a3a789a15ec586ec78a31872fa055e"
+      },
+      {
+        "path": "frontend/src/design-system/icons/sun.tsx",
+        "sha256_after": "ac7919081932ae66ee8d28056640a0d7966d8b87666bc61fbbf58ebcb347812d"
+      },
+      {
+        "path": "frontend/src/design-system/icons/user-plus.tsx",
+        "sha256_after": "635493c326435c048ee862cfcfcc442645a3a3a48b203a950f3c64256e212f1b"
+      },
+      {
+        "path": "frontend/src/design-system/icons/x.tsx",
+        "sha256_after": "ad099c640b6379a70955048a1ee9dfede0e26c792046b7297afaa6174c63c4d9"
+      },
+      {
+        "path": "frontend/src/design-system/motion/index.ts",
+        "sha256_after": "bc354c6ee5f49aee404e1310f919ef0d7c6fe9b5bdd1684e32abaa7ba7a1e834"
+      },
+      {
+        "path": "frontend/src/design-system/motion/motion.test.ts",
+        "sha256_after": "b0604df893ee41852b346d77620e1d47bf09ae8eff50ebe4a03089a38d21ccf2"
+      }
+    ],
+    "modified": [
+      {
+        "path": "frontend/package.json",
+        "sha256_after": "37a7cd409d32bf123b5262c47fdb3396a4af828880ba1bab809e90aa71f3a4c8"
+      },
+      {
+        "path": "frontend/package-lock.json",
+        "sha256_after": "2746c129606b17041e73f88e5d315de5b14ae5d39b3d78efb0a1b7fa4fbfb258"
+      }
+    ]
+  },
+  "changes": [
+    {
+      "summary": "15 icones do lucide-animated (MIT) copiados para design-system/icons com cabecalho de origem (unica alteracao: cn(className) virou className), embrulhados por withAccessibility (aria-hidden por padrao, role=img com label, animacao so sem prefers-reduced-motion); sources.ts lista a origem; THIRD_PARTY_NOTICES.md com o aviso MIT"
+    },
+    {
+      "summary": "motion 14.7.1 (publicada em 2026-10-27, 15 dias antes) instalada com versao exata; animejs 4.5.0 ja estava exata"
+    },
+    {
+      "summary": "design-system/motion/index.ts: prefersReducedMotion e revealOnEnter (animate do anime.js; reduzido: sem animate, opacity 1 e transform none)"
+    }
+  ],
+  "tests": {
+    "executed": 1305,
+    "passed": 1305,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "icons/icons.test.tsx: inventario de origem, cabecalho MIT, sem SVG proprio, aviso MIT, aria-hidden/label por icone, animacao e reducao de movimento por icone",
+      "motion/motion.test.ts: prefersReducedMotion e revealOnEnter com e sem reducao"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-L01B-01",
+      "type": "test_output",
+      "ref": "vitest vermelho antes da implementacao: icons.test.tsx e motion.test.ts falham por modulos ausentes (./index, ./sources); verde final 48 arquivos, 1305 testes, cobertura 94,72/88,4/92,37/95,11 (minimo 80)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01B-02",
+      "type": "command_output",
+      "ref": "eslint exit 0 (apos corrigir _ref nao usado); prettier --check ok; npm run build ok",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01B-03",
+      "type": "command_output",
+      "ref": "npm audit --omit=dev (comando do CI): 0 vulnerabilities. npm audit completo: 7 moderadas, todas em minimatch via typescript-eslint (dev, anteriores a esta tarefa)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01B-04",
+      "type": "command_output",
+      "ref": "package.json: motion 14.7.1 e animejs 4.5.0, sem ^ ou ~",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-L01Ba",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01B-01",
+        "EV-T-L01B-03",
+        "EV-T-L01B-04"
+      ],
+      "notes": "icones copiados com aviso MIT; motion e animejs exatos; audit de producao sem vulnerabilidades. Ver pendencias: icones ausentes na fonte"
+    },
+    {
+      "criterion_id": "AC-L01Bb",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01B-01"
+      ],
+      "notes": "teste por icone: aria-hidden ou nome acessivel; com matchMedia reduce, controls.start('animate') nunca e chamado; inventario barra arquivo fora da lista de origem"
+    },
+    {
+      "criterion_id": "AC-L01Bc",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01B-01"
+      ],
+      "notes": "animate do anime.js chamado sem reducao; com reducao nao e chamado, opacity 1 e transform none"
+    }
+  ],
+  "problems": [],
+  "risks": [
+    {
+      "description": "Os icones animados e os helpers ainda nao sao usados por nenhuma tela (T-L01C/T-L02); cobertura vem so dos testes proprios",
+      "severity": "low",
+      "mitigation": "consumo na T-L01C"
+    }
+  ],
+  "pending": [
+    "Sem equivalente no lucide-animated (nao desenhado nem pego de outra fonte): library, store (e shopping-cart). Escolhas do relatorio para as areas: decks=layers, colecao=book-text, meta=chart-line, lojas=cart, IA=sparkles, alerta de preco=bell, entrar=login (arquivo log-in.tsx). Confirmar se book-text e cart servem ao design",
+    "Substituir os SVGs embutidos das telas existentes (3 ocorrencias de <svg) e plugar o tema e o menu: T-L01C"
+  ],
+  "limitations": [
+    "Fonte copiada do GitHub pqoqubbw/icons (branch main, 2026-11-11), pois o pacote npm lucide-animated traz so bundle; versao do commit nao registrada",
+    "Sem verificacao visual no navegador: nenhuma UI foi alterada"
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/e5f93772-6fca-4f25-87b1-75969c9c7001/scratchpad/RPT-T-L01B-relatorio-tecnico.txt",
+    "sha256": "7d45d59cbf94d46de569e988abd3ea00cf3bde1af143c716221c94f49f16431e"
+  },
+  "integrity": {
+    "created_at": "2026-11-11T23:45:00-03:00"
+  }
+}

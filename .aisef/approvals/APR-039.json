@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-039",
+  "request_type": "scope_change_decision",
+  "status": "approved",
+  "title": "FEAT-LANDING v2: visual Grimorio arcano no app inteiro, icones lucide-animated (dependencia motion) e migracao das telas da conta",
+  "summary": "Decisoes do usuario em 2026-11-06: app inteiro, fantasia ilustrada direcao A (Grimorio arcano: violeta + dourado, Cinzel + Spectral), claro e escuro, glass mais presente, icones do lucide-animated. O plano passa de 4 para 6 tarefas.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-LANDING",
+  "task_id": "T-L01",
+  "created_at": "2026-11-06T23:35:00-03:00",
+  "expires_at": "2026-11-08T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "REQ-L03 v2 (identidade para o app inteiro); REQ-L07 (icones lucide-animated); REQ-L08 (migracao das telas da conta). Tarefas: T-L01 v2 design system v1.0; T-L01B icones + dependencia motion (MIT); T-L01C migracao visual da conta; T-L02 landing; T-L03 home; T-L04 E2E com axe nos dois temas. A 'ficha de colecao' da T-L01 v1 e substituida.",
+    "justification": "Regra 4 do AISEF (escopo nao muda sozinho) e decisao visual do usuario.",
+    "requirement_ids": [
+      "REQ-L03",
+      "REQ-L07",
+      "REQ-L08"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-V2",
+      "label": "Aprovar plano v2 com motion",
+      "description": "Executa as 6 tarefas; adiciona a dependencia motion (MIT).",
+      "impacts": [
+        "App inteiro com a identidade nova"
+      ],
+      "risks": [
+        "Escopo maior; glass e contraste"
+      ],
+      "cost": "Medio",
+      "migration": "Restyle das telas da conta"
+    },
+    {
+      "option_id": "OPT-SEM-MOTION",
+      "label": "Plano v2 sem motion",
+      "description": "Icones do lucide estaticos (sem animacao), sem dependencia nova.",
+      "impacts": [
+        "Sem animacao nos icones"
+      ],
+      "risks": [
+        "Nao atende ao lucide-animated"
+      ],
+      "cost": "Baixo",
+      "migration": "Restyle das telas da conta"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-V2",
+    "rationale": "Atende ao pedido do usuario; motion e MIT, sem requisicao a terceiros em tempo de execucao."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-L01",
+      "T-L02"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Dependencia nova (motion) e escopo maior",
+        "severity": "medium",
+        "mitigation": "Versao fixa, auditoria de dependencias no CI, validacao independente"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/1270",
+    "decided_event_ref": "events/1274"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-06T19:27:55-03:00",
+    "selected_option_id": "OPT-V2",
+    "note": "Usuario aprovou o plano v2 com motion no chat em 2026-11-06"
+  }
+}

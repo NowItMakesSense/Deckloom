@@ -1,0 +1,179 @@
+/*
+ * Planos (docs/design-system.md 1.15, REQ-L13): dois cartoes depois dos cinco jogos, sobre o fundo da pagina.
+ * A entrada (anime.js) e feita em plansMotion.ts.
+ */
+.plans {
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-8);
+  padding: calc(var(--space-16) + var(--space-8)) var(--landing-gutter) var(--space-16);
+  background-color: var(--color-ground);
+  color: var(--color-text);
+}
+
+.plans__header {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.plans__header p {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.plans__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  line-height: 1.2;
+}
+
+.plans__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--space-6);
+  width: min(47.5rem, 100%);
+  perspective: 1200px;
+}
+
+.plans__shell {
+  transform-style: preserve-3d;
+}
+
+.plan {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: transform var(--duration-hover) var(--ease-out);
+}
+
+.plan--paid {
+  grid-template-rows: auto auto 1fr auto auto;
+}
+
+.plan__name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+}
+
+.plan__badge {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-gold-subtle);
+  color: var(--color-on-gold-subtle);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 700;
+}
+
+.plan__price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.plan__price b {
+  font-family: var(--font-display);
+  font-size: 2rem;
+}
+
+.plan__price span {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.plan__list {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  margin: 0;
+  padding-inline-start: var(--space-6);
+}
+
+.plan__soon {
+  margin: 0;
+}
+
+/* Filete dourado do plano pago: desenhado pela animacao (stroke-dashoffset). */
+.plan__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.plan__trace {
+  x: 1px;
+  y: 1px;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  rx: var(--radius-lg);
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  stroke-width: 2.5;
+}
+
+.plan__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-on-primary-subtle);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.plan__cta--primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .plan__cta:hover {
+    background-color: var(--color-primary-subtle);
+    color: var(--color-primary);
+  }
+
+  .plan__cta--primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+.plan__cta:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.plans__fine {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}

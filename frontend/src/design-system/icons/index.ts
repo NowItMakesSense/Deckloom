@@ -1,0 +1,34 @@
+import { withAccessibility } from "./AnimatedIcon";
+import { ArrowRightIcon as RawArrowRightIcon } from "./arrow-right";
+import { BellIcon as RawBellIcon } from "./bell";
+import { BookTextIcon as RawBookTextIcon } from "./book-text";
+import { CartIcon as RawCartIcon } from "./cart";
+import { ChartLineIcon as RawChartLineIcon } from "./chart-line";
+import { CheckIcon as RawCheckIcon } from "./check";
+import { ChevronRightIcon as RawChevronRightIcon } from "./chevron-right";
+import { LayersIcon as RawLayersIcon } from "./layers";
+import { LogInIcon as RawLogInIcon } from "./log-in";
+import { MenuIcon as RawMenuIcon } from "./menu";
+import { MoonIcon as RawMoonIcon } from "./moon";
+import { SparklesIcon as RawSparklesIcon } from "./sparkles";
+import { SunIcon as RawSunIcon } from "./sun";
+import { UserPlusIcon as RawUserPlusIcon } from "./user-plus";
+import { XIcon as RawXIcon } from "./x";
+
+export type { IconProps } from "./AnimatedIcon";
+
+export const ArrowRightIcon = withAccessibility(RawArrowRightIcon, "ArrowRightIcon");
+export const BellIcon = withAccessibility(RawBellIcon, "BellIcon");
+export const BookTextIcon = withAccessibility(RawBookTextIcon, "BookTextIcon");
+export const CartIcon = withAccessibility(RawCartIcon, "CartIcon");
+export const ChartLineIcon = withAccessibility(RawChartLineIcon, "ChartLineIcon");
+export const CheckIcon = withAccessibility(RawCheckIcon, "CheckIcon");
+export const ChevronRightIcon = withAccessibility(RawChevronRightIcon, "ChevronRightIcon");
+export const LayersIcon = withAccessibility(RawLayersIcon, "LayersIcon");
+export const LogInIcon = withAccessibility(RawLogInIcon, "LogInIcon");
+export const MenuIcon = withAccessibility(RawMenuIcon, "MenuIcon");
+export const MoonIcon = withAccessibility(RawMoonIcon, "MoonIcon");
+export const SparklesIcon = withAccessibility(RawSparklesIcon, "SparklesIcon");
+export const SunIcon = withAccessibility(RawSunIcon, "SunIcon");
+export const UserPlusIcon = withAccessibility(RawUserPlusIcon, "UserPlusIcon");
+export const XIcon = withAccessibility(RawXIcon, "XIcon");

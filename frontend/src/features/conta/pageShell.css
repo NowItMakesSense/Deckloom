@@ -1,5 +1,5 @@
-/* Shell "No sidebar" (design-system.md 1.5) com Panel v0.1: formularios em coluna centralizada de 28rem,
-   superficie sobre o fundo, sem borda e sem sombra em repouso. */
+/* Shell "No sidebar" (design-system.md 1.5) no Grimorio arcano v1.0: formularios em coluna centralizada de 28rem,
+   em vidro forte com borda luminosa sobre a textura de fantasia (1.6), sem sombra em repouso. */
 .login-page,
 .cadastro-page,
 .forgot-password-page,
@@ -14,11 +14,47 @@
   margin-inline: auto;
   margin-block: var(--space-6) var(--space-12);
   padding: var(--space-4);
-  background: var(--color-surface);
+  position: relative;
   border-radius: var(--radius-lg);
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+/* O vidro mora no ::before: backdrop-filter no proprio painel viraria o bloco de contencao do Dialog (position: fixed)
+   que a tela renderiza dentro dele, e o dialogo deixaria de cobrir a janela. */
+.login-page::before,
+.cadastro-page::before,
+.forgot-password-page::before,
+.reset-password-page::before,
+.google-link-page::before,
+.google-signup-page::before,
+.google-return-page::before,
+.edit-profile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-lg);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  pointer-events: none;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .login-page::before,
+  .cadastro-page::before,
+  .forgot-password-page::before,
+  .reset-password-page::before,
+  .google-link-page::before,
+  .google-signup-page::before,
+  .google-return-page::before,
+  .edit-profile::before {
+    background-color: var(--glass-solid-strong);
+  }
 }
 
 @media (min-width: 640px) {
@@ -36,15 +72,15 @@
 }
 
 @media (prefers-contrast: more) {
-  .login-page,
-  .cadastro-page,
-  .forgot-password-page,
-  .reset-password-page,
-  .google-link-page,
-  .google-signup-page,
-  .google-return-page,
-  .edit-profile {
-    border: 1px solid var(--color-border-control);
+  .login-page::before,
+  .cadastro-page::before,
+  .forgot-password-page::before,
+  .reset-password-page::before,
+  .google-link-page::before,
+  .google-signup-page::before,
+  .google-return-page::before,
+  .edit-profile::before {
+    border-color: var(--color-border-control);
   }
 }
 

@@ -1,0 +1,213 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-L03",
+  "task_id": "T-L03",
+  "contract_version": 4,
+  "feature_id": "FEAT-LANDING",
+  "agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "execution_profile": {
+    "model": "sonnet",
+    "effort": "low",
+    "level": 2,
+    "attempt": 1,
+    "routed_by": "orchestrator"
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-14T14:05:00-03:00",
+    "finished_at": "2026-11-14T14:50:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 0,
+    "specialist_consultations_used": 0,
+    "history": []
+  },
+  "files": {
+    "created": [
+      {
+        "path": "frontend/src/features/inicio/InicioPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/inicio/InicioPage.css"
+      },
+      {
+        "path": "frontend/src/features/inicio/identity.test.ts"
+      },
+      {
+        "path": "frontend/src/app/inicioRoute.test.tsx"
+      }
+    ],
+    "modified": [
+      {
+        "path": "frontend/src/app/routes.ts"
+      },
+      {
+        "path": "frontend/src/app/AppRoutes.tsx"
+      },
+      {
+        "path": "frontend/src/app/routeTitles.ts"
+      },
+      {
+        "path": "frontend/src/app/routing.test.tsx"
+      },
+      {
+        "path": "frontend/src/app/RouteFocus.test.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/CadastroPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/CadastroPage.test.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/CadastroPage.errors.test.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/LoginPage.test.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/GoogleReturnPage.test.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/GoogleSigninNavigation.test.tsx"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "Home /inicio (InicioPage): saudacao, lista Decks/Colecao/Meta/Lojas com ComingSoonSeal (sem links), atalho para /perfil; vidro e tokens",
+      "reason": "REQ-L04 v1, REQ-L06 v1",
+      "requirement_ids": [
+        "REQ-L04",
+        "REQ-L06"
+      ]
+    },
+    {
+      "summary": "DEFAULT_RETURN_TO passa de /perfil para /inicio; /inicio em PLAYER_ROUTES; cadastro navega para o destino padrao; / com jogador logado redireciona para /inicio (LandingEntry)",
+      "reason": "REQ-L05 v1",
+      "requirement_ids": [
+        "REQ-L05"
+      ]
+    },
+    {
+      "summary": "Asserts de destino padrao /perfil -> /inicio em routing, RouteFocus (titulo), Login, Cadastro, GoogleReturn, GoogleSigninNavigation; rotas-stub trocadas; retorno valido /perfil e /perfil/editar mantidos",
+      "reason": "mudanca explicita do REQ-L05 (destino padrao)",
+      "requirement_ids": [
+        "REQ-L05"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 1809,
+    "passed": 1809,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "app/inicioRoute.test.tsx (AC-L03a, AC-L03b)",
+      "features/inicio/identity.test.ts (tokens/vidro)"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-L03-01",
+      "type": "test_output",
+      "ref": "RED: vitest run src/app/inicioRoute.test.tsx antes da implementacao: 6 failed (6)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L03-02",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run test -- --run: 83 arquivos, 1809 testes, 0 falhas apos a implementacao e ajuste dos asserts",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L03-03",
+      "type": "command_output",
+      "ref": "lint sem erros; format:check ok; build ok",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L03-04",
+      "type": "test_output",
+      "ref": "E2E completo: NAO verde. Specs esperam /perfil apos login/cadastro (auth-email, auth-google, account-deletion, password-reset, profile-avatar) e falharam; log em C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/c18d23b7-f7f1-4161-80f6-bd5802223a24/scratchpad/e2e.txt. Rodada interrompida por timeout (22 ok no log)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L03-05",
+      "type": "screenshot",
+      "ref": "capturas dark/light 1366/375/320 em C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/c18d23b7-f7f1-4161-80f6-bd5802223a24/scratchpad/shots-l03/ (inicio-{dark,light}-{1366,375,320}.png); 375 dark conferida visualmente: sem estouro, selos visiveis",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-L03a",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L03-01",
+        "EV-T-L03-02"
+      ],
+      "notes": "inicioRoute.test.tsx"
+    },
+    {
+      "criterion_id": "AC-L03b",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L03-02"
+      ],
+      "notes": "login/cadastro sem returnTo, / logado, returnTo valido, cobertos em inicioRoute, LoginPage, CadastroPage, routing"
+    },
+    {
+      "criterion_id": "AC-L03c",
+      "required": true,
+      "result": "not_met",
+      "evidence_ids": [
+        "EV-T-L03-02",
+        "EV-T-L03-04"
+      ],
+      "notes": "suite do frontend verde; E2E nao verde (specs com /perfil, fora de paths_allowed) e axe em /inicio nao criado (e2e/** fora do escopo)"
+    }
+  ],
+  "problems": [
+    {
+      "description": "E2E existentes asseveram /perfil apos login/cadastro; quebram com REQ-L05",
+      "severity": "high"
+    }
+  ],
+  "risks": [
+    {
+      "description": "GoogleSignupPage e GoogleLinkPage ainda navegam para /perfil (REQ-L05 cita so login e cadastro); decidir se vao para a home",
+      "severity": "low"
+    }
+  ],
+  "pending": [
+    "Atualizar frontend/e2e/** (destino /inicio apos login/cadastro; axe em /inicio, claro e escuro) em tarefa com esse escopo",
+    "Rodar E2E completo ate o fim",
+    "Decidir destino de Google signup/link"
+  ],
+  "limitations": [
+    "Capturas feitas com sessao simulada via page.route no Vite (sem host E2E)"
+  ],
+  "scope_discoveries": [
+    {
+      "description": "frontend/e2e/** precisa mudar: destinos /perfil->/inicio e axe de /inicio",
+      "impact": "E2E vermelho ate a mudanca",
+      "affected_part_stopped": true
+    }
+  ],
+  "intervention": {
+    "needed": true,
+    "reason": "ampliar paths_allowed para frontend/e2e/**"
+  },
+  "integrity": {
+    "created_at": "2026-11-14T14:50:00-03:00",
+    "event_log_ref": "events/3759"
+  }
+}

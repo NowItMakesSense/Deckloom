@@ -1,0 +1,542 @@
+{
+  "schema_version": "0.1.0",
+  "report_id": "RPT-T-L01C",
+  "task_id": "T-L01C",
+  "contract_version": 4,
+  "feature_id": "FEAT-LANDING",
+  "agent": {
+    "agent_id": "frontend",
+    "agent_contract_version": 1,
+    "role": "frontend"
+  },
+  "execution_profile": {
+    "model": "opus",
+    "effort": "high",
+    "level": 6,
+    "attempt": 4,
+    "routed_by": "orchestrator"
+  },
+  "status": "executed",
+  "timing": {
+    "started_at": "2026-11-14T12:35:00-03:00",
+    "finished_at": "2026-11-14T13:35:00-03:00"
+  },
+  "attempts": {
+    "fix_attempts_used": 5,
+    "specialist_consultations_used": 0,
+    "history": [
+      {
+        "n": 1,
+        "cause": "E2E: menu da conta a 320px assimetrico (U-14) e S11 em 320x480/480x320 com painel fora da janela; backdrop-filter e transform inline no painel viram bloco de contencao do Dialog fixo",
+        "action": "vidro movido para ::before dos paineis; riseOnEnter remove o transform no fim; menu ancora na borda do cabecalho a menos de 480px, margem do cabecalho 15px",
+        "result": "partial"
+      },
+      {
+        "n": 2,
+        "cause": "E2E: S10 em 480x320 com o botao do dialogo coberto pelo cabecalho flutuante (z-index 20 acima do scrim dentro do contexto do painel)",
+        "action": "scrim com z-index 100 e painel sem isolation; teste de camadas em identity.test.ts",
+        "result": "resolved"
+      },
+      {
+        "n": 3,
+        "cause": "tentativa 2, E2E ART-08 (S1..S9, 320px): a logo do cabecalho (so o simbolo no celular) media 32x44, abaixo do alvo minimo de 44px",
+        "action": "teste de CSS falhando primeiro (min-width: var(--target-min) na logo) e depois o ajuste em AppHeader.css; E2E completo reexecutado",
+        "result": "resolved"
+      },
+      {
+        "n": 4,
+        "cause": "tentativa 3, rejeicao do validador (E3565): a varredura dos arquivos reais em identity.test.ts usava so a regex de hex/funcao de cor (deixava passar fill=\"red\", fontFamily: \"Arial\", color: \"gold\"); globs de motion e app/theme so com .tsx nao casavam arquivos",
+        "action": "varredura real com findTsxLiteralViolations (excecao GoogleButton.tsx), grupos de glob com .ts e assercao de pelo menos 1 arquivo por grupo, teste de regressao por injecao; E2E U-15 volta a checar o alinhamento das acoes com a.app-header__logo",
+        "result": "resolved"
+      },
+      {
+        "n": 5,
+        "cause": "tentativa 4, recusa de integracao pelo orquestrador apos capturas (tentativa 3 validada em E3620): a 320 e 375px o cabecalho da conta quebrava em 3 linhas; decisao do usuario: linha unica no padrao da LandingNav e pilula fixa no topo",
+        "action": "menu do visitante (Entrar atras do botao Menu com aria-expanded/aria-controls; fecha com Esc, fora e ao escolher) no ponto de quebra 1099.98px; pilula sticky com safe-area; altura medida em --app-header-block-size para o scroll-padding; ajuste de foco sob a pilula (scrollIntoView nearest); vidro da pilula no ::before; espacos menores abaixo de 480px",
+        "result": "resolved"
+      }
+    ]
+  },
+  "files": {
+    "created": [
+      {
+        "path": "frontend/src/features/conta/identity.test.ts"
+      },
+      {
+        "path": "frontend/src/features/conta/actionIcons.test.ts"
+      },
+      {
+        "path": "frontend/src/design-system/Button.icon.test.tsx"
+      },
+      {
+        "path": "frontend/src/design-system/motion/rise.test.ts"
+      },
+      {
+        "path": "frontend/src/app/PanelEntrance.tsx"
+      },
+      {
+        "path": "frontend/src/app/panelEntrance.test.tsx"
+      }
+    ],
+    "modified": [
+      {
+        "path": "frontend/src/shared/testing/cssChecks.ts"
+      },
+      {
+        "path": "frontend/src/design-system/tokens.css"
+      },
+      {
+        "path": "frontend/src/design-system/Dialog.css"
+      },
+      {
+        "path": "frontend/src/design-system/AccountMenu.css"
+      },
+      {
+        "path": "frontend/src/design-system/AppHeader.css"
+      },
+      {
+        "path": "frontend/src/design-system/Button.tsx"
+      },
+      {
+        "path": "frontend/src/design-system/motion/index.ts"
+      },
+      {
+        "path": "frontend/src/design-system/dialog.test.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/pageShell.css"
+      },
+      {
+        "path": "frontend/src/features/conta/ProfilePage.css"
+      },
+      {
+        "path": "frontend/src/features/conta/pageShell.test.ts"
+      },
+      {
+        "path": "frontend/src/features/conta/LoginPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/CadastroPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/ForgotPasswordPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/ResetPasswordPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/GoogleLinkPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/GoogleSignupPage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/EditProfilePage.tsx"
+      },
+      {
+        "path": "frontend/src/features/conta/ProfilePage.tsx"
+      },
+      {
+        "path": "frontend/src/app/AppRoutes.tsx"
+      },
+      {
+        "path": "frontend/e2e/accessibility.spec.ts"
+      },
+      {
+        "path": "frontend/src/design-system/AppHeader.tsx"
+      },
+      {
+        "path": "frontend/src/design-system/appChrome.test.tsx"
+      },
+      {
+        "path": "frontend/src/app/SessionHeader.tsx"
+      },
+      {
+        "path": "frontend/src/app/SessionHeader.test.tsx"
+      }
+    ],
+    "deleted": []
+  },
+  "changes": [
+    {
+      "summary": "cssChecks.ts na v1.0: vidro so pela receita de tokens com solido de reserva, gradiente radial so no fundo, caixa alta proibida, findLiteralViolations (cor e fonte literais)",
+      "reason": "aprovado pelo usuario; docs/design-system.md 1.2, 1.6, 5",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L08"
+      ]
+    },
+    {
+      "summary": "Paineis das 8 telas de formulario e do perfil, menu da conta, dialogos e cabecalho em vidro com borda luminosa e solido de reserva; textura de fantasia no body",
+      "reason": "REQ-L03 v5, REQ-L08 v1",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L08"
+      ]
+    },
+    {
+      "summary": "Botoes de acao principais com icone (Button icon), titulos e wordmark em Cinzel Decorative, entrada dos paineis com anime.js (PanelEntrance/riseOnEnter)",
+      "reason": "REQ-L03 v5",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L08"
+      ]
+    },
+    {
+      "summary": "E2E: axe nos temas claro e escuro para S1..S11",
+      "reason": "AC-L01Cb, REQ-L06",
+      "requirement_ids": [
+        "REQ-L06",
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "AppHeader das telas da conta vira a navegacao dynamic island da landing: pilula centralizada em vidro (largura pelo conteudo; no celular entre as margens), logo do Deckloom (picture: logo clara/escura e simbolo no celular, link para /), Entrar e Criar conta com icone (secundario/primario), AccountMenu preservado e botao unico de troca de tema (SessionHeader liga useTheme)",
+      "reason": "REQ-L03 v5, design-system 1.13; conferencia visual da tentativa 1",
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "cssChecks.ts: novo findTsxLiteralViolations (hex, funcao de cor, cor nomeada em atributos de cor e style inline, fontFamily fora dos tokens); identity.test.ts varre TSX de design-system/icons, motion e app/theme, mantendo a excecao do GoogleButton.tsx",
+      "reason": "achados baixos do validador da tentativa 1",
+      "requirement_ids": [
+        "REQ-L08",
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "Asserts de aparencia ajustados: getByText Deckloom virou link/imagem da logo; seletor do avatar (UX-07) escopado a .account-menu; E2E U-15 reescrito (acoes dentro da pilula quando descem de linha)",
+      "reason": "o wordmark em texto deixou de existir e a logo e a primeira imagem do header",
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "identity.test.ts: arquivos reais (TSX da conta, design-system e app, e .ts/.tsx de design-system/icons, design-system/motion e app/theme) varridos com findTsxLiteralViolations, excecao unica GoogleButton.tsx; cada glob varrido exige pelo menos 1 arquivo; teste de regressao injeta fill=\"red\", fontFamily \"Arial\", color \"gold\" e hex em .ts na mesma varredura",
+      "reason": "rejeicao do validador E3565 (AC-L01Ca)",
+      "requirement_ids": [
+        "REQ-L08",
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "E2E U-15: novo assert de alinhamento, borda esquerda de .app-header__actions a no maximo 1px da borda esquerda de a.app-header__logo quando as acoes descem de linha",
+      "reason": "achado baixo do validador E3565",
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "AppHeader no celular (ate 1099.98px, mesmo ponto da LandingNav) numa linha so: visitante com logo, Criar conta (primario, icone), tema e botao Menu (MenuIcon/XIcon, aria-expanded, aria-controls) que guarda o Entrar; fecha com Esc (foco volta ao botao), ao escolher o Entrar e com pointerdown fora; jogador com AccountMenu e tema; desktop inalterado (logo, Entrar, Criar conta, tema)",
+      "reason": "decisao do usuario 1 (tentativa 4)",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L06"
+      ]
+    },
+    {
+      "summary": "Pilula sticky no topo (top e margin-block-start = calc(var(--space-3) + env(safe-area-inset-top, 0px)), z-index 20 abaixo do scrim do Dialog em 100); o AppHeader publica a altura medida (ResizeObserver) em --app-header-block-size e :root:has(.app-header) usa scroll-padding-block-start com ela",
+      "reason": "decisao do usuario 2 (tentativa 4)",
+      "requirement_ids": [
+        "REQ-L03",
+        "REQ-L06"
+      ]
+    },
+    {
+      "summary": "useKeepFocusBelow: em focusin, controle com o topo sob a pilula (fora da pilula e de dialogos) recebe scrollIntoView({ block: \"nearest\" }); o Chromium nao rola no foco um campo so em parte sob a pilula, mesmo com scroll-padding (medido no E2E)",
+      "reason": "decisao do usuario 2: campos focados nao ficam sob a pilula, inclusive a 200%",
+      "requirement_ids": [
+        "REQ-L06"
+      ]
+    },
+    {
+      "summary": "Vidro da pilula movido para .app-header::before (mesma receita e solido de reserva; borda propria transparente de 1px preserva a medida do U-14): backdrop-filter na pilula a tornava backdrop root dos menus aninhados, que ficavam translucidos e sem desfoque",
+      "reason": "captura a 320px no tema escuro com o menu aberto mostrava o titulo da tela atraves do menu",
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "Abaixo de 480px: gap e padding inicial da pilula em --space-1 e Criar conta com padding-inline --space-3, para logo (alvo 44px), Criar conta, tema e Menu caberem numa linha a 320px",
+      "reason": "E2E S2 a 320px (centros 39/99/99/99)",
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    },
+    {
+      "summary": "Asserts de aparencia ajustados: identity.test.ts e pageShell.test.ts conferem o vidro em .app-header::before; E2E U-15 mede o Criar conta (.app-header__cta) em vez do Entrar, que no celular fica no menu recolhido; nenhum assert de comportamento mudou",
+      "reason": "decisao do usuario 1 e vidro no ::before",
+      "requirement_ids": [
+        "REQ-L03"
+      ]
+    }
+  ],
+  "tests": {
+    "executed": 2046,
+    "passed": 2046,
+    "failed": 0,
+    "skipped": 0,
+    "new_tests": [
+      "features/conta/identity.test.ts (verificador de tokens, vidro, textura, camadas, scan sem cor/fonte literal)",
+      "features/conta/actionIcons.test.ts",
+      "design-system/Button.icon.test.tsx",
+      "design-system/motion/rise.test.ts",
+      "app/panelEntrance.test.tsx",
+      "e2e/accessibility.spec.ts: axe por tema (22 testes)",
+      "design-system/appChrome.test.tsx: pilula da navegacao (logo, picture, icones, tema, loading, axe)",
+      "features/conta/pageShell.test.ts: pilula centralizada (raio, fit-content, margem auto, celular, logo 44px)",
+      "app/SessionHeader.test.tsx: troca de tema no cabecalho global",
+      "features/conta/identity.test.ts: verificador de tokens no TSX (+ varredura de subpastas e excecao do Google)",
+      "features/conta/identity.test.ts (tentativa 3): minimo de 1 arquivo por glob (6), regressao injetada (4), varredura real com findTsxLiteralViolations",
+      "design-system/appChrome.test.tsx (tentativa 4): menu do visitante no celular (7), altura publicada para o scroll-padding (1), campo focado nunca sob a pilula (3)",
+      "features/conta/pageShell.test.ts (tentativa 4): pilula sticky com safe-area, z-index abaixo do dialogo, scroll-padding pela altura medida, botao de menu no ponto de quebra, painel do menu, nowrap/flex-shrink (6)",
+      "e2e/accessibility.spec.ts (tentativa 4): linha unica a 320/375px para S2 e S8 com a altura da pilula da landing (4), menu do visitante a 375px, desktop a 1366px, pilula fixa e campo focado a 375px com texto normal e a 200% (2)"
+    ],
+    "regression_run": true,
+    "commands": [
+      "npm --prefix frontend run test -- --run --coverage",
+      "npm --prefix frontend run lint",
+      "npm --prefix frontend run format:check",
+      "npm --prefix frontend run build",
+      "npm --prefix frontend run e2e"
+    ],
+    "evidence_ids": [
+      "EV-T-L01C-12",
+      "EV-T-L01C-13",
+      "EV-T-L01C-14",
+      "EV-T-L01C-15",
+      "EV-T-L01C-16"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "EV-T-L01C-01",
+      "type": "test_output",
+      "ref": "[tentativa 1] npm --prefix frontend run test -- --run --coverage: 81 arquivos, 1735 testes, 0 falhas; cobertura 96,12% instrucoes / 89,09% ramos / 92,81% funcoes / 96,66% linhas (minimo 80); identity.test.ts: 28 testes, inclui varredura de cor e fonte literal em todo CSS da conta e do design system",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-02",
+      "type": "command_output",
+      "ref": "[tentativa 1] lint sem erros; format:check 'All matched files use Prettier code style!'; build ok",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-03",
+      "type": "test_output",
+      "ref": "[tentativa 1] npm --prefix frontend run e2e: 250 passed (17,6 min), 0 falhas, inclui axe das telas S1..S11 nos temas claro e escuro; rodadas anteriores falharam 3 e 1 testes (corrigidos); processos Vite e host encerrados (nenhuma porta 5173/5099 em LISTEN)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-04",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run test -- --run --coverage (tentativa 2): 81 arquivos, 1760 testes, 0 falhas; cobertura 96,13% instr. / 89,15% ramos / 92,81% funcoes / 96,66% linhas (minimo 80). RED observado: 14 testes falhando (appChrome, pageShell, SessionHeader) antes do codigo da pilula; 12 falhando no verificador de TSX antes de findTsxLiteralViolations; 1 falhando (logo min-width) apos o E2E ART-08 apontar a.app-header__logo 32x44",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-05",
+      "type": "command_output",
+      "ref": "lint sem erros; format:check All matched files use Prettier code style; build ok (tentativa 2, apos o ultimo ajuste)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-06",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run e2e (tentativa 2, rodada final): 250 passed (17,8 min), 0 falhas, inclui axe S1..S11 nos temas claro e escuro, ART-08 a 320px, U-09, U-10, U-14 e o U-15 reescrito; rodada anterior teve 9 falhas ART-08 (logo 32x44), corrigidas",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-07",
+      "type": "command_output",
+      "ref": "processos encerrados: nenhuma porta 5173/5099 em LISTEN ao final (netstat)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-08",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run test -- --run --coverage (tentativa 3): 81 arquivos, 1771 testes, 0 falhas; cobertura 96,13% instr. / 89,15% ramos / 92,81% funcoes / 96,66% linhas (minimo 80); identity.test.ts 51/51. RED observado: com a regex antiga injetada em sourceLiteralViolations, 3 falhas (fill=\"red\", fontFamily \"Arial\", color \"gold\"); com os globs de motion e app/theme em **/*.tsx, 2 falhas (grupo sem arquivo). Restaurado: 51/51",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-09",
+      "type": "command_output",
+      "ref": "lint sem erros; format:check All matched files use Prettier code style!; build ok (tentativa 3)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-10",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run e2e (tentativa 3): 1a rodada 249 passed / 1 failed (WC-14 S11 320x480 texto 200%: titulo Meu perfil nao apareceu em 5s no preparo); WC-14 isolado --repeat-each 3: 18 passed; 2a rodada completa: 250 passed (17,4 min), 0 falhas, inclui U-15 com alinhamento a a.app-header__logo e axe S1..S11 nos temas claro e escuro",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-11",
+      "type": "command_output",
+      "ref": "processos encerrados: nenhuma porta 5173/5099 em LISTEN ao final (netstat, tentativa 3)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-12",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run test -- --run --coverage (tentativa 4): 81 arquivos, 1788 testes, 0 falhas; cobertura 96,15% instr. / 89,27% ramos / 92,94% funcoes / 96,7% linhas (minimo 80). RED observado: 12 testes novos falhando antes do codigo (7 appChrome, 5 pageShell); 1 falhando antes de useKeepFocusBelow; 2 falhando (identity, pageShell) antes de mover o vidro para o ::before",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-13",
+      "type": "command_output",
+      "ref": "lint exit 0 sem erros; format:check All matched files use Prettier code style!; build ok (tentativa 4, apos o ultimo ajuste de formatacao)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-14",
+      "type": "test_output",
+      "ref": "npm --prefix frontend run e2e (tentativa 4): 258 passed (18,0 min), 0 falhas, rodada unica; inclui os 8 novos, U-09, U-14, U-15 revisto, ART-08 a 320px, WC-14 e axe S1..S11 nos temas claro e escuro. RED observado nos novos antes do codigo: 7 falhas (centros 39/100/157; Entrar visivel sem menu; pilula a -494px e -1886px ao rolar); com a regra de scroll-padding desligada, o campo focado ficou 57,9px sob a pilula; com o campo meio escondido, -10/-9px e -2px com e sem scroll-padding (antes de useKeepFocusBelow)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-15",
+      "type": "command_output",
+      "ref": "processos encerrados: host E2E e Vite finalizados; nenhuma porta 5173/5099 em LISTEN (netstat) e nenhum processo remanescente (tentativa 4)",
+      "secrets_redacted": true
+    },
+    {
+      "id": "EV-T-L01C-16",
+      "type": "screenshot",
+      "ref": "26 capturas (Chromium do Playwright; claro e escuro; 1366, 375 e 320px; /entrar, /entrar com menu aberto, /perfil logado, /perfil com menu da conta aberto, /cadastro rolado) em C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/c18d23b7-f7f1-4161-80f6-bd5802223a24/scratchpad/shots-t4/",
+      "secrets_redacted": true
+    }
+  ],
+  "criteria_results": [
+    {
+      "criterion_id": "AC-L01Ca",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01C-12",
+        "EV-T-L01C-13"
+      ],
+      "notes": "tentativa 4: suite 1788/1788; o CSS novo do AppHeader (sticky, ::before, menu do visitante, scroll-padding) so usa tokens (findLiteralViolations e regras da casa de cssRules.test.ts verdes); asserts de comportamento nao mudaram; asserts de aparencia ajustados e justificados (vidro no ::before, U-15)"
+    },
+    {
+      "criterion_id": "AC-L01Cb",
+      "required": true,
+      "result": "met",
+      "evidence_ids": [
+        "EV-T-L01C-14",
+        "EV-T-L01C-15"
+      ],
+      "notes": "tentativa 4: E2E completo 258/258 numa rodada; axe sem violacoes em S1..S11 nos temas claro e escuro; linha unica a 320/375px, menu do visitante, pilula fixa e foco abaixo dela cobertos por E2E"
+    }
+  ],
+  "problems": [
+    {
+      "description": "backdrop-filter ou transform no painel da tela vira o bloco de contencao do Dialog (position fixed) renderizado dentro dele; encontrado pelo E2E WC-14. Solucao: vidro no ::before e transform removido no fim da entrada",
+      "severity": "medium"
+    },
+    {
+      "description": "Escrevi os testes de camadas (z-index do scrim e sem isolation) no mesmo passo da correcao, sem observar a falha antes; os testes de vidro, textura, tokens, icones e entrada tiveram RED observado",
+      "severity": "low"
+    },
+    {
+      "description": "A logo do cabecalho (so o simbolo abaixo de 480px) media 32x44 e reprovou o ART-08 do E2E em S1..S9 a 320px; corrigido com min-width: var(--target-min) apos teste de CSS falhando",
+      "severity": "low"
+    },
+    {
+      "description": "Tentativa 2: o relatorio afirmava que a varredura real de TSX usava o novo verificador, mas o teste ainda usava a regex antiga; corrigido na tentativa 3",
+      "severity": "medium"
+    },
+    {
+      "description": "E2E WC-14 S11 (320x480, texto 200%) falhou uma vez no preparo (titulo Meu perfil nao apareceu em 5s) e passou em 18 repeticoes isoladas e na rodada completa seguinte",
+      "severity": "low"
+    },
+    {
+      "description": "Tentativa 4: com backdrop-filter na propria pilula, o menu do visitante e o painel do AccountMenu ficavam translucidos e sem desfoque (backdrop root); visto na captura e corrigido com o vidro no ::before",
+      "severity": "medium"
+    },
+    {
+      "description": "Tentativa 4: o Chromium nao rola no foco um campo so em parte sob a pilula fixa, mesmo com scroll-padding; resolvido com o ajuste em focusin (useKeepFocusBelow)",
+      "severity": "medium"
+    },
+    {
+      "description": "Tentativa 4: o script de edicao gravou 3 arquivos com CRLF; o Prettier corrigiu depois do E2E (so fim de linha) e unit, lint, format:check e build foram reexecutados verdes",
+      "severity": "low"
+    }
+  ],
+  "risks": [
+    {
+      "description": "Textura de fantasia so em gradientes radiais no body (sem estrelas cintilando nem canvas de pergaminho do 1.11); axe marca fundo com imagem como incompleto, nao como violacao",
+      "severity": "low"
+    },
+    {
+      "description": "Sem conferencia visual no Chrome da pilula do cabecalho (claro/escuro, 320px e desktop, logo, icones, vidro): so ha testes de CSS, axe e medidas do E2E (MCP indisponivel para este agente)",
+      "severity": "medium"
+    },
+    {
+      "description": "A logo da LandingNav no celular (so simbolo) mede 32x44, abaixo do alvo de 44px; fora do escopo (features/landing) e nao coberto pelo ART-08 do E2E",
+      "severity": "low"
+    },
+    {
+      "description": "findTsxLiteralViolations nao detecta cor nomeada em objeto TS comum fora de style={{}} e de atributos JSX (ex.: parametros do anime.js); hoje nenhum .ts varrido define cor",
+      "severity": "low"
+    },
+    {
+      "description": "Intermitencia observada no preparo do WC-14 S11 (espera de 5s pelo titulo do perfil sob carga)",
+      "severity": "low"
+    },
+    {
+      "description": "A 320px a linha unica do visitante cabe com cerca de 4px de folga (276 de 280px uteis); fonte maior ou outro idioma faz a pilula refluir (sem rolagem horizontal)",
+      "severity": "low"
+    },
+    {
+      "description": "Com texto a 200% a pilula fixa cresce (170px medidos a 375px) e reduz a area de leitura em telas baixas; campos focados seguem visiveis",
+      "severity": "low"
+    },
+    {
+      "description": "Ponto de quebra igual ao da landing (1099.98px): tablets de 480 a 1099px tambem veem o Entrar dentro do menu",
+      "severity": "low"
+    },
+    {
+      "description": "Como na LandingNav, o painel do menu fica antes do botao no documento: com o menu aberto, Tab a partir do botao nao entra no menu (Shift+Tab alcanca o Entrar)",
+      "severity": "low"
+    }
+  ],
+  "pending": [
+    "Validacao independente (validator) da tentativa 4 da T-L01C",
+    "Conferencia visual pelo orquestrador (Chrome) das capturas em shots-t4",
+    "Decisao do orquestrador sobre as descobertas na landing (scroll-behavior global, backdrop root no menu da LandingNav, foco sob a pilula fixa da landing, logo 32x44)"
+  ],
+  "limitations": [
+    "Ornamentos 1.11 (cantos dourados, filete com florao) nao aplicados as telas da conta: fora do escopo de aceite da tarefa",
+    "Dialogos de exclusao e cancelar sem icone; so as acoes principais levam icone",
+    "Logotipo do Google mantem as cores de marca em GoogleButton.tsx"
+  ],
+  "intervention": {
+    "needed": false
+  },
+  "technical_report": {
+    "ref": "C:/Users/escor/AppData/Local/Temp/claude/945f1d8d96cb45b5/c18d23b7-f7f1-4161-80f6-bd5802223a24/scratchpad/RPT-T-L01C-relatorio-tecnico.md",
+    "sha256": "b2755cf69d7a301069bef8d8fd0a915607750d741da1a396bc8c949f8ed0ff49"
+  },
+  "integrity": {
+    "created_at": "2026-11-14T13:35:00-03:00",
+    "event_log_ref": "events/3713"
+  },
+  "scope_discoveries": [
+    {
+      "description": "Ha duplicacao de marcacao e CSS entre LandingNav (features/landing) e AppHeader (design-system): logo em picture, botoes de acao, botao de tema. Unificar exige extrair componente compartilhado e a landing consumi-lo, o que mexe em frontend/src/features/landing/** (fora de paths_allowed)",
+      "impact": "baixo: duas implementacoes da mesma navegacao podem divergir com o tempo; hoje seguem o mesmo design-system 1.13",
+      "affected_part_stopped": true
+    },
+    {
+      "description": "frontend/src/features/landing/LandingPage.css liga html { scroll-behavior: smooth } sem escopo; como o CSS da landing entra no pacote, a rolagem suave vale tambem nas telas da conta",
+      "impact": "baixo: rolagens de foco e de ancora nas telas da conta ficam suaves; testes precisam esperar a rolagem assentar",
+      "affected_part_stopped": true
+    },
+    {
+      "description": "A LandingNav tem backdrop-filter na pilula e no menu aninhado (a mesma estrutura que deixava o menu da conta translucido sem desfoque) e nao trata foco sob a pilula fixa; nao conferido na landing; corrigir exige editar features/landing (fora de paths_allowed)",
+      "impact": "medio: legibilidade do menu da landing no celular e foco sob a pilula",
+      "affected_part_stopped": true
+    }
+  ]
+}

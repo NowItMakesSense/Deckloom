@@ -86,9 +86,9 @@ describe("S3 Retorno do Google - estrutura (MOT-08, A11Y-34)", () => {
 });
 
 describe("S3 Retorno do Google - destinos (REQ-006 a 009, 023, 042)", () => {
-  it("ok: revalida a sessao e vai a /perfil", async () => {
+  it("ok: revalida a sessao e vai a /inicio", async () => {
     const { counters } = renderPage("?resultado=ok");
-    await waitFor(() => expect(location()).toHaveTextContent(/^\/perfil$/));
+    await waitFor(() => expect(location()).toHaveTextContent(/^\/inicio$/));
     expect(counters.session).toBeGreaterThanOrEqual(2);
   });
 
@@ -98,10 +98,10 @@ describe("S3 Retorno do Google - destinos (REQ-006 a 009, 023, 042)", () => {
   });
 
   it.each(["https://evil.example/x", "//evil.example", "/rota-desconhecida"])(
-    "ok com retorno externo/desconhecido (%s) e ignorado: vai a /perfil (UX-12)",
+    "ok com retorno externo/desconhecido (%s) e ignorado: vai a /inicio (UX-12)",
     async (retorno) => {
       renderPage(`?resultado=ok&retorno=${encodeURIComponent(retorno)}`);
-      await waitFor(() => expect(location()).toHaveTextContent(/^\/perfil$/));
+      await waitFor(() => expect(location()).toHaveTextContent(/^\/inicio$/));
       expect(location().textContent).not.toContain("evil");
       expect(location().textContent).not.toContain("desconhecida");
     },

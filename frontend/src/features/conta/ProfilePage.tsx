@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Alert } from "@/design-system/Alert";
 import { Avatar } from "@/design-system/Avatar";
 import { Button } from "@/design-system/Button";
+import { SparklesIcon } from "@/design-system/icons";
 import { Skeleton } from "@/design-system/Skeleton";
 import { Tag } from "@/design-system/Tag";
 import { messageFor } from "@/shared/messages/messages";
@@ -169,7 +170,11 @@ export function ProfilePage(): ReactNode {
         <>
           <ProfileDetails profile={state.profile} avatar={changedAvatar ?? state.profile.avatar} />
           <div className="profile__actions">
-            <Button variant="primary" onClick={() => navigate(EDIT_PATH)}>
+            <Button
+              variant="primary"
+              icon={<SparklesIcon size={18} />}
+              onClick={() => navigate(EDIT_PATH)}
+            >
               Editar perfil
             </Button>
             <Button variant="secondary" onClick={() => setAvatarOpen(true)}>

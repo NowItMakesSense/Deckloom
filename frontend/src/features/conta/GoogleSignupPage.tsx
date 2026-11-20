@@ -4,6 +4,7 @@ import type { FormEvent, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useApiClient, useRefreshSession } from "@/app/SessionProvider";
 import { Button } from "@/design-system/Button";
+import { UserPlusIcon } from "@/design-system/icons";
 import { Checkbox } from "@/design-system/Checkbox";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
 import { FormError } from "@/design-system/FormError";
@@ -257,7 +258,7 @@ export function GoogleSignupPage(): ReactNode {
             {messageOf("adultDeclaration") ? (
               <FormError>{messageOf("adultDeclaration")}</FormError>
             ) : null}
-            <Button type="submit" loading={sending}>
+            <Button type="submit" loading={sending} icon={<UserPlusIcon size={18} />}>
               Criar conta
             </Button>
           </form>

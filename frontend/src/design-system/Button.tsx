@@ -12,6 +12,8 @@ export interface ButtonProps {
   stableWidth?: boolean;
   /** Sem variante, o botao e o preenchido padrao. */
   variant?: "primary" | "secondary" | "danger";
+  /** Icone decorativo antes do texto (lucide-animated, aria-hidden). Em loading, o indicador toma o lugar dele. */
+  icon?: ReactNode;
 }
 
 export function Button({
@@ -22,6 +24,7 @@ export function Button({
   type = "button",
   stableWidth = false,
   variant,
+  icon,
 }: ButtonProps) {
   return (
     <button
@@ -33,7 +36,7 @@ export function Button({
       aria-busy={loading ? "true" : undefined}
       onClick={loading ? undefined : onClick}
     >
-      {loading ? <span className="button__spinner" aria-hidden="true" /> : null}
+      {loading ? <span className="button__spinner" aria-hidden="true" /> : icon}
       {children}
     </button>
   );

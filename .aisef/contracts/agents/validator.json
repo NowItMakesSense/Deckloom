@@ -65,7 +65,8 @@
       "backend",
       "frontend",
       "database",
-      "devops"
+      "devops",
+      "qa"
     ]
   },
   "memory": {

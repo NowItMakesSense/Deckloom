@@ -4,7 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 
 import { AppRoutes } from "@/app/AppRoutes";
 import { SessionProvider } from "@/app/SessionProvider";
+import { applyStoredTheme } from "@/app/theme/theme";
+import "@/design-system/fonts.css";
 import "@/design-system/tokens.css";
+
+// Antes de montar o React: o primeiro quadro ja sai no tema que o jogador escolheu (sem script inline, a CSP
+// do nginx e script-src 'self'). Sem escolha salva, o CSS segue o sistema por prefers-color-scheme.
+applyStoredTheme();
 
 const container = document.getElementById("root");
 if (!container) {

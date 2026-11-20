@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useApiClient, useRefreshSession } from "@/app/SessionProvider";
 import { Alert } from "@/design-system/Alert";
 import { Button } from "@/design-system/Button";
+import { CheckIcon } from "@/design-system/icons";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
 import { FormError } from "@/design-system/FormError";
 import { Link } from "@/design-system/Link";
@@ -162,7 +163,7 @@ export function GoogleLinkPage(): ReactNode {
               autoComplete="current-password"
               error={fieldError}
             />
-            <Button type="submit" loading={sending}>
+            <Button type="submit" loading={sending} icon={<CheckIcon size={18} />}>
               Vincular e entrar
             </Button>
           </form>

@@ -1,0 +1,207 @@
+/* Exemplos dentro das cartas dos ganchos: dados inventados, em papel opaco (a caixa de texto da carta). */
+.deck-example,
+.meta-example,
+.shops-example,
+.assistant-example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 12.5rem;
+}
+
+.example-note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.deck-example__name {
+  margin: 0;
+  font-weight: 500;
+}
+
+.deck-example__game {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+
+.deck-example__total {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.deck-example__list,
+.meta-example__list,
+.shops-example__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deck-example__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+}
+
+.deck-example__card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  min-width: 0;
+}
+
+.deck-example__card-name {
+  overflow-wrap: anywhere;
+}
+
+.deck-example__have-count {
+  grid-column: 1;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.deck-example__have {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-control);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+.deck-example__have:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .deck-example__have:hover {
+    background-color: var(--color-primary-subtle);
+  }
+}
+
+/* Custo de mana: simbolos da fonte Mana (public/brand/mana), decorativos. */
+.cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.cost .ms {
+  font-size: 0.95rem;
+}
+
+.cost__land {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.meta-example__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+}
+
+.meta-example__name {
+  font-weight: 500;
+}
+
+.meta-example__count {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.meta-example__bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background-color: var(--color-skeleton);
+}
+
+.meta-example__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+}
+
+.shops-example__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.shops-example__shop {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.shops-example__name {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.shops-example__missing {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.shops-example__price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  font-size: var(--text-lg);
+}
+
+.shops-example__best {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-success-subtle);
+  color: var(--color-success);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.shops-example__empty {
+  margin: 0;
+  font-weight: 500;
+}
+
+.assistant-example__label {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.assistant-example__ask {
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-on-primary-subtle);
+}
+
+.assistant-example__alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+}

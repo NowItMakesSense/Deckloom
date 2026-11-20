@@ -1,11 +1,12 @@
 // R-19: header estavel durante `loading` (sem flash de visitante) e links internos pelo router (sem recarga).
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { AppRoutes } from "./AppRoutes";
+import { setThemePreference } from "./theme/theme";
 import { SessionProvider } from "./SessionProvider";
 
 const BASE = "http://localhost";
@@ -82,6 +83,26 @@ describe("header estavel durante loading (R-19, A11Y-30)", () => {
     const header = screen.getByRole("banner");
     await screen.findByRole("navigation", { name: "Acesso" });
     expect(screen.getByRole("banner")).toBe(header);
+  });
+});
+
+describe("troca de tema no cabecalho global (REQ-L03 v5)", () => {
+  afterEach(() => act(() => setThemePreference("system")));
+
+  it("o cabecalho tem a troca de tema, que muda o tema do app, tambem durante o loading", async () => {
+    act(() => setThemePreference("light"));
+    server.use(http.get(SESSION_URL, () => new Promise(() => undefined)));
+    renderApp("/perfil");
+
+    const header = screen.getByRole("banner");
+    const toggle = within(header).getByRole("button", { name: "Usar tema escuro" });
+    fireEvent.click(toggle);
+
+    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+    expect(within(header).getByRole("button", { name: "Usar tema claro" })).toBeInTheDocument();
+    expect(within(header).getByRole("img", { name: "Deckloom" }).getAttribute("src")).toBe(
+      "/brand/deckloom/deckloom-logo-on-dark.svg",
+    );
   });
 });
 

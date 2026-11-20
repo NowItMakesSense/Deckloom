@@ -1,0 +1,49 @@
+/* Rodape: faixa invertida (--color-night / --color-moon), com a logo para fundo escuro e a nota de marcas. */
+.landing-footer {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: var(--space-12) var(--landing-gutter);
+  background-color: var(--color-night);
+  color: var(--color-moon);
+}
+
+.landing-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.landing-footer__logo {
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+.landing-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-footer__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  color: var(--color-moon);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--duration-hover) var(--ease-out);
+}
+
+.landing-footer__note {
+  flex-basis: 100%;
+  max-width: 52rem;
+  margin: 0;
+  font-size: var(--text-sm);
+}

@@ -212,9 +212,7 @@
       "task_id": "T-P03B",
       "contract_version": 2,
       "role": "devops",
-      "depends_on": [
-        "T-P02"
-      ]
+      "depends_on": []
     },
     {
       "task_id": "T-P04",

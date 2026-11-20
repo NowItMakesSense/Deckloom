@@ -1,29 +1,57 @@
-/* Achromatic ledger - docs/design-system.md v0.1. Somente tema claro. */
+/*
+ * Grimorio arcano - docs/design-system.md v1.0. Dois temas: claro em :root; escuro em [data-theme="dark"]
+ * (escolha do jogador) e em prefers-color-scheme: dark (sistema, quando o jogador nao escolheu claro).
+ * Os dois blocos escuros tem de ficar identicos (tokens.test.ts confere).
+ */
 :root {
   color-scheme: light;
 
-  /* Cores por papel */
-  --color-ground: #f9fafb;
-  --color-surface: #ffffff;
-  --color-text: #111827;
-  --color-text-muted: #4b5563;
-  --color-border-decor: #d1d5db;
-  --color-border-control: #6b7280;
-  --color-skeleton: #e5e7eb;
-  --color-primary: #1d4ed8;
-  --color-primary-hover: #1e40af;
+  /* Cores por papel (tema claro: velino violeta) */
+  --color-ground: #f3effa;
+  --color-surface: #fbf9ff;
+  --color-text: #1b1230;
+  --color-text-muted: #4a3f6b;
+  --color-border-decor: #d9d0ee;
+  --color-border-control: #6f6395;
+  --color-skeleton: #e6def5;
+  --color-primary: #5b2fc4;
+  --color-primary-hover: #4a22a8;
   --color-on-primary: #ffffff;
-  --color-primary-subtle: #eff6ff;
-  --color-on-primary-subtle: #1e40af;
+  --color-primary-subtle: #ece6fb;
+  --color-on-primary-subtle: #3d1d96;
   --color-danger: #b91c1c;
-  --color-danger-subtle: #fef2f2;
+  --color-danger-subtle: #fdecef;
   --color-danger-hover: #991b1b;
   --color-success: #15803d;
-  --color-success-subtle: #f0fdf4;
+  --color-success-subtle: #e9f7ee;
   --color-warning: #92400e;
-  --color-warning-subtle: #fffbeb;
+  --color-warning-subtle: #fdf3dc;
   --color-info: var(--color-primary);
-  --color-scrim: rgba(17, 24, 39, 0.6);
+  --color-scrim: rgba(18, 13, 30, 0.6);
+
+  /* Dourado: metal (selo, filete, enfeite). Texto dourado so em --color-on-gold-subtle */
+  --color-gold: #b88a2e;
+  --color-gold-subtle: #f3e6c4;
+  --color-on-gold: #1b1230;
+  --color-on-gold-subtle: #6b4a0a;
+
+  /* Polos fixos dos dois temas: faixas invertidas e rodape */
+  --color-night: #120d1e;
+  --color-moon: #efe9ff;
+
+  /* Vidro: translucido com desfoque; sempre com fundo solido de reserva */
+  --glass-bg: rgba(255, 255, 255, 0.66);
+  --glass-bg-strong: rgba(255, 255, 255, 0.84);
+  --glass-edge: rgba(91, 47, 196, 0.3);
+  --glass-solid: #f7f4fd;
+  --glass-solid-strong: #fbf9ff;
+  --glass-worst: #5b2fc4;
+  --glass-blur: 18px;
+  --glass-saturate: 1.5;
+
+  /* Cores da textura de fantasia (brilho atras do vidro); o gradiente em si fica no componente */
+  --aura-violet: #8d66ff;
+  --aura-gold: #e0b866;
 
   /* Raios */
   --radius-sm: 4px;
@@ -32,8 +60,8 @@
   --radius-full: 9999px;
 
   /* Sombras: somente AccountMenu e Dialog */
-  --shadow-menu: 0 1px 2px rgba(17, 24, 39, 0.08), 0 8px 24px rgba(17, 24, 39, 0.14);
-  --shadow-dialog: 0 1px 2px rgba(17, 24, 39, 0.08), 0 12px 32px rgba(17, 24, 39, 0.18);
+  --shadow-menu: 0 1px 2px rgba(27, 18, 48, 0.1), 0 8px 24px rgba(27, 18, 48, 0.18);
+  --shadow-dialog: 0 1px 2px rgba(27, 18, 48, 0.1), 0 12px 32px rgba(27, 18, 48, 0.22);
 
   /* Espacamento (base 4px) */
   --space-0: 0;
@@ -58,8 +86,11 @@
   --duration-dialog-out: 150ms;
   --duration-spin: 800ms;
 
-  /* Tipografia */
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Tipografia: Cinzel Decorative (titulos) e Albert Sans (texto), ambas OFL, em public/fonts */
+  --font-display:
+    "Cinzel Decorative", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans:
+    "Albert Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --text-sm: 0.875rem;
   --text-label: 0.875rem;
   --text-base: 1rem;
@@ -67,23 +98,167 @@
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
 
+  /* Escala fluida da skill design-taste-frontend (paginas publicas e blocos de destaque) */
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --display-tracking: 0;
+  --display-leading: 1.05;
+  --display-weight: 700;
+  --display-weight-strong: 900;
+  --text-leading: 1.55;
+
   /* Alvo de toque minimo (44x44) */
   --target-min: 44px;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-ground: #120d1e;
+  --color-surface: #1c1530;
+  --color-text: #ece7fa;
+  --color-text-muted: #b9aedb;
+  --color-border-decor: #3a2f5c;
+  --color-border-control: #8f82b8;
+  --color-skeleton: #2a2145;
+  --color-primary: #9a77ff;
+  --color-primary-hover: #b39bff;
+  --color-on-primary: #120d1e;
+  --color-primary-subtle: #2a1f4d;
+  --color-on-primary-subtle: #d6c8ff;
+  --color-danger: #ff8f8f;
+  --color-danger-subtle: #3a1219;
+  --color-danger-hover: #ffb0b0;
+  --color-success: #6fd49a;
+  --color-success-subtle: #0f2c1c;
+  --color-warning: #f0b35a;
+  --color-warning-subtle: #33230a;
+  --color-scrim: rgba(5, 3, 12, 0.7);
+
+  --color-gold: #d9ae55;
+  --color-gold-subtle: #3a2d12;
+  --color-on-gold: #120d1e;
+  --color-on-gold-subtle: #e8c46f;
+
+  --glass-bg: rgba(34, 26, 60, 0.66);
+  --glass-bg-strong: rgba(30, 23, 52, 0.86);
+  --glass-edge: rgba(190, 165, 255, 0.3);
+  --glass-solid: #1f1836;
+  --glass-solid-strong: #241c3f;
+  --glass-worst: #9a77ff;
+
+  --aura-violet: #5b2fc4;
+  --aura-gold: #b88a2e;
+
+  --shadow-menu: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-dialog: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-ground: #120d1e;
+    --color-surface: #1c1530;
+    --color-text: #ece7fa;
+    --color-text-muted: #b9aedb;
+    --color-border-decor: #3a2f5c;
+    --color-border-control: #8f82b8;
+    --color-skeleton: #2a2145;
+    --color-primary: #9a77ff;
+    --color-primary-hover: #b39bff;
+    --color-on-primary: #120d1e;
+    --color-primary-subtle: #2a1f4d;
+    --color-on-primary-subtle: #d6c8ff;
+    --color-danger: #ff8f8f;
+    --color-danger-subtle: #3a1219;
+    --color-danger-hover: #ffb0b0;
+    --color-success: #6fd49a;
+    --color-success-subtle: #0f2c1c;
+    --color-warning: #f0b35a;
+    --color-warning-subtle: #33230a;
+    --color-scrim: rgba(5, 3, 12, 0.7);
+
+    --color-gold: #d9ae55;
+    --color-gold-subtle: #3a2d12;
+    --color-on-gold: #120d1e;
+    --color-on-gold-subtle: #e8c46f;
+
+    --glass-bg: rgba(34, 26, 60, 0.66);
+    --glass-bg-strong: rgba(30, 23, 52, 0.86);
+    --glass-edge: rgba(190, 165, 255, 0.3);
+    --glass-solid: #1f1836;
+    --glass-solid-strong: #241c3f;
+    --glass-worst: #9a77ff;
+
+    --aura-violet: #5b2fc4;
+    --aura-gold: #b88a2e;
+
+    --shadow-menu: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-dialog: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.55);
+  }
+}
+
+/* Estes blocos vem depois dos escuros e repetem os seletores deles: sem isso a especificidade maior do tema escuro vence. */
 @media (prefers-contrast: more) {
-  :root {
+  :root,
+  :root[data-theme],
+  :root:not([data-theme="light"]) {
     --color-text-muted: var(--color-text);
   }
 }
 
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  :root[data-theme],
+  :root:not([data-theme="light"]) {
+    --glass-bg: var(--glass-solid);
+    --glass-bg-strong: var(--glass-solid-strong);
+  }
+}
+
+/* Textura de fantasia atras do vidro (design-system 1.6.4): brilho violeta (ate 45%) e dourado (ate 30%) e um campo
+   de estrelas de 1px em duas grades. Gradiente radial so aqui; decoracao pura, sem informacao. */
 body {
   margin: 0;
   background-color: var(--color-ground);
+  background-image:
+    radial-gradient(
+      60rem 40rem at 12% -8%,
+      color-mix(in srgb, var(--aura-violet) 45%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50rem 36rem at 92% 6%,
+      color-mix(in srgb, var(--aura-gold) 30%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(circle, var(--glass-edge) 0, var(--glass-edge) 1px, transparent 1.5px),
+    radial-gradient(circle, var(--glass-edge) 0, var(--glass-edge) 1px, transparent 1.5px);
+  background-position:
+    0 0,
+    0 0,
+    0 0,
+    53px 71px;
+  background-size:
+    auto,
+    auto,
+    97px 89px,
+    151px 137px;
+  background-repeat: no-repeat, no-repeat, repeat, repeat;
+  background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-base);
-  line-height: 1.5;
+  line-height: var(--text-leading);
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
 }
 
 /* Titulo de tela: 24/32 (design.md A.8.3); sem regra valia o padrao do navegador (32px, 64px a 200%). */
@@ -118,6 +293,11 @@ button:active {
 
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .tabular-nums {

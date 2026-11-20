@@ -24,7 +24,8 @@
   "validity_minutes": 30,
   "issued_at": "2026-11-06T13:43:22-03:00",
   "expires_at": "2026-11-06T14:13:22-03:00",
-  "status": "approved",
+  "status": "used",
+  "consumed": { "at": "2026-11-06T13:43:46-03:00", "operation_event_ref": "E802" },
   "policy_version": "0.1.0",
   "decided_by": "user",
   "decided_at": "2026-11-06T13:43:22-03:00"

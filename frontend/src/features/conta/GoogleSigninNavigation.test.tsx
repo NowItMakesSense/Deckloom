@@ -94,14 +94,14 @@ describe("Continuar com Google inicia o fluxo OIDC", () => {
   });
 
   it.each(["https://evil.example/x", "//evil.example", "/rota-que-nao-existe"])(
-    "S2 Login com retorno inseguro %s: cai em /perfil (R-34)",
+    "S2 Login com retorno inseguro %s: cai em /inicio (R-34)",
     async (retorno) => {
       const visited = stubBrowserNavigation();
       renderAt(`/entrar?retorno=${encodeURIComponent(retorno)}`);
 
       await userEvent.setup().click(screen.getByRole("button", { name: /Continuar com Google/ }));
 
-      expect(visited).toEqual([`${START_PATH}&returnTo=%2Fperfil`]);
+      expect(visited).toEqual([`${START_PATH}&returnTo=%2Finicio`]);
     },
   );
 });

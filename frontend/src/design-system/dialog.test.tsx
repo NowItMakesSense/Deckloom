@@ -240,11 +240,11 @@ describe("Dialog styles (design G3, MOT-12/13, ART-01)", () => {
     expect(scrimRule).not.toMatch(/box-shadow|filter|text-shadow/);
   });
 
-  it("uses only --shadow-dialog as shadow, on an opaque surface panel without glass", () => {
+  it("uses only --shadow-dialog as shadow, on a strong glass panel (v1.0)", () => {
     const panelRule = /\.dialog__panel\s*\{([^}]*)\}/.exec(css)?.[1] ?? "";
     expect(panelRule).toMatch(/box-shadow:\s*var\(--shadow-dialog\)/);
-    expect(panelRule).toMatch(/background:\s*var\(--color-surface\)/);
-    expect(panelRule).not.toMatch(/backdrop-filter/);
+    expect(panelRule).toMatch(/background-color:\s*var\(--glass-bg-strong\)/);
+    expect(panelRule).toMatch(/backdrop-filter:\s*blur\(var\(--glass-blur\)\)/);
     expect(css.match(/box-shadow:[^;]+;/g) ?? []).toEqual(["box-shadow: var(--shadow-dialog);"]);
   });
 

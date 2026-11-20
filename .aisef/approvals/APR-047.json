@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.1.0",
+  "request_id": "APR-047",
+  "request_type": "scope_change_decision",
+  "status": "approved",
+  "title": "FEAT-LANDING v9: parallax CSS + baralho com anime.js no lugar da jornada 3D, e planos de assinante no lugar dos cinco jogos",
+  "summary": "Pedidos do usuario em 2026-11-12 (previa fc92722f: hero com parallax em CSS nativo e baralho de cartas controlado pelo scroll, Anime.js 4 + CSS 3D) e 2026-11-13 (remover 'Os cinco jogos' e mostrar os planos com preco). A sessao de 2026-11-12 travou antes de registrar as decisoes no contrato; este pedido as registra.",
+  "requested_by": {
+    "type": "orchestrator",
+    "id": "orchestrator"
+  },
+  "project_id": "PRJ-DECKLOOM",
+  "feature_id": "FEAT-LANDING",
+  "task_id": "T-L02",
+  "created_at": "2026-11-13T08:30:00-03:00",
+  "expires_at": "2026-11-16T23:59:00-03:00",
+  "policy_version": "0.1.0",
+  "presented": {
+    "impact": "REQ-L10 v3: hero com paisagem em camadas e parallax em CSS nativo; depois uma section de baralho controlada pelo scroll (Anime.js 4 + CSS 3D): cartas de costas, uma por vez sai da pilha, aproxima da camera, vira 180 graus no eixo Y revelando um dos quatro ganchos, a camera faz dolly-in e recua antes da proxima, as reveladas vao para uma segunda pilha; com prefers-reduced-motion as cartas aparecem ja viradas, sem movimento. REQ-L12 v3: sem bibliotecas 3D; saem @shadergradient/react, @react-three/fiber, three, three-stdlib, camera-controls e @types/three do package.json e o codigo ja escrito em frontend/src/features/landing/scene (nao commitado) e descartado. REQ-L01 v4: sai a section dos cinco jogos com logos oficiais e sai a proibicao de preco e 'gratis'. REQ-L13 novo: section de planos no lugar dos jogos: Gratis (salva ate 5 decks) e Pago a R$ 19,90/mes (sugestoes com IA, decks ilimitados, alertas de preco, sem anuncios); todos os botoes levam a /cadastro, porque ainda nao ha pagamento do jogador. discovery.md:97 ('preco nao anunciado na landing') passa a dizer que o preco e anunciado. Criterios AC-L02d, AC-L02e e AC-L02h sao reescritos para o parallax e o baralho; RISK-FEAT-LANDING-7 (dependencias 3D) sai; RISK-FEAT-LANDING-6 fica so com os simbolos de mana.",
+    "justification": "Regra 4 do AISEF (escopo nao muda sozinho). Respostas do usuario no chat em 2026-11-12 (direcao A + C, CSS nativo, prompt do baralho) e 2026-11-13 (com preco, Gratis + 1 pago, R$ 19,90/mes, 5 decks no gratis, quatro recursos do pago, CTA para cadastro).",
+    "requirement_ids": [
+      "REQ-L01",
+      "REQ-L10",
+      "REQ-L12"
+    ],
+    "evidence_ids": []
+  },
+  "options": [
+    {
+      "option_id": "OPT-APROVAR",
+      "label": "Aprovar a revisao",
+      "description": "O contrato passa para v9 e a T-L02 e replanejada para parallax + baralho + planos. As dependencias 3D e o codigo da cena sao removidos.",
+      "impacts": [
+        "Bundle bem menor, sem WebGL",
+        "Preco anunciado publicamente na landing",
+        "Trabalho 3D ja feito e descartado"
+      ],
+      "risks": [
+        "Animacao do baralho travar no celular",
+        "Prometer na landing recursos pagos que ainda nao existem"
+      ],
+      "cost": "Medio",
+      "migration": "Remove as seis dependencias 3D e frontend/src/features/landing/scene; criterios da T-L02 reescritos"
+    },
+    {
+      "option_id": "OPT-SEM-PRECO",
+      "label": "Aprovar o visual, planos sem preco",
+      "description": "Mesma revisao, mas os cards de plano mostram 'preco no lancamento' em vez de R$ 19,90.",
+      "impacts": [
+        "Mantem a decisao anterior de nao anunciar preco"
+      ],
+      "risks": [
+        "Animacao do baralho travar no celular"
+      ],
+      "cost": "Medio",
+      "migration": "Igual a OPT-APROVAR"
+    }
+  ],
+  "recommendation": {
+    "option_id": "OPT-APROVAR",
+    "rationale": "E o que o usuario pediu nas duas conversas; a alternativa existe so porque reverte uma decisao registrada no discovery."
+  },
+  "blocks": {
+    "blocked_task_ids": [
+      "T-L02"
+    ],
+    "independent_work_continues": true
+  },
+  "risk": {
+    "level": "medium",
+    "items": [
+      {
+        "description": "Animacao do baralho (CSS 3D + anime.js no scroll) travar em celular",
+        "severity": "medium",
+        "mitigation": "So transform e opacity, sem layout por frame; teste no Chrome em 375px; prefers-reduced-motion sem movimento"
+      },
+      {
+        "description": "Landing anuncia recursos pagos (IA, alertas de preco) que ainda nao existem e preco fixo de R$ 19,90",
+        "severity": "medium",
+        "mitigation": "Botoes levam ao cadastro gratis, nenhum pagamento e cobrado; texto revisado com o usuario antes do aceite"
+      },
+      {
+        "description": "Simbolos de mana (marca da Wizards) nos exemplos de Magic",
+        "severity": "low",
+        "mitigation": "Nota de marcas no rodape, como ja previsto"
+      }
+    ]
+  },
+  "audit": {
+    "requested_event_ref": "events/2458",
+    "decided_event_ref": "events/2460"
+  },
+  "decision": {
+    "choice": "select_option",
+    "decided_by": "user",
+    "decided_at": "2026-11-13T08:11:17-03:00",
+    "selected_option_id": "OPT-APROVAR",
+    "note": "Usuario escolheu 'Aprovar (Recomendado)' no chat em 2026-11-13"
+  }
+}

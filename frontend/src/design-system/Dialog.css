@@ -1,6 +1,8 @@
 .dialog__scrim {
   position: fixed;
   inset: 0;
+  /* Acima do cabecalho flutuante (z-index 20) e do menu da conta (50): o dialogo cobre a janela inteira. */
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,11 +21,20 @@
   /* Palavra longa ("permanentemente") a 320px com texto a 200%: quebra em vez de alargar o painel (R-58). */
   overflow-wrap: anywhere;
   padding: var(--space-6, 24px);
+  border: 1px solid var(--glass-edge);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
+  background-color: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   color: var(--color-text);
   box-shadow: var(--shadow-dialog);
   animation: dialog-in var(--duration-dialog-in) var(--ease-out) both;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dialog__panel {
+    background-color: var(--glass-solid-strong);
+  }
 }
 
 .dialog__panel[data-state="closing"] {

@@ -80,8 +80,8 @@ describe("safeReturnTo (REQ-010, UX-12, A10)", () => {
     "",
     null,
     undefined,
-  ])("retorna /perfil para valor inseguro ou desconhecido: %s", (value) => {
-    expect(safeReturnTo(value as string | null | undefined)).toBe("/perfil");
+  ])("retorna /inicio para valor inseguro ou desconhecido: %s", (value) => {
+    expect(safeReturnTo(value as string | null | undefined)).toBe("/inicio");
   });
 
   it("a lista de rotas conhecidas contem /perfil e /perfil/editar e nenhuma rota insegura", () => {
@@ -175,7 +175,7 @@ describe("guards (REQ-010, REQ-011, REQ-012)", () => {
   });
 
   it.each(["/cadastro", "/entrar", "/esqueci-senha", "/redefinir-senha"])(
-    "rota de visitante %s com sessao ativa redireciona para /perfil",
+    "rota de visitante %s com sessao ativa redireciona para /inicio",
     async (path) => {
       withSession();
       renderAt(
@@ -184,10 +184,10 @@ describe("guards (REQ-010, REQ-011, REQ-012)", () => {
           <Route element={<GuestRoute />}>
             <Route path={path} element={<p>pagina visitante</p>} />
           </Route>
-          <Route path="/perfil" element={<p>pagina perfil</p>} />
+          <Route path="/inicio" element={<p>pagina inicio</p>} />
         </Routes>,
       );
-      await waitFor(() => expect(currentLocation().path).toBe("/perfil"));
+      await waitFor(() => expect(currentLocation().path).toBe("/inicio"));
       expect(screen.queryByText("pagina visitante")).not.toBeInTheDocument();
     },
   );
@@ -260,9 +260,9 @@ describe("tabela de rotas (REQ-013)", () => {
     expect(currentLocation().params.get("retorno")).toBe("/perfil");
   });
 
-  it("AppRoutes com sessao em /cadastro leva a /perfil", async () => {
+  it("AppRoutes com sessao em /cadastro leva a /inicio", async () => {
     withSession();
     renderAt("/cadastro", <AppRoutes />);
-    await waitFor(() => expect(currentLocation().path).toBe("/perfil"));
+    await waitFor(() => expect(currentLocation().path).toBe("/inicio"));
   });
 });

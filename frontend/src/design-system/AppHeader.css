@@ -1,50 +1,248 @@
+/*
+ * A pilula e fixa no topo e cresce com o texto (200%): o AppHeader publica a altura medida em --app-header-block-size e
+ * o documento a reserva no scroll-padding, para um campo focado (ou o alvo do link de pular) nunca ficar sob ela. O
+ * valor reserva tambem a folga de cima (com a safe-area) e uma folga igual abaixo da pilula.
+ */
+:root:has(.app-header) {
+  scroll-padding-block-start: calc(
+    var(--app-header-block-size, 56px) + 2 * var(--space-3) + env(safe-area-inset-top, 0px)
+  );
+}
+
 .app-header {
+  /*
+   * Cabecalho das telas da conta: a pilula "dynamic island" da landing (docs/design-system.md 1.13), flutuante,
+   * centralizada e com a largura do conteudo, em vidro. Fica fixa no topo ao rolar (sticky: no fluxo, os paineis
+   * abaixo ja reservam o espaco ao abrir a tela), acima do conteudo e abaixo do dialogo (scrim em 100).
+   */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: var(--space-4);
+  gap: var(--space-2);
   min-height: 56px;
   box-sizing: border-box;
-  padding: var(--space-2) var(--space-4);
-  background: var(--color-ground);
+  position: sticky;
+  top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+  z-index: 20;
+  width: fit-content;
+  /* Folga de uma margem da pagina (--space-4) de cada lado, ja contando a borda de 1px do vidro (U-14). */
+  max-width: calc(100% - 2 * var(--space-4) + 2px);
+  margin: var(--space-3) auto 0;
+  /* Longe do entalhe quando a pagina usa a tela inteira (safe-area); sem entalhe, a folga e so --space-3. */
+  margin-block-start: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-4);
+  /* A borda visivel e a do ::before; esta, transparente, guarda o 1px que o painel do menu da conta usa (U-14). */
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
   color: var(--color-text);
 }
 
-.app-header__wordmark {
-  font-size: 1.25rem;
-  font-weight: 700;
+/*
+ * O vidro mora no ::before: backdrop-filter na propria pilula a tornaria a raiz do fundo (backdrop root) dos menus
+ * aninhados (menu do visitante e painel da conta), que ficariam translucidos e sem desfoque sobre a pagina.
+ */
+.app-header::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-full);
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  pointer-events: none;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-header::before {
+    background-color: var(--glass-solid);
+  }
+}
+
+.app-header__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  border-radius: var(--radius-md);
+}
+
+.app-header__logo img {
+  display: block;
+  height: 32px;
+  width: auto;
 }
 
 .app-header__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
-  /* Quando desce de linha, o texto dos links alinha com o wordmark (o padding do link some na margem). */
-  margin-inline-start: calc(-1 * var(--space-3));
+  gap: var(--space-1);
 }
 
-/* O menu da conta fica no canto direito mesmo quando o header quebra: o painel abre para a esquerda dele. */
+.app-header__access {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Menu do visitante: no desktop o Entrar fica a vista, ao lado do Criar conta. */
+.app-header__menu {
+  display: flex;
+  align-items: center;
+}
+
+/* Espaco neutro durante a leitura da sessao: o header nao muda de altura quando as acoes chegam. */
+.app-header__pending {
+  min-height: var(--target-min);
+}
+
+/* O menu da conta fica junto da troca de tema; o painel abre para a esquerda dele. */
 .app-header .account-menu {
   margin-inline-start: auto;
 }
 
-/* Espaco neutro durante a leitura da sessao: o header nao muda de altura quando as acoes chegam. */
-.app-header__actions--pending {
-  min-height: var(--target-min);
-}
-
-.app-header__link {
+.app-header__link,
+.app-header__cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
   min-height: var(--target-min);
   padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
   color: var(--color-text);
+  font-size: var(--text-base);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+/* Entrar: secundario, com a borda de controle. */
+.app-header__link {
+  border: 1px solid var(--color-border-control);
+}
+
+/* Criar conta: o botao primario. */
+.app-header__cta {
+  padding-inline: var(--space-4);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 500;
+}
+
+.app-header__link:active,
+.app-header__cta:active,
+.app-header__icon:active {
+  transform: scale(0.97);
+}
+
+.app-header__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+  padding: 0;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: var(--color-text);
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+}
+
+/* O botao de menu so existe no celular (depois de .app-header__icon, que e inline-flex). */
+.app-header__menu-toggle {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .app-header__link:hover,
+  .app-header__icon:hover {
+    background-color: var(--color-primary-subtle);
+  }
+
+  .app-header__cta:hover {
+    background-color: var(--color-primary-hover);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-header__link:active,
+  .app-header__cta:active,
+  .app-header__icon:active {
+    transform: none;
+  }
 }
 
 @media (max-width: 479.98px) {
+  /* Em tela estreita a pilula ocupa a largura entre as margens e o painel do menu ancora na borda dela. */
+  .app-header {
+    width: auto;
+    /* Numa linha so a 320px: a logo ja tem o alvo de 44px com folga interna, entao a pilula fica com 4px dos dois
+       lados e espacos menores entre os controles (logo, Criar conta, tema e menu cabem em 280px). */
+    gap: var(--space-1);
+    padding-inline-start: var(--space-1);
+  }
+
+  .app-header__cta {
+    padding-inline: var(--space-3);
+  }
+
   .app-header .account-menu__name {
     display: none;
+  }
+
+  .app-header .account-menu {
+    position: static;
+  }
+}
+
+/*
+ * Celular (o mesmo ponto de quebra da LandingNav): a pilula fica numa linha so. O visitante ve a logo, o Criar conta,
+ * o tema e o botao de menu; o Entrar abre num painel de vidro logo abaixo da pilula.
+ */
+@media (max-width: 1099.98px) {
+  .app-header__menu-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .app-header__menu {
+    position: absolute;
+    inset-block-start: calc(100% + var(--space-2));
+    inset-inline: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-3);
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius-lg);
+    background-color: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  }
+
+  .app-header__menu[data-open="true"] {
+    display: flex;
+  }
+
+  .app-header__menu .app-header__link {
+    justify-content: flex-start;
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .app-header__menu {
+      background-color: var(--glass-solid-strong);
+    }
   }
 }

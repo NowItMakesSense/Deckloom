@@ -5,6 +5,7 @@ import { useApiClient, useRefreshSession } from "@/app/SessionProvider";
 import { Alert } from "@/design-system/Alert";
 import { Avatar } from "@/design-system/Avatar";
 import { Button } from "@/design-system/Button";
+import { CheckIcon } from "@/design-system/icons";
 import { CheckboxGroup } from "@/design-system/CheckboxGroup";
 import type { ChoiceOption } from "@/design-system/CheckboxGroup";
 import { ErrorSummary } from "@/design-system/ErrorSummary";
@@ -268,7 +269,7 @@ function EditForm({ profile, tcgs, formats }: FormProps): ReactNode {
           )}
         </div>
         <div className="edit-profile__actions">
-          <Button type="submit" variant="primary" loading={sending}>
+          <Button type="submit" variant="primary" loading={sending} icon={<CheckIcon size={18} />}>
             Salvar alterações
           </Button>
           <Button variant="secondary" onClick={() => navigate(PROFILE_ROUTE)}>

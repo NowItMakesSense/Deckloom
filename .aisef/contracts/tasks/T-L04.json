@@ -1,0 +1,149 @@
+{
+  "schema_version": "0.1.0",
+  "task_id": "T-L04",
+  "contract_version": 5,
+  "kind": "task",
+  "feature_id": "FEAT-LANDING",
+  "feature_contract_version": 8,
+  "title": "E2E das telas novas e smoke no docker compose",
+  "objective": "E2E das telas novas e smoke no docker compose",
+  "assigned_agent": {
+    "agent_id": "qa",
+    "agent_contract_version": 1,
+    "role": "qa"
+  },
+  "requirements": {
+    "requirement_ids": [
+      {
+        "id": "REQ-L04",
+        "version": 1
+      },
+      {
+        "id": "REQ-L05",
+        "version": 1
+      },
+      {
+        "id": "REQ-L06",
+        "version": 1
+      },
+      {
+        "id": "REQ-L03",
+        "version": 5
+      },
+      {
+        "id": "REQ-L01",
+        "version": 3
+      },
+      {
+        "id": "REQ-L10",
+        "version": 2
+      }
+    ]
+  },
+  "scope": {
+    "included": [
+      "E2E das telas novas e smoke no docker compose",
+      "E2E cobre os quatro ganchos da landing (REQ-L01 v2) e a cena 3D com fallback (REQ-L10)"
+    ],
+    "excluded": [],
+    "paths_allowed": [
+      "frontend/e2e/**"
+    ]
+  },
+  "dependencies": {
+    "depends_on": [
+      "T-L03"
+    ],
+    "parallelizable": false
+  },
+  "context": {
+    "mandatory": [
+      {
+        "ref": "contracts/features/FEAT-LANDING.json",
+        "origin": "feature_contract",
+        "version": "8"
+      }
+    ]
+  },
+  "permissions": {
+    "environment": "dev",
+    "scope_authorization_id": null,
+    "resources": [
+      "repo_code"
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-L04a",
+      "description": "E2E Playwright cobre: visitante abre /, segue o CTA ate /cadastro, cria conta e cai em /inicio; jogador logado em / vai para /inicio",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L04b",
+      "description": "npm --prefix frontend run e2e passa por completo e o build de producao do frontend passa",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L01",
+        "REQ-L04",
+        "REQ-L05",
+        "REQ-L06"
+      ]
+    },
+    {
+      "id": "AC-L04c",
+      "description": "axe sem violacoes em /, /inicio e nas telas da conta nos temas claro e escuro (E2E)",
+      "required": true,
+      "verification": {
+        "method": "automated_test",
+        "evidence_expected": "saida do comando de teste"
+      },
+      "requirement_ids": [
+        "REQ-L06",
+        "REQ-L03"
+      ]
+    }
+  ],
+  "validation": {
+    "independent_validator_required": true,
+    "validator_role": "validator"
+  },
+  "deliverables": {
+    "execution_report_schema": "execution-report/0.1.0"
+  },
+  "complexity": "normal",
+  "risk": {
+    "level": "low"
+  },
+  "limits": {
+    "max_fix_attempts": null
+  },
+  "escalation": {
+    "stop_and_report_when": [
+      "scope_exceeded",
+      "unexpected_risk",
+      "requirement_conflict",
+      "max_attempts_reached"
+    ]
+  },
+  "state": {
+    "status": "ready"
+  },
+  "audit": {
+    "created_by": "orchestrator",
+    "created_at": "2026-11-06T19:05:34-03:00"
+  }
+}
