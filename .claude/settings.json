@@ -57,7 +57,8 @@
       "Edit(./.aisef/authorizations/**)",
       "Write(./.aisef/authorizations/**)",
       "Edit(./.aisef/contracts/agents/**)",
-      "Edit(./.aisef/config.json)"
+      "Edit(./.aisef/config.json)",
+      "Bash(gh pr create:*)"
     ],
     "deny": [
       "Edit(./.aisef/audit/**)",

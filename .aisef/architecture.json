@@ -1,0 +1,173 @@
+{
+  "schema_version": "0.1.0",
+  "generated_at": "2026-11-19T23:20:28-03:00",
+  "generated_by": "aisef_detect",
+  "scan": {
+    "files": 1246,
+    "source_files": 758,
+    "test_files": 341,
+    "import_files_scanned": 241,
+    "truncated": false
+  },
+  "stacks": [
+    {
+      "id": "typescript",
+      "name": "TypeScript",
+      "kind": "language",
+      "evidence": [
+        "arquivo frontend/tsconfig.json",
+        "dependencia typescript (node)",
+        "245 arquivos .ts/.tsx"
+      ]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "kind": "framework",
+      "evidence": [
+        "dependencia react (node)"
+      ]
+    },
+    {
+      "id": "csharp",
+      "name": "C# / .NET",
+      "kind": "language",
+      "evidence": [
+        "arquivo backend/src/Deckloom.Api/Deckloom.Api.csproj",
+        "arquivo backend/Deckloom.sln",
+        "486 arquivos .cs"
+      ]
+    }
+  ],
+  "package_manager": "npm",
+  "commands": {
+    "typescript": {
+      "typecheck": "npx tsc --noEmit",
+      "lint": "npx eslint .",
+      "test": "npm test",
+      "build": "npm run build"
+    },
+    "csharp": {
+      "build": "dotnet build",
+      "test": "dotnet test"
+    }
+  },
+  "styles": [
+    {
+      "id": "ddd-strategic",
+      "name": "DDD estrategico",
+      "confidence": 0.89,
+      "evidence": [
+        "pasta backend/src/Deckloom.SharedKernel",
+        "arquivo docs/glossary.md"
+      ]
+    },
+    {
+      "id": "ddd-tactical",
+      "name": "DDD tatico",
+      "confidence": 0.83,
+      "evidence": [
+        "pasta backend/src/Modules/Accounts/Deckloom.Accounts.Domain",
+        "arquivos AggregateRoot.cs, AggregateRootTests.cs",
+        "arquivos DomainEvent.cs"
+      ]
+    },
+    {
+      "id": "modular-monolith",
+      "name": "Monolito modular",
+      "confidence": 0.8,
+      "evidence": [
+        "3 modulos em backend/src/Modules/",
+        "modulo com camadas: backend/src/Modules/Accounts",
+        "modulo com camadas: backend/src/Modules/Catalog",
+        "modulo com camadas: backend/src/Modules/DeckSuggestion"
+      ]
+    },
+    {
+      "id": "microservices",
+      "name": "Microsservicos",
+      "confidence": 0.8,
+      "evidence": [
+        "3 servicos com manifest proprio em backend/src/Services/",
+        "arquivo docker-compose.yml"
+      ]
+    },
+    {
+      "id": "clean",
+      "name": "Clean Architecture / Onion",
+      "confidence": 0.67,
+      "evidence": [
+        "pasta backend/src/Modules/Accounts/Deckloom.Accounts.Domain",
+        "pasta backend/src/Modules/Accounts/Deckloom.Accounts.Application",
+        "pasta backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure"
+      ]
+    },
+    {
+      "id": "vertical-slices",
+      "name": "Fatias verticais / feature-sliced",
+      "confidence": 0.67,
+      "evidence": [
+        "pasta frontend/src/features",
+        "pasta frontend/src/shared"
+      ]
+    },
+    {
+      "id": "layered-mvc",
+      "name": "Camadas / MVC",
+      "confidence": 0.33,
+      "evidence": [
+        "pasta frontend/public/models",
+        "pasta backend/src/Services"
+      ]
+    }
+  ],
+  "layers": {
+    "presentation": [
+      "backend/src/Deckloom.Api",
+      "backend/src/Deckloom.Api/Http",
+      "frontend/src/shared/api"
+    ],
+    "application": [
+      "backend/src/Modules/Accounts/Deckloom.Accounts.Application",
+      "backend/src/Modules/Catalog/Deckloom.Catalog.Application"
+    ],
+    "domain": [
+      "backend/src/Modules/Accounts/Deckloom.Accounts.Domain"
+    ],
+    "infrastructure": [
+      "backend/src/Modules/Accounts/Deckloom.Accounts.Infrastructure",
+      "backend/src/Modules/Catalog/Deckloom.Catalog.Infrastructure",
+      "backend/src/Modules/DeckSuggestion/Deckloom.DeckSuggestion.Infrastructure",
+      "db",
+      "scripts/db"
+    ]
+  },
+  "violations": [],
+  "domains": [],
+  "practices": [
+    "common",
+    "lang/typescript",
+    "lang/web",
+    "lang/csharp",
+    "architecture/ddd-strategic",
+    "architecture/ddd-tactical",
+    "architecture/modular-monolith",
+    "architecture/microservices",
+    "architecture/clean-architecture",
+    "architecture/vertical-slices"
+  ],
+  "recommendations": [
+    {
+      "id": "REC-SERVICE-BOUNDARIES",
+      "title": "Conferir fronteiras e dados por servico",
+      "why": "varios servicos detectados: cada um com o proprio banco e contrato explicito (OpenAPI, AsyncAPI, protobuf)",
+      "impact": "high",
+      "effort": "medium",
+      "suggested": [
+        "architect",
+        "practice:architecture/microservices",
+        "practice:architecture/contract-first"
+      ]
+    }
+  ]
+}

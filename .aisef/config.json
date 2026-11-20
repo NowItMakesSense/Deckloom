@@ -4,7 +4,22 @@
   "log_id": "PRJ-DECKLOOM",
   "name": "Deckloom",
   "environment": "dev",
-  "created_at": "2026-11-06T10:11:09-03:00",
+  "created_at": "2026-11-19T23:13:21-03:00",
   "policy": "permission-policy.v0.1.json",
-  "defaults": "orchestration-defaults.v0.1.json"
+  "defaults": "orchestration-defaults.v0.1.json",
+  "graphify": {
+    "enabled": true,
+    "backend": "none",
+    "paths": [
+      "docs",
+      ".aisef",
+      "backend/src",
+      "frontend/src"
+    ]
+  },
+  "git": {
+    "branch_per_feature": true,
+    "delete_branch_after_merge": true,
+    "branch_prefix": "feat/"
+  }
 }
