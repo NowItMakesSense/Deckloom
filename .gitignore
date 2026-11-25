@@ -26,3 +26,6 @@ graphify-out/
 
 # previa navegavel do mundo 3D (build local para o artefato, fora do app)
 frontend/.navegar/
+
+# Assets 3D locais (grandes, fora do repositorio)
+design/
